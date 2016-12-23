@@ -11,7 +11,9 @@ Debounce::Debounce( int pin, int mode )
 
 void Debounce::Update( unsigned long now )
 {
-    int reading = digitalRead( this->pin );
+    this->changed = false;
+
+    boolean reading = !!digitalRead( this->pin );
 
     if( reading != this->lastButtonState )
     {
@@ -23,13 +25,19 @@ void Debounce::Update( unsigned long now )
         if( reading != this->buttonState )
         {
             this->buttonState = reading;
+            this->changed = true;
         }
     }
 
     this->lastButtonState = reading;
 }
 
-int Debounce::Read()
+boolean Debounce::Read()
 {
     return this->buttonState;
+}
+
+boolean Debounce::Changed()
+{
+    return this->changed;
 }

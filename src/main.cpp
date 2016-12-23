@@ -7,6 +7,7 @@ Debounce* d;
 
 void setup()
 {
+    Serial.begin( 9600 );
     pinMode( LED_BUILTIN, OUTPUT );
 
     d = new Debounce( BUTTON_PIN, INPUT_PULLUP );
@@ -18,5 +19,11 @@ void loop()
 
     d->Update( now );
 
-    digitalWrite( LED_BUILTIN, !d->Read() );
+    boolean b = !d->Read();
+    digitalWrite( LED_BUILTIN, b );
+
+    if( d->Changed() )
+    {
+        Serial.println( b );
+    }
 }
