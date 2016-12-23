@@ -1,29 +1,34 @@
-#include "Arduino.h"
+#include <Arduino.h>
+#include <CmdMessenger.h>
+
 #include "debounce.h"
 
-#define BUTTON_PIN ( 12 )
+enum Commands
+{
+    Command__SetLed
+};
 
-Debounce* d;
+CmdMessenger cmdMessenger = CmdMessenger( Serial );
+
+void OnSetLed()
+{
+    boolean enabled = cmdMessenger.readBoolArg();
+    digitalWrite( LED_BUILTIN, enabled );
+}
 
 void setup()
 {
-    Serial.begin( 9600 );
+    Serial.begin( 115200 );
+
+    cmdMessenger.printLfCr();
+    cmdMessenger.attach( Command__SetLed, OnSetLed );
+
     pinMode( LED_BUILTIN, OUTPUT );
 
-    d = new Debounce( BUTTON_PIN, INPUT_PULLUP );
+    digitalWrite( LED_BUILTIN, LOW );
 }
 
 void loop()
 {
-    unsigned long now = millis();
-
-    d->Update( now );
-
-    boolean b = !d->Read();
-    digitalWrite( LED_BUILTIN, b );
-
-    if( d->Changed() )
-    {
-        Serial.println( b );
-    }
+    cmdMessenger.feedinSerialData();
 }
