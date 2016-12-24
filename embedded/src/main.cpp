@@ -7,7 +7,7 @@ static Debounce* debounce;
 
 static void OnStateChanged( Debounce* d )
 {
-    APPI_SetPin( d->GetPin(), d->GetState() );
+    APPI_OnPinSet( d->GetPin(), d->GetState() );
 }
 
 void setup()

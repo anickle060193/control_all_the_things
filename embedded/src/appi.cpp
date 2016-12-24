@@ -6,14 +6,19 @@ enum Commands
     Command__Debug,
     Command__SetLed,
     Command__BlinkLed,
-    Command__SetPin
+    Command__PinSet
 };
 
 static CmdMessenger* messenger;
 
+static void Debug( const char* message )
+{
+    messenger->sendCmd( Command__Debug, message );
+}
+
 static void OnUnknownCommand()
 {
-    messenger->sendCmd( Command__Debug, F( "Unknown command." ) );
+    Debug( "Unknown command." );
 }
 
 static void OnIdentify()
@@ -54,9 +59,9 @@ void APPI_Loop()
     messenger->feedinSerialData();
 }
 
-void APPI_SetPin( int pin, boolean state )
+void APPI_OnPinSet( int pin, boolean state )
 {
-    messenger->sendCmdStart( Command__SetPin );
+    messenger->sendCmdStart( Command__PinSet );
     messenger->sendCmdArg( pin );
     messenger->sendCmdArg( state );
     messenger->sendCmdEnd();

@@ -6,6 +6,6 @@
 
 void APPI_Setup();
 void APPI_Loop();
-void APPI_SetPin( int pin, boolean state );
+void APPI_OnPinSet( int pin, boolean state );
 
 #endif
