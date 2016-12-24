@@ -11,33 +11,24 @@ Debounce::Debounce( int pin, int mode )
 
 void Debounce::Update( unsigned long now )
 {
-    this->changed = false;
-
     boolean reading = !!digitalRead( this->pin );
 
-    if( reading != this->lastButtonState )
+    if( reading != this->lastState )
     {
         this->lastDebounceTime = now;
     }
 
     if( now - this->lastDebounceTime > DEBOUNCE_DELAY )
     {
-        if( reading != this->buttonState )
+        if( reading != this->state )
         {
-            this->buttonState = reading;
-            this->changed = true;
+            this->state = reading;
+            if( this->listener )
+            {
+                this->listener( this );
+            }
         }
     }
 
-    this->lastButtonState = reading;
-}
-
-boolean Debounce::Read()
-{
-    return this->buttonState;
-}
-
-boolean Debounce::Changed()
-{
-    return this->changed;
+    this->lastState = reading;
 }

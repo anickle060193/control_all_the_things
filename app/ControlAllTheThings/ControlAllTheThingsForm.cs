@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CommandMessenger;
+using CommandMessenger.Transport.Serial;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,105 +17,45 @@ namespace ControlAllTheThings
 {
     public partial class ControlAllTheThingsForm : Form
     {
-        private static readonly int BAUD_RATE = 9600;
-
-        enum MessageCommand
+        enum Command
         {
-            Identify
+            SetLed,
+            SetPin
         }
 
-        enum MessageBytes
-        {
-            StartOfMessage,
-            Command,
-            Pin,
-            Value,
-            EndOfMessage,
-
-            Length
-        }
-
-        private static readonly byte START_OF_MESSAGE_BYTE = Convert.ToByte( 16 );
-        private static readonly byte END_OF_MESSAGE_BYTE = Convert.ToByte( 4 );
+        private readonly SerialTransport _serialTransport;
+        private readonly CmdMessenger _cmdMessenger;
 
         public ControlAllTheThingsForm()
         {
             InitializeComponent();
+
+            _serialTransport = new SerialTransport();
+            _serialTransport.CurrentSerialSettings.PortName = "COM3";
+            _serialTransport.CurrentSerialSettings.BaudRate = 115200;
+            _serialTransport.CurrentSerialSettings.DtrEnable = false;
+
+            _cmdMessenger = new CmdMessenger( _serialTransport, BoardType.Bit16 );
+            _cmdMessenger.Attach( (int)Command.SetPin, OnPinSet );
+            _cmdMessenger.Connect();
+
+            _cmdMessenger.Dispose()
         }
 
-        private void WaitForBoard()
+        private void LedCheckBox_CheckedChanged( object sender, EventArgs e )
         {
-            while( true )
-            {
-                try
-                {
-                    foreach( String port in SerialPort.GetPortNames() )
-                    {
-                        using( SerialPort p = new SerialPort( port, BAUD_RATE ) )
-                        {
-                            if( DetectBoard( p ) )
-                            {
-                                MessageBox.Show( "Found board. Port: " + port );
-                                return;
-                            }
-                        }
-                    }
-                }
-                catch( IOException e )
-                {
-                    MessageBox.Show( "The following error has occured:\n" + e.ToString() );
-                }
-                Thread.Sleep( 1000 );
-            }
+            _cmdMessenger.SendCommand( new SendCommand( (int)Command.SetLed, LedCheckBox.Checked ) );
         }
 
-        private byte[] CreateMessage( MessageCommand c )
+        private void OnPinSet( ReceivedCommand args )
         {
-            byte[] message = new byte[ (int)MessageBytes.Length ];
-            message[ (int)MessageBytes.StartOfMessage ] = START_OF_MESSAGE_BYTE;
-            message[ (int)MessageBytes.Command ] = Convert.ToByte( c );
-            message[ (int)MessageBytes.Pin ] = Convert.ToByte( 0 );
-            message[ (int)MessageBytes.Value ] = Convert.ToByte( 0 );
-            message[ (int)MessageBytes.EndOfMessage ] = END_OF_MESSAGE_BYTE;
-            return message;
-        }
-
-        private bool DetectBoard( SerialPort p )
-        {
-            byte[] message = CreateMessage( MessageCommand.Identify );
-
-            try
+            int pin = args.ReadInt16Arg();
+            switch( pin )
             {
-                p.ReadTimeout = 20000;
-                p.Open();
-                
-                p.Write( message, 0, message.Length );
-
-                String response = p.ReadLine().TrimEnd( '\r' );
-                if( response.Equals( "Control All The Things" ) )
-                {
-                    return true;
-                }
+                case 12:
+                    Pin12ButtonComponent.Pressed = args.ReadBoolArg();
+                    break;
             }
-            catch( TimeoutException )
-            {
-
-            }
-            catch( IOException )
-            {
-
-            }
-            finally
-            {
-                p.Close();
-            }
-
-            return false;
-        }
-
-        private void WaitForBoardBtn_Click( object sender, EventArgs e )
-        {
-            WaitForBoard();
         }
     }
 }

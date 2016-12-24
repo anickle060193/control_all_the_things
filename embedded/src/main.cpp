@@ -5,15 +5,25 @@
 
 enum Commands
 {
-    Command__SetLed
+    Command__SetLed,
+    Command__SetPin
 };
 
 CmdMessenger cmdMessenger = CmdMessenger( Serial );
+Debounce* debounce;
 
 void OnSetLed()
 {
     boolean enabled = cmdMessenger.readBoolArg();
     digitalWrite( LED_BUILTIN, enabled );
+}
+
+void OnButtonChanged( Debounce* d )
+{
+    cmdMessenger.sendCmdStart( Command__SetPin );
+    cmdMessenger.sendCmdArg( d->GetPin() );
+    cmdMessenger.sendCmdArg( d->GetState() );
+    cmdMessenger.sendCmdEnd();
 }
 
 void setup()
@@ -26,9 +36,13 @@ void setup()
     pinMode( LED_BUILTIN, OUTPUT );
 
     digitalWrite( LED_BUILTIN, LOW );
+
+    debounce = new Debounce( 12, INPUT_PULLUP );
+    debounce->AttachOnChanged( OnButtonChanged );
 }
 
 void loop()
 {
     cmdMessenger.feedinSerialData();
+    debounce->Update( millis() );
 }
