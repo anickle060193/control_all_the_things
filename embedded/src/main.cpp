@@ -5,6 +5,7 @@
 
 enum Commands
 {
+    Command__Acknowledge,
     Command__SetLed,
     Command__SetPin
 };
@@ -32,6 +33,7 @@ void setup()
 
     cmdMessenger.printLfCr();
     cmdMessenger.attach( Command__SetLed, OnSetLed );
+    cmdMessenger.sendCmd( Command__Acknowledge, "Board has started!" );
 
     pinMode( LED_BUILTIN, OUTPUT );
 

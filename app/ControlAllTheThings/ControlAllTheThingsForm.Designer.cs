@@ -30,6 +30,7 @@
         {
             this.LedCheckBox = new System.Windows.Forms.CheckBox();
             this.Pin12ButtonComponent = new ControlAllTheThings.ButtonComponent();
+            this.LogTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // LedCheckBox
@@ -55,11 +56,24 @@
             this.Pin12ButtonComponent.Size = new System.Drawing.Size(40, 40);
             this.Pin12ButtonComponent.TabIndex = 1;
             // 
+            // LogTextBox
+            // 
+            this.LogTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LogTextBox.Location = new System.Drawing.Point(12, 58);
+            this.LogTextBox.Multiline = true;
+            this.LogTextBox.Name = "LogTextBox";
+            this.LogTextBox.ReadOnly = true;
+            this.LogTextBox.Size = new System.Drawing.Size(260, 191);
+            this.LogTextBox.TabIndex = 2;
+            // 
             // ControlAllTheThingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.LogTextBox);
             this.Controls.Add(this.Pin12ButtonComponent);
             this.Controls.Add(this.LedCheckBox);
             this.Name = "ControlAllTheThingsForm";
@@ -73,6 +87,7 @@
 
         private System.Windows.Forms.CheckBox LedCheckBox;
         private ButtonComponent Pin12ButtonComponent;
+        private System.Windows.Forms.TextBox LogTextBox;
 
     }
 }

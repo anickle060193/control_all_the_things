@@ -19,6 +19,7 @@ namespace ControlAllTheThings
     {
         enum Command
         {
+            Acknowledge,
             SetLed,
             SetPin
         }
@@ -36,15 +37,43 @@ namespace ControlAllTheThings
             _serialTransport.CurrentSerialSettings.DtrEnable = false;
 
             _cmdMessenger = new CmdMessenger( _serialTransport, BoardType.Bit16 );
+            _cmdMessenger.ControlToInvokeOn = this;
+            _cmdMessenger.NewLineReceived += OnNewLineReceived;
+            _cmdMessenger.NewLineSent += OnNewLineSent;
+            _cmdMessenger.Attach( OnUnknownCommand );
+            _cmdMessenger.Attach( (int)Command.Acknowledge, OnAcknowledge );
             _cmdMessenger.Attach( (int)Command.SetPin, OnPinSet );
             _cmdMessenger.Connect();
-
-            _cmdMessenger.Dispose()
         }
 
         private void LedCheckBox_CheckedChanged( object sender, EventArgs e )
         {
             _cmdMessenger.SendCommand( new SendCommand( (int)Command.SetLed, LedCheckBox.Checked ) );
+        }
+
+        private static String FormatCommand( CommandMessenger.Command c )
+        {
+            return String.Format( "{0} - {1}", Enum.GetName( typeof( Command ), c.CmdId ), String.Join( " ", c.Arguments ) );
+        }
+
+        private void OnUnknownCommand( ReceivedCommand args )
+        {
+            LogTextBox.AppendText( String.Format( "\nUnknown command: {0}\n", FormatCommand( args ) ) );
+        }
+
+        private void OnNewLineReceived( object sender, CommandEventArgs e )
+        {
+            LogTextBox.AppendText( String.Format( "@Received> {0}\n", FormatCommand( e.Command ) ) );
+        }
+
+        private void OnNewLineSent( object sender, CommandEventArgs e )
+        {
+            LogTextBox.AppendText( String.Format( "@Sent> {0}\n", FormatCommand( e.Command ) ) );
+        }
+
+        private void OnAcknowledge( ReceivedCommand args )
+        {
+            LogTextBox.AppendText( "ACKNOWLEDGE - " + args.ReadStringArg() );
         }
 
         private void OnPinSet( ReceivedCommand args )
