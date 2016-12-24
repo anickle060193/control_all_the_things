@@ -5,38 +5,66 @@
 
 enum Commands
 {
-    Command__Acknowledge,
+    Command__Identify,
+    Command__Debug,
     Command__SetLed,
+    Command__BlinkLed,
     Command__SetPin
 };
 
-CmdMessenger cmdMessenger = CmdMessenger( Serial );
+CmdMessenger messenger = CmdMessenger( Serial );
 Debounce* debounce;
+
+void OnUnknownCommand()
+{
+    messenger.sendCmd( Command__Debug, F( "Unknown command." ) );
+}
+
+void OnIdentify()
+{
+    messenger.sendCmd( Command__Identify, F( "A2D06A28-A5CF-459B-8BD6-0CD5FB3F79AD" ) );
+}
 
 void OnSetLed()
 {
-    boolean enabled = cmdMessenger.readBoolArg();
+    boolean enabled = messenger.readBoolArg();
     digitalWrite( LED_BUILTIN, enabled );
+}
+
+void OnBlinkLed()
+{
+    for( int i = 0; i < 3; i++ )
+    {
+        digitalWrite( LED_BUILTIN, HIGH );
+        delay( 500 );
+        digitalWrite( LED_BUILTIN, LOW );
+        delay( 500 );
+    }
 }
 
 void OnButtonChanged( Debounce* d )
 {
-    cmdMessenger.sendCmdStart( Command__SetPin );
-    cmdMessenger.sendCmdArg( d->GetPin() );
-    cmdMessenger.sendCmdArg( d->GetState() );
-    cmdMessenger.sendCmdEnd();
+    messenger.sendCmdStart( Command__SetPin );
+    messenger.sendCmdArg( d->GetPin() );
+    messenger.sendCmdArg( d->GetState() );
+    messenger.sendCmdEnd();
+}
+
+void AttachCommandCallbacks()
+{
+    messenger.attach( OnUnknownCommand );
+    messenger.attach( Command__Identify, OnIdentify );
+    messenger.attach( Command__SetLed, OnSetLed );
+    messenger.attach( Command__BlinkLed, OnBlinkLed );
 }
 
 void setup()
 {
-    Serial.begin( 115200 );
+    Serial.begin( 9600 );
 
-    cmdMessenger.printLfCr();
-    cmdMessenger.attach( Command__SetLed, OnSetLed );
-    cmdMessenger.sendCmd( Command__Acknowledge, "Board has started!" );
+    AttachCommandCallbacks();
 
     pinMode( LED_BUILTIN, OUTPUT );
-
     digitalWrite( LED_BUILTIN, LOW );
 
     debounce = new Debounce( 12, INPUT_PULLUP );
@@ -45,6 +73,6 @@ void setup()
 
 void loop()
 {
-    cmdMessenger.feedinSerialData();
+    messenger.feedinSerialData();
     debounce->Update( millis() );
 }
