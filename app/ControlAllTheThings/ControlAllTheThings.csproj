@@ -44,6 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ActionForm.Designer.cs">
+      <DependentUpon>ActionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BoardActions\IBoardAction.cs" />
+    <Compile Include="BoardActions\SetLedBoardAction.cs" />
     <Compile Include="BoardInterface.cs" />
     <Compile Include="ButtonComponent.cs">
       <SubType>UserControl</SubType>
@@ -59,6 +67,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ActionForm.resx">
+      <DependentUpon>ActionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ButtonComponent.resx">
       <DependentUpon>ButtonComponent.cs</DependentUpon>
     </EmbeddedResource>

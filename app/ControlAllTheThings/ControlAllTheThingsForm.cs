@@ -29,6 +29,8 @@ namespace ControlAllTheThings
             _board.Disconnected += Board_Disconnected;
             _board.Log += Board_Log;
             _board.PinSet += Board_PinSet;
+
+            Pin12ButtonComponent.BoardInterface = _board;
         }
 
         private void Board_Connected( object sender, EventArgs e )
