@@ -45,6 +45,7 @@ namespace ControlAllTheThings
         private enum Command
         {
             Watchdog,
+            Initialize,
             Debug,
             SetLed,
             PinSet
@@ -128,6 +129,8 @@ namespace ControlAllTheThings
 
         private void ConnectionManager_ConnectionFound( object sender, EventArgs e )
         {
+            _messenger.SendCommand( new SendCommand( (int)Command.Initialize ) );
+
             OnConnected();
         }
 

@@ -7,12 +7,17 @@ static Debounce* debounce;
 
 static void OnStateChanged( Debounce* d )
 {
-    APPI_OnPinSet( d->GetPin(), d->GetState() );
+    APPI::OnPinSet( d->GetPin(), d->GetState() );
+}
+
+static void OnInitialize()
+{
+    APPI::OnPinSet( debounce->GetPin(), debounce->GetState() );
 }
 
 void setup()
 {
-    APPI_Setup();
+    APPI::Setup( OnInitialize );
 
     pinMode( LED_BUILTIN, OUTPUT );
     digitalWrite( LED_BUILTIN, LOW );
@@ -23,6 +28,6 @@ void setup()
 
 void loop()
 {
-    APPI_Loop();
+    APPI::Loop();
     debounce->Update( millis() );
 }

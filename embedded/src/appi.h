@@ -4,8 +4,13 @@
 #include <Arduino.h>
 #include <CmdMessenger.h>
 
-void APPI_Setup();
-void APPI_Loop();
-void APPI_OnPinSet( int pin, boolean state );
+namespace APPI
+{
+    typedef void (*Initializer)();
+
+    void Setup( Initializer init = NULL );
+    void Loop();
+    void OnPinSet( int pin, boolean state );
+}
 
 #endif

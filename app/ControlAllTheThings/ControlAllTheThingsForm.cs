@@ -57,10 +57,5 @@ namespace ControlAllTheThings
             LogTextBox.SelectionStart = LogTextBox.TextLength;
             LogTextBox.ScrollToCaret();
         }
-
-        private void LedCheckBox_CheckedChanged( object sender, EventArgs e )
-        {
-            _board.SetLed( LedCheckBox.Checked );
-        }
     }
 }
