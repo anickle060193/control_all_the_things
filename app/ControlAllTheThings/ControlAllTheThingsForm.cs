@@ -54,6 +54,8 @@ namespace ControlAllTheThings
         private void Board_Log( object sender, LogEventArgs e )
         {
             LogTextBox.AppendText( e.Message + "\n" );
+            LogTextBox.SelectionStart = LogTextBox.TextLength;
+            LogTextBox.ScrollToCaret();
         }
 
         private void LedCheckBox_CheckedChanged( object sender, EventArgs e )
