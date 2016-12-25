@@ -25,8 +25,20 @@ namespace ControlAllTheThings
             InitializeComponent();
 
             _board = new BoardInterface( this );
+            _board.Connected += Board_Connected;
+            _board.Disconnected += Board_Disconnected;
             _board.Log += Board_Log;
             _board.PinSet += Board_PinSet;
+        }
+
+        private void Board_Connected( object sender, EventArgs e )
+        {
+            ConnectionStateTextBox.Text = "Connected";
+        }
+
+        private void Board_Disconnected( object sender, EventArgs e )
+        {
+            ConnectionStateTextBox.Text = "Disconnected";
         }
 
         private void Board_PinSet( object sender, PinSetEventArgs e )
@@ -41,7 +53,7 @@ namespace ControlAllTheThings
 
         private void Board_Log( object sender, LogEventArgs e )
         {
-            LogTextBox.Invoke( (Action)( () => LogTextBox.AppendText( e.Message + "\n" ) ) );
+            LogTextBox.AppendText( e.Message + "\n" );
         }
 
         private void LedCheckBox_CheckedChanged( object sender, EventArgs e )

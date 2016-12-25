@@ -39,13 +39,14 @@ namespace ControlAllTheThings
 
         public event LogHandler Log;
         public event PinSetHandler PinSet;
+        public event EventHandler Connected;
+        public event EventHandler Disconnected;
 
         private enum Command
         {
-            Identify,
+            Watchdog,
             Debug,
             SetLed,
-            BlinkLed,
             PinSet
         }
 
@@ -65,7 +66,7 @@ namespace ControlAllTheThings
             _messenger = new CmdMessenger( _transport, BoardType.Bit16 )
             {
                 PrintLfCr = false,
-                // ControlToInvokeOn = c
+                ControlToInvokeOn = c
             };
             _messenger.NewLineReceived += Messenger_NewLineReceived;
             _messenger.NewLineSent += Messenger_NewLineSent;
@@ -74,7 +75,7 @@ namespace ControlAllTheThings
             _messenger.Attach( (int)Command.PinSet, Messenger_PinSetCommand );
             _messenger.Attach( (int)Command.Debug, Messenger_DebugCommand );
 
-            _connectionManager = new SerialConnectionManager( _transport as SerialTransport, _messenger, (int)Command.Identify, COMMUNICATION_IDENTIFIER )
+            _connectionManager = new SerialConnectionManager( _transport as SerialTransport, _messenger, (int)Command.Watchdog, COMMUNICATION_IDENTIFIER )
             {
                 WatchdogEnabled = true
             };
@@ -84,9 +85,20 @@ namespace ControlAllTheThings
             _connectionManager.StartConnectionManager();
         }
 
-        public void SetLed( bool state )
+        private void OnConnected()
         {
-            _messenger.SendCommand( new SendCommand( (int)Command.SetLed, state ) );
+            if( Connected != null )
+            {
+                Connected( this, EventArgs.Empty );
+            }
+        }
+
+        private void OnDisconnected()
+        {
+            if( Disconnected != null )
+            {
+                Disconnected( this, EventArgs.Empty );
+            }
         }
 
         private void OnLog( String message )
@@ -95,6 +107,11 @@ namespace ControlAllTheThings
             {
                 Log( this, new LogEventArgs( message ) );
             }
+        }
+
+        public void SetLed( bool state )
+        {
+            _messenger.SendCommand( new SendCommand( (int)Command.SetLed, state ) );
         }
 
         private void OnPinSet( int pin, bool state )
@@ -111,13 +128,12 @@ namespace ControlAllTheThings
 
         private void ConnectionManager_ConnectionFound( object sender, EventArgs e )
         {
-            var command = new SendCommand( (int)Command.BlinkLed );
-            _messenger.SendCommand( command );
+            OnConnected();
         }
 
         private void ConnectionManager_ConnectionTimeout( object sender, EventArgs e )
         {
-            OnLog( "+-- Connection Timeout --+" );
+            OnDisconnected();
         }
 
         private static String FormatCommand( CommandMessenger.Command c )
@@ -127,7 +143,7 @@ namespace ControlAllTheThings
 
         private void Messenger_NewLineReceived( object sender, CommandEventArgs e )
         {
-            if( e.Command.CmdId != (int)Command.Identify )
+            if( e.Command.CmdId != (int)Command.Watchdog )
             {
                 OnLog( String.Format( "@Received> {0}", FormatCommand( e.Command ) ) );
             }
@@ -135,7 +151,7 @@ namespace ControlAllTheThings
 
         private void Messenger_NewLineSent( object sender, CommandEventArgs e )
         {
-            if( e.Command.CmdId != (int)Command.Identify )
+            if( e.Command.CmdId != (int)Command.Watchdog )
             {
                 OnLog( String.Format( "@Sent> {0}", FormatCommand( e.Command ) ) );
             }
