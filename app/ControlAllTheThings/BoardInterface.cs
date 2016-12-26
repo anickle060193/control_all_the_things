@@ -46,6 +46,7 @@ namespace ControlAllTheThings
         {
             Watchdog,
             Initialize,
+            InitializationFinished,
             Debug,
             SetLed,
             PinSet
@@ -56,6 +57,8 @@ namespace ControlAllTheThings
         private readonly ITransport _transport;
         private readonly CmdMessenger _messenger;
         private readonly ConnectionManager _connectionManager;
+
+        public bool Initializing { get; private set; }
 
         public BoardInterface( Control c )
         {
@@ -73,8 +76,9 @@ namespace ControlAllTheThings
             _messenger.NewLineSent += Messenger_NewLineSent;
 
             _messenger.Attach( Messenger_UnknownCommand );
-            _messenger.Attach( (int)Command.PinSet, Messenger_PinSetCommand );
             _messenger.Attach( (int)Command.Debug, Messenger_DebugCommand );
+            _messenger.Attach( (int)Command.InitializationFinished, Messenger_InitialzationFinishedCommand );
+            _messenger.Attach( (int)Command.PinSet, Messenger_PinSetCommand );
 
             _connectionManager = new SerialConnectionManager( _transport as SerialTransport, _messenger, (int)Command.Watchdog, COMMUNICATION_IDENTIFIER )
             {
@@ -129,6 +133,8 @@ namespace ControlAllTheThings
 
         private void ConnectionManager_ConnectionFound( object sender, EventArgs e )
         {
+            Initializing = true;
+            OnLog( "+----- Initializing -----+" );
             _messenger.SendCommand( new SendCommand( (int)Command.Initialize ) );
 
             OnConnected();
@@ -165,16 +171,22 @@ namespace ControlAllTheThings
             OnLog( String.Format( "\nUnknown command: {0}", FormatCommand( args ) ) );
         }
 
+        private void Messenger_DebugCommand( ReceivedCommand args )
+        {
+            OnLog( args.ReadStringArg() );
+        }
+
+        private void Messenger_InitialzationFinishedCommand( ReceivedCommand args )
+        {
+            Initializing = false;
+            OnLog( "+----- Initialization Finished -----+" );
+        }
+
         private void Messenger_PinSetCommand( ReceivedCommand args )
         {
             int pin = args.ReadInt16Arg();
             bool state = args.ReadBoolArg();
             OnPinSet( pin, state );
-        }
-
-        private void Messenger_DebugCommand( ReceivedCommand receivedCommand )
-        {
-            OnLog( receivedCommand.ReadStringArg() );
         }
     }
 }

@@ -28,6 +28,7 @@ void setup()
 
 void loop()
 {
-    APPI::Loop();
     button->Update();
+
+    APPI::Loop();
 }

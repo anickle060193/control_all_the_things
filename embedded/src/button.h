@@ -13,8 +13,8 @@ class Button
 
 private:
     int pin;
-    boolean state = false;
-    boolean lastState = false;
+    bool state = false;
+    bool lastState = false;
     OnChanged listener = NULL;
     unsigned long lastDebounceTime = 0;
 
@@ -26,7 +26,7 @@ public:
     }
 
     int GetPin() { return this-> pin; }
-    boolean GetState() { return !this->state; }
+    bool GetState() { return !this->state; }
     void AttachOnChanged( OnChanged listener ) { this->listener = listener; }
 
     void Update();

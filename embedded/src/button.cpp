@@ -4,9 +4,9 @@
 
 void Button::Update()
 {
-    uint64_t now = millis();
+    unsigned long now = millis();
 
-    boolean reading = !!digitalRead( this->pin );
+    bool reading = !!digitalRead( this->pin );
 
     if( reading != this->lastState )
     {

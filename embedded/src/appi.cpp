@@ -6,6 +6,7 @@ namespace APPI
     {
         Command__Watchdog,
         Command__Initialize,
+        Command__InitializationFinished,
         Command__Debug,
         Command__SetLed,
         Command__PinSet
@@ -35,6 +36,7 @@ namespace APPI
         {
             init();
         }
+        messenger->sendCmd( Command__InitializationFinished );
     }
 
     static void OnSetLed()
@@ -46,7 +48,7 @@ namespace APPI
     void Setup( Initializer init )
     {
         APPI::init = init;
-        
+
         Serial.begin( 9600 );
 
         messenger = new CmdMessenger( Serial );
