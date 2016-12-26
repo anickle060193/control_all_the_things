@@ -1,18 +1,18 @@
 #include <Arduino.h>
 
-#include "debounce.h"
+#include "button.h"
 #include "appi.h"
 
-static Debounce* debounce;
+static Button* button;
 
-static void OnStateChanged( Debounce* d )
+static void OnStateChanged( Button* b )
 {
-    APPI::OnPinSet( d->GetPin(), d->GetState() );
+    APPI::OnPinSet( b->GetPin(), b->GetState() );
 }
 
 static void OnInitialize()
 {
-    APPI::OnPinSet( debounce->GetPin(), debounce->GetState() );
+    APPI::OnPinSet( button->GetPin(), button->GetState() );
 }
 
 void setup()
@@ -22,12 +22,12 @@ void setup()
     pinMode( LED_BUILTIN, OUTPUT );
     digitalWrite( LED_BUILTIN, LOW );
 
-    debounce = new Debounce( 12, INPUT_PULLUP );
-    debounce->AttachOnChanged( OnStateChanged );
+    button = new Button( 12, INPUT_PULLUP );
+    button->AttachOnChanged( OnStateChanged );
 }
 
 void loop()
 {
     APPI::Loop();
-    debounce->Update( millis() );
+    button->Update();
 }

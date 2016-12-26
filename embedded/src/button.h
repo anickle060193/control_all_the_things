@@ -1,5 +1,5 @@
-#ifndef DEBOUNCE_H
-#define DEBOUNCE_H
+#ifndef BUTTON_H
+#define BUTTON_H
 
 #include "Arduino.h"
 
@@ -7,9 +7,9 @@ static_assert( LOW == false, "Pin state LOW is not equivalent to false." );
 static_assert( HIGH == true, "Pin state HIGH is not equivalent to true." );
 
 
-class Debounce
+class Button
 {
-    typedef void (*OnChanged)( Debounce* );
+    typedef void (*OnChanged)( Button* );
 
 private:
     int pin;
@@ -19,13 +19,17 @@ private:
     unsigned long lastDebounceTime = 0;
 
 public:
-    Debounce( int pin, int mode );
+    Button( int pin, int mode )
+    {
+        this->pin = pin;
+        pinMode( this->pin, INPUT_PULLUP );
+    }
 
     int GetPin() { return this-> pin; }
     boolean GetState() { return !this->state; }
     void AttachOnChanged( OnChanged listener ) { this->listener = listener; }
 
-    void Update( unsigned long now );
+    void Update();
 };
 
 #endif

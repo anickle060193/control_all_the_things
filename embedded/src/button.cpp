@@ -1,16 +1,11 @@
-#include "debounce.h"
+#include "button.h"
 
 #define DEBOUNCE_DELAY  ( 50 )
 
-Debounce::Debounce( int pin, int mode )
+void Button::Update()
 {
-    this->pin = pin;
+    uint64_t now = millis();
 
-    pinMode( this->pin, mode );
-}
-
-void Debounce::Update( unsigned long now )
-{
     boolean reading = !!digitalRead( this->pin );
 
     if( reading != this->lastState )
