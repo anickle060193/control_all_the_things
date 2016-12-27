@@ -34,7 +34,7 @@ namespace ControlAllTheThings
 
     public class BoardInterface : IDisposable
     {
-        private static readonly bool VERBOSE = true;
+        private static readonly bool VERBOSE = false;
 
         public delegate void LogHandler( object sender, LogEventArgs e );
         public delegate void PinSetHandler( object sender, PinSetEventArgs e );

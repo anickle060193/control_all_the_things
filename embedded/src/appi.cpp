@@ -36,26 +36,26 @@ namespace APPI
 
     static void OnConnectedCommand()
     {
-        if( APPI::connectedListener != NULL )
+        if( connectedListener != NULL )
         {
-            APPI::connectedListener();
+            connectedListener();
         }
     }
 
     static void OnCreateButtonCommand()
     {
         int pin = messenger->readInt32Arg();
-        if( APPI::createButtonListener != NULL )
+        if( createButtonListener != NULL )
         {
-            APPI::createButtonListener( pin );
+            createButtonListener( pin );
         }
     }
 
     static void OnInitializeCommand()
     {
-        if( APPI::initializeListener != NULL )
+        if( initializeListener != NULL )
         {
-            APPI::initializeListener();
+            initializeListener();
         }
 
         messenger->sendCmd( Command__InitializationFinished );
@@ -69,6 +69,8 @@ namespace APPI
 
     void Setup()
     {
+        Serial.begin( 9600 );
+
         messenger = new CmdMessenger( Serial );
         messenger->attach( OnUnknownCommand );
         messenger->attach( Command__Watchdog, OnWatchdogCommand );
@@ -78,24 +80,24 @@ namespace APPI
         messenger->attach( Command__SetLed, OnSetLedCommand );
     }
 
+    void Loop()
+    {
+        messenger->feedinSerialData();
+    }
+
     void SetConnectedListener( ConnectedListener listener )
     {
-        APPI::connectedListener = listener;
+        connectedListener = listener;
     }
 
     void SetCreateButtonListener( CreateButtonListener listener )
     {
-        APPI::createButtonListener = listener;
+        createButtonListener = listener;
     }
 
     void SetInitializeListener( InitializeListener listener )
     {
-        APPI::initializeListener = listener;
-    }
-
-    void Loop()
-    {
-        messenger->feedinSerialData();
+        initializeListener = listener;
     }
 
     void OnPinSet( int pin, boolean state )

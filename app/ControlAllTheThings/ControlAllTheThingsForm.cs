@@ -56,6 +56,10 @@ namespace ControlAllTheThings
                 case 12:
                     Pin12ButtonComponent.Pressed = e.State;
                     break;
+
+                case 11:
+                    Pin11ButtonComponent.Pressed = e.State;
+                    break;
             }
         }
 

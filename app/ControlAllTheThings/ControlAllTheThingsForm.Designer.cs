@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.LogTextBox = new System.Windows.Forms.TextBox();
             this.ConnectionStateTextBox = new System.Windows.Forms.TextBox();
             this.Pin12ButtonComponent = new ControlAllTheThings.ButtonComponent();
+            this.Pin11ButtonComponent = new ControlAllTheThings.ButtonComponent();
             this.SuspendLayout();
             // 
             // LogTextBox
@@ -58,20 +60,39 @@
             // Pin12ButtonComponent
             // 
             this.Pin12ButtonComponent.BackColor = System.Drawing.Color.LightGray;
+            this.Pin12ButtonComponent.BoardInterface = null;
             this.Pin12ButtonComponent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Pin12ButtonComponent.Location = new System.Drawing.Point(12, 12);
             this.Pin12ButtonComponent.MaximumSize = new System.Drawing.Size(40, 40);
             this.Pin12ButtonComponent.MinimumSize = new System.Drawing.Size(40, 40);
             this.Pin12ButtonComponent.Name = "Pin12ButtonComponent";
             this.Pin12ButtonComponent.Pin = 12;
+            this.Pin12ButtonComponent.PressedAction = null;
             this.Pin12ButtonComponent.Size = new System.Drawing.Size(40, 40);
             this.Pin12ButtonComponent.TabIndex = 1;
+            this.Pin12ButtonComponent.UnpressedAction = null;
+            // 
+            // Pin11ButtonComponent
+            // 
+            this.Pin11ButtonComponent.BackColor = System.Drawing.Color.LightGray;
+            this.Pin11ButtonComponent.BoardInterface = null;
+            this.Pin11ButtonComponent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Pin11ButtonComponent.Location = new System.Drawing.Point(58, 12);
+            this.Pin11ButtonComponent.MaximumSize = new System.Drawing.Size(40, 40);
+            this.Pin11ButtonComponent.MinimumSize = new System.Drawing.Size(40, 40);
+            this.Pin11ButtonComponent.Name = "Pin11ButtonComponent";
+            this.Pin11ButtonComponent.Pin = 11;
+            this.Pin11ButtonComponent.PressedAction = null;
+            this.Pin11ButtonComponent.Size = new System.Drawing.Size(40, 40);
+            this.Pin11ButtonComponent.TabIndex = 4;
+            this.Pin11ButtonComponent.UnpressedAction = null;
             // 
             // ControlAllTheThingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.Pin11ButtonComponent);
             this.Controls.Add(this.ConnectionStateTextBox);
             this.Controls.Add(this.LogTextBox);
             this.Controls.Add(this.Pin12ButtonComponent);
@@ -87,6 +108,7 @@
         private ButtonComponent Pin12ButtonComponent;
         private System.Windows.Forms.TextBox LogTextBox;
         private System.Windows.Forms.TextBox ConnectionStateTextBox;
+        private ButtonComponent Pin11ButtonComponent;
 
     }
 }
