@@ -2,8 +2,9 @@
 
 #include "button.h"
 #include "appi.h"
+#include "list.h"
 
-static Button* button;
+static List<Button*> buttons = List<Button*>();
 
 static void OnStateChanged( Button* b )
 {
@@ -12,7 +13,11 @@ static void OnStateChanged( Button* b )
 
 static void OnInitialize()
 {
-    APPI::OnPinSet( button->GetPin(), button->GetState() );
+    for( int i = 0; i < buttons.Count(); i++ )
+    {
+        Button* b = buttons[ i ];
+        APPI::OnPinSet( b->GetPin(), b->GetState() );
+    }
 }
 
 void setup()
@@ -22,13 +27,21 @@ void setup()
     pinMode( LED_BUILTIN, OUTPUT );
     digitalWrite( LED_BUILTIN, LOW );
 
-    button = new Button( 12, INPUT_PULLUP );
-    button->AttachOnChanged( OnStateChanged );
+    Button* button12 = new Button( 12, INPUT_PULLUP );
+    button12->AttachOnChanged( OnStateChanged );
+    buttons.Add( button12 );
+
+    Button* button11 = new Button( 11, INPUT_PULLUP );
+    button11->AttachOnChanged( OnStateChanged );
+    buttons.Add( button11 );
 }
 
 void loop()
 {
-    button->Update();
+    for( int i = 0; i < buttons.Count(); i++ )
+    {
+        buttons[ i ]->Update();
+    }
 
     APPI::Loop();
 }
