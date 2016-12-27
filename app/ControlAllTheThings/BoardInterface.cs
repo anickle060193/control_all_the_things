@@ -32,8 +32,10 @@ namespace ControlAllTheThings
         }
     }
 
-    public class BoardInterface
+    public class BoardInterface : IDisposable
     {
+        private static readonly bool VERBOSE = true;
+
         public delegate void LogHandler( object sender, LogEventArgs e );
         public delegate void PinSetHandler( object sender, PinSetEventArgs e );
 
@@ -45,6 +47,8 @@ namespace ControlAllTheThings
         private enum Command
         {
             Watchdog,
+            Connected,
+            CreateButton,
             Initialize,
             InitializationFinished,
             Debug,
@@ -58,6 +62,7 @@ namespace ControlAllTheThings
         private readonly CmdMessenger _messenger;
         private readonly ConnectionManager _connectionManager;
 
+        public bool IsConnected { get; private set; }
         public bool Initializing { get; private set; }
 
         public BoardInterface( Control c )
@@ -90,16 +95,36 @@ namespace ControlAllTheThings
             _connectionManager.StartConnectionManager();
         }
 
+        public void SetLed( bool state )
+        {
+            _messenger.SendCommand( new SendCommand( (int)Command.SetLed, state ) );
+        }
+
+        public void CreateButton( int pin )
+        {
+            _messenger.SendCommand( new SendCommand( (int)Command.CreateButton, pin ) );
+        }
+
         private void OnConnected()
         {
+            IsConnected = true;
+
+            _messenger.SendCommand( new SendCommand( (int)Command.Connected ) );
+
             if( Connected != null )
             {
                 Connected( this, EventArgs.Empty );
             }
+
+            Initializing = true;
+            OnLog( "+----- Initializing -----+" );
+            _messenger.SendCommand( new SendCommand( (int)Command.Initialize ) );
         }
 
         private void OnDisconnected()
         {
+            IsConnected = false;
+
             if( Disconnected != null )
             {
                 Disconnected( this, EventArgs.Empty );
@@ -114,11 +139,6 @@ namespace ControlAllTheThings
             }
         }
 
-        public void SetLed( bool state )
-        {
-            _messenger.SendCommand( new SendCommand( (int)Command.SetLed, state ) );
-        }
-
         private void OnPinSet( int pin, bool state )
         {
             if( PinSet != null )
@@ -129,14 +149,14 @@ namespace ControlAllTheThings
 
         private void ConnectionManager_Progress( object sender, ConnectionManagerProgressEventArgs e )
         {
+            if( VERBOSE )
+            {
+                OnLog( e.Description );
+            }
         }
 
         private void ConnectionManager_ConnectionFound( object sender, EventArgs e )
         {
-            Initializing = true;
-            OnLog( "+----- Initializing -----+" );
-            _messenger.SendCommand( new SendCommand( (int)Command.Initialize ) );
-
             OnConnected();
         }
 
@@ -152,7 +172,7 @@ namespace ControlAllTheThings
 
         private void Messenger_NewLineReceived( object sender, CommandEventArgs e )
         {
-            if( e.Command.CmdId != (int)Command.Watchdog )
+            if( VERBOSE || e.Command.CmdId != (int)Command.Watchdog )
             {
                 OnLog( String.Format( "@Received> {0}", FormatCommand( e.Command ) ) );
             }
@@ -160,7 +180,7 @@ namespace ControlAllTheThings
 
         private void Messenger_NewLineSent( object sender, CommandEventArgs e )
         {
-            if( e.Command.CmdId != (int)Command.Watchdog )
+            if( VERBOSE || e.Command.CmdId != (int)Command.Watchdog )
             {
                 OnLog( String.Format( "@Sent> {0}", FormatCommand( e.Command ) ) );
             }
@@ -187,6 +207,13 @@ namespace ControlAllTheThings
             int pin = args.ReadInt16Arg();
             bool state = args.ReadBoolArg();
             OnPinSet( pin, state );
+        }
+
+        public void Dispose()
+        {
+            _messenger.Disconnect();
+            _messenger.Dispose();
+            _transport.Dispose();
         }
     }
 }

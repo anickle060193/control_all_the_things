@@ -5,6 +5,8 @@ namespace APPI
     enum Commands
     {
         Command__Watchdog,
+        Command__Connected,
+        Command__CreateButton,
         Command__Initialize,
         Command__InitializationFinished,
         Command__Debug,
@@ -12,8 +14,10 @@ namespace APPI
         Command__PinSet
     };
 
-    CmdMessenger* messenger;
-    Initializer init;
+    CmdMessenger* messenger = NULL;
+    ConnectedListener connectedListener = NULL;
+    CreateButtonListener createButtonListener = NULL;
+    InitializeListener initializeListener = NULL;
 
     static void Debug( const char* message )
     {
@@ -25,37 +29,68 @@ namespace APPI
         Debug( "Unknown command." );
     }
 
-    static void OnWatchdog()
+    static void OnWatchdogCommand()
     {
         messenger->sendCmd( Command__Watchdog, F( "A2D06A28-A5CF-459B-8BD6-0CD5FB3F79AD" ) );
     }
 
-    static void OnInitialize()
+    static void OnConnectedCommand()
     {
-        if( init != NULL )
+        if( APPI::connectedListener != NULL )
         {
-            init();
+            APPI::connectedListener();
         }
+    }
+
+    static void OnCreateButtonCommand()
+    {
+        int pin = messenger->readInt32Arg();
+        if( APPI::createButtonListener != NULL )
+        {
+            APPI::createButtonListener( pin );
+        }
+    }
+
+    static void OnInitializeCommand()
+    {
+        if( APPI::initializeListener != NULL )
+        {
+            APPI::initializeListener();
+        }
+
         messenger->sendCmd( Command__InitializationFinished );
     }
 
-    static void OnSetLed()
+    static void OnSetLedCommand()
     {
         boolean enabled = messenger->readBoolArg();
         digitalWrite( LED_BUILTIN, enabled );
     }
 
-    void Setup( Initializer init )
+    void Setup()
     {
-        APPI::init = init;
-
-        Serial.begin( 9600 );
-
         messenger = new CmdMessenger( Serial );
         messenger->attach( OnUnknownCommand );
-        messenger->attach( Command__Watchdog, OnWatchdog );
-        messenger->attach( Command__Initialize, OnInitialize );
-        messenger->attach( Command__SetLed, OnSetLed );
+        messenger->attach( Command__Watchdog, OnWatchdogCommand );
+        messenger->attach( Command__Connected, OnConnectedCommand );
+        messenger->attach( Command__CreateButton, OnCreateButtonCommand );
+        messenger->attach( Command__Initialize, OnInitializeCommand );
+        messenger->attach( Command__SetLed, OnSetLedCommand );
+    }
+
+    void SetConnectedListener( ConnectedListener listener )
+    {
+        APPI::connectedListener = listener;
+    }
+
+    void SetCreateButtonListener( CreateButtonListener listener )
+    {
+        APPI::createButtonListener = listener;
+    }
+
+    void SetInitializeListener( InitializeListener listener )
+    {
+        APPI::initializeListener = listener;
     }
 
     void Loop()

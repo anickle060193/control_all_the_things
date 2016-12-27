@@ -9,25 +9,27 @@ static_assert( HIGH == true, "Pin state HIGH is not equivalent to true." );
 
 class Button
 {
-    typedef void (*OnChanged)( Button* );
+    typedef void (*StateChangedListener)( Button* );
 
 private:
     int pin;
     bool state = false;
     bool lastState = false;
-    OnChanged listener = NULL;
+    StateChangedListener listener = NULL;
     unsigned long lastDebounceTime = 0;
 
 public:
-    Button( int pin, int mode )
+    Button( int pin )
     {
         this->pin = pin;
         pinMode( this->pin, INPUT_PULLUP );
+        
+        this->Update();
     }
 
     int GetPin() { return this-> pin; }
     bool GetState() { return !this->state; }
-    void AttachOnChanged( OnChanged listener ) { this->listener = listener; }
+    void SetStateChangedListener( StateChangedListener listener ) { this->listener = listener; }
 
     void Update();
 };

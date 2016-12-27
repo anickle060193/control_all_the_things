@@ -1,6 +1,7 @@
 ﻿using CommandMessenger;
 using CommandMessenger.Transport;
 using CommandMessenger.Transport.Serial;
+using ControlAllTheThings.BoardActions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,11 +32,16 @@ namespace ControlAllTheThings
             _board.PinSet += Board_PinSet;
 
             Pin12ButtonComponent.BoardInterface = _board;
+            Pin12ButtonComponent.PressedAction = new SetLedBoardAction( true );
+            Pin12ButtonComponent.UnpressedAction = new SetLedBoardAction( false );
         }
 
         private void Board_Connected( object sender, EventArgs e )
         {
             ConnectionStateTextBox.Text = "Connected";
+
+            _board.CreateButton( 12 );
+            _board.CreateButton( 11 );
         }
 
         private void Board_Disconnected( object sender, EventArgs e )
@@ -58,6 +64,13 @@ namespace ControlAllTheThings
             LogTextBox.AppendText( e.Message + "\n" );
             LogTextBox.SelectionStart = LogTextBox.TextLength;
             LogTextBox.ScrollToCaret();
+        }
+
+        protected override void OnClosed( EventArgs e )
+        {
+            base.OnClosed( e );
+
+            _board.Dispose();
         }
     }
 }
