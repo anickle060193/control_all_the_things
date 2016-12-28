@@ -23,8 +23,8 @@ public:
     {
         this->pin = pin;
         pinMode( this->pin, INPUT_PULLUP );
-        
-        this->Update();
+
+        this->state = !!digitalRead( this->pin );
     }
 
     int GetPin() { return this-> pin; }
