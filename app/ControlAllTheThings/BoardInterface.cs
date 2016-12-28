@@ -74,12 +74,18 @@ namespace ControlAllTheThings
 
         public Logger Logger { get; private set; }
 
+        public List<int> OutputPins { get; private set; }
+        public List<int> InputPins { get; private set; }
+
         public bool IsConnected { get; private set; }
         public bool Initializing { get; private set; }
 
         public BoardInterface( Control c )
         {
             Logger = new ControlAllTheThings.Logger();
+
+            OutputPins = new List<int>();
+            InputPins = new List<int>();
 
             _transport = new SerialTransport()
             {
@@ -123,21 +129,6 @@ namespace ControlAllTheThings
             _messenger.SendCommand( new SendCommand( (int)Command.SetLed, state ) );
         }
 
-        public void CreateButton( int pin )
-        {
-            Logger.Log( "Sending CreateButton( Pin={0} )", pin );
-            _messenger.SendCommand( new SendCommand( (int)Command.CreateButton, pin ) );
-        }
-
-        public void SetPinMode( int pin, PinMode mode )
-        {
-            Logger.Log( "Sending SetPinMode( Pin={0}, PinMode={1} )", pin, mode );
-            var c = new SendCommand( (int)Command.SetPinMode );
-            c.AddArgument( pin );
-            c.AddArgument( (int)mode );
-            _messenger.SendCommand( c );
-        }
-
         public void SetPin( int pin, bool state )
         {
             Logger.Log( "Sending SetPin( Pin={0}, State={1} )", pin, state );
@@ -153,6 +144,21 @@ namespace ControlAllTheThings
             _messenger.SendCommand( new SendCommand( (int)Command.TogglePin, pin ) );
         }
 
+        private void CreateButton( int pin )
+        {
+            Logger.Log( "Sending CreateButton( Pin={0} )", pin );
+            _messenger.SendCommand( new SendCommand( (int)Command.CreateButton, pin ) );
+        }
+
+        private void SetPinMode( int pin, PinMode mode )
+        {
+            Logger.Log( "Sending SetPinMode( Pin={0}, PinMode={1} )", pin, mode );
+            var c = new SendCommand( (int)Command.SetPinMode );
+            c.AddArgument( pin );
+            c.AddArgument( (int)mode );
+            _messenger.SendCommand( c );
+        }
+
         #endregion
 
         #region Event Triggerers
@@ -164,6 +170,16 @@ namespace ControlAllTheThings
 
             Logger.Log( "Sending Connected()" );
             _messenger.SendCommand( new SendCommand( (int)Command.Connected ) );
+
+            foreach( int inputPin in InputPins )
+            {
+                CreateButton( inputPin );
+            }
+
+            foreach( int outputPin in OutputPins )
+            {
+                SetPinMode( outputPin, PinMode.Output );
+            }
 
             if( Connected != null )
             {

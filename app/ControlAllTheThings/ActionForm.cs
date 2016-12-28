@@ -13,12 +13,14 @@ namespace ControlAllTheThings
 {
     public partial class ActionForm : Form
     {
+        public BoardInterface Board { get; set; }
         public BoardAction Action { get; set; }
 
-        public ActionForm( BoardAction currentAction )
+        public ActionForm( BoardAction currentAction, BoardInterface board )
         {
             InitializeComponent();
 
+            Board = board;
             Action = currentAction;
 
             DialogResult = DialogResult.Cancel;
@@ -26,15 +28,24 @@ namespace ControlAllTheThings
             SetLedAction.Tag = SetLedActionOptions;
             SetPinAction.Tag = SetPinActionOptions;
             TogglePinAction.Tag = TogglePinActionOptions;
+            NoAction.Tag = NoActionLabel;
 
             SetLedActionOptions.Enabled = false;
             SetPinActionOptions.Enabled = false;
             TogglePinActionOptions.Enabled = false;
+            NoActionLabel.Enabled = false;
+
+            if( Board != null )
+            {
+                Object[] pins = Board.OutputPins.Cast<Object>().ToArray();
+                SetPinActionPinOption.Items.AddRange( pins );
+                TogglePinActionPinOption.Items.AddRange( pins );
+            }
 
             SetUiFromAction();
         }
 
-        public ActionForm() : this( null )
+        public ActionForm( BoardInterface board ) : this( null, board )
         {
         }
 
@@ -50,33 +61,41 @@ namespace ControlAllTheThings
             {
                 SetPinAction.Checked = true;
                 SetPinBoardAction a = Action as SetPinBoardAction;
-                SetPinActionPinOption.Value = a.Pin;
+                SetPinActionPinOption.SelectedItem = a.Pin;
                 SetPinActionStateOption.Checked = a.SetToState;
             }
             else if( Action is TogglePinBoardAction )
             {
                 TogglePinAction.Checked = true;
                 TogglePinBoardAction a = Action as TogglePinBoardAction;
-                TogglePinActionPinOption.Value = a.Pin;
+                TogglePinActionPinOption.SelectedItem = a.Pin;
+            }
+            else
+            {
+                NoAction.Checked = true;
             }
         }
 
         private void SetActionFromUi()
         {
-            if( SetLedAction.Checked )
+            if( NoAction.Checked )
+            {
+                Action = null;
+            }
+            else if( SetLedAction.Checked )
             {
                 bool setToState = SetLedActionStateOption.Checked;
                 Action = new SetLedBoardAction( setToState );
             }
             else if( SetPinAction.Checked )
             {
-                int pin = (int)SetPinActionPinOption.Value;
+                int pin = (int)SetPinActionPinOption.SelectedItem;
                 bool setToState = SetPinActionStateOption.Checked;
                 Action = new SetPinBoardAction( pin, setToState );
             }
             else if( TogglePinAction.Checked )
             {
-                int pin = (int)TogglePinActionPinOption.Value;
+                int pin = (int)TogglePinActionPinOption.SelectedItem;
                 Action = new TogglePinBoardAction( pin );
             }
         }
@@ -99,10 +118,10 @@ namespace ControlAllTheThings
             RadioButton r = sender as RadioButton;
             if( r != null )
             {
-                GroupBox g = r.Tag as GroupBox;
-                if( g != null )
+                Control c = r.Tag as Control;
+                if( c != null )
                 {
-                    g.Enabled = r.Checked;
+                    c.Enabled = r.Checked;
                 }
             }
         }

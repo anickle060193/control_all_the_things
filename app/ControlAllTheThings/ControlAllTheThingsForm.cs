@@ -33,6 +33,11 @@ namespace ControlAllTheThings
             _board.Disconnected += Board_Disconnected;
             _board.Log += Board_Log;
             _board.PinSet += Board_PinSet;
+
+            _board.InputPins.Add( 12 );
+            _board.InputPins.Add( 11 );
+            _board.OutputPins.Add( 10 );
+
             _board.Start();
 
             Pin12ButtonComponent.BoardInterface = _board;
@@ -105,10 +110,6 @@ namespace ControlAllTheThings
             _notifyIcon.Text = "Connected";
             _notifyIcon.Icon = SystemIcons.Application;
             ConnectionStatusProgressBar.Style = ProgressBarStyle.Continuous;
-
-            _board.CreateButton( 12 );
-            _board.CreateButton( 11 );
-            _board.SetPinMode( 10, BoardInterface.PinMode.Output );
         }
 
         private void Board_Disconnected( object sender, EventArgs e )
