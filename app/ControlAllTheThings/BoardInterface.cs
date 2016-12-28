@@ -72,11 +72,15 @@ namespace ControlAllTheThings
         private readonly CmdMessenger _messenger;
         private readonly ConnectionManager _connectionManager;
 
+        public Logger Logger { get; private set; }
+
         public bool IsConnected { get; private set; }
         public bool Initializing { get; private set; }
 
         public BoardInterface( Control c )
         {
+            Logger = new ControlAllTheThings.Logger();
+
             _transport = new SerialTransport()
             {
                 CurrentSerialSettings = { DtrEnable = false, BaudRate = 9600 }
@@ -103,6 +107,11 @@ namespace ControlAllTheThings
             _connectionManager.Progress += ConnectionManager_Progress;
             _connectionManager.ConnectionFound += ConnectionManager_ConnectionFound;
             _connectionManager.ConnectionTimeout += ConnectionManager_ConnectionTimeout;
+        }
+
+        public void Start()
+        {
+            Logger.Log( "Staring ConnectionManager" );
             _connectionManager.StartConnectionManager();
         }
 
@@ -110,16 +119,19 @@ namespace ControlAllTheThings
 
         public void SetLed( bool state )
         {
+            Logger.Log( "Sending SetLed( State={0} )", state );
             _messenger.SendCommand( new SendCommand( (int)Command.SetLed, state ) );
         }
 
         public void CreateButton( int pin )
         {
+            Logger.Log( "Sending CreateButton( Pin={0} )", pin );
             _messenger.SendCommand( new SendCommand( (int)Command.CreateButton, pin ) );
         }
 
         public void SetPinMode( int pin, PinMode mode )
         {
+            Logger.Log( "Sending SetPinMode( Pin={0}, PinMode={1} )", pin, mode );
             var c = new SendCommand( (int)Command.SetPinMode );
             c.AddArgument( pin );
             c.AddArgument( (int)mode );
@@ -128,6 +140,7 @@ namespace ControlAllTheThings
 
         public void SetPin( int pin, bool state )
         {
+            Logger.Log( "Sending SetPin( Pin={0}, State={1} )", pin, state );
             var c = new SendCommand( (int)Command.SetPin );
             c.AddArgument( pin );
             c.AddArgument( state );
@@ -136,6 +149,7 @@ namespace ControlAllTheThings
 
         public void TogglePin( int pin )
         {
+            Logger.Log( "Sending TogglePin( Pin={0} )", pin );
             _messenger.SendCommand( new SendCommand( (int)Command.TogglePin, pin ) );
         }
 
@@ -145,8 +159,10 @@ namespace ControlAllTheThings
 
         private void OnConnected()
         {
+            Logger.Log( "OnConnected" );
             IsConnected = true;
 
+            Logger.Log( "Sending Connected()" );
             _messenger.SendCommand( new SendCommand( (int)Command.Connected ) );
 
             if( Connected != null )
@@ -155,13 +171,18 @@ namespace ControlAllTheThings
             }
 
             Initializing = true;
-            OnLog( "+----- Initializing -----+" );
+            
+            Logger.Log( "Initialization Started" );
+            OnLog( "+----- Initialization Started -----+" );
+
+            Logger.Log( "Sending Initialize()" );
             _messenger.SendCommand( new SendCommand( (int)Command.Initialize ) );
         }
 
         private void OnDisconnected()
         {
             IsConnected = false;
+            Logger.Log( "OnDisconnected" );
 
             if( Disconnected != null )
             {
@@ -179,6 +200,7 @@ namespace ControlAllTheThings
 
         private void OnPinSet( int pin, bool state )
         {
+            Logger.Log( "OnPinSet( Pin={0}, State={1} )", pin, state );
             if( PinSet != null )
             {
                 PinSet( this, new PinSetEventArgs( pin, state ) );
@@ -191,6 +213,7 @@ namespace ControlAllTheThings
 
         private void ConnectionManager_Progress( object sender, ConnectionManagerProgressEventArgs e )
         {
+            Logger.Log( "ConnectionManager Progress - {0}", e.Description );
             if( VERBOSE || !IsConnected )
             {
                 OnLog( e.Description );
@@ -214,17 +237,21 @@ namespace ControlAllTheThings
 
         private void Messenger_NewLineReceived( object sender, CommandEventArgs e )
         {
+            String message = String.Format( "@Received> {0}", FormatCommand( e.Command ) );
+            Logger.Log( message );
             if( VERBOSE || e.Command.CmdId != (int)Command.Watchdog || !IsConnected )
             {
-                OnLog( String.Format( "@Received> {0}", FormatCommand( e.Command ) ) );
+                OnLog( message );
             }
         }
 
         private void Messenger_NewLineSent( object sender, CommandEventArgs e )
         {
+            String message = String.Format( "@Sent> {0}", FormatCommand( e.Command ) );
+            Logger.Log( message );
             if( VERBOSE || e.Command.CmdId != (int)Command.Watchdog || !IsConnected )
             {
-                OnLog( String.Format( "@Sent> {0}", FormatCommand( e.Command ) ) );
+                OnLog( message );
             }
         }
 
@@ -234,17 +261,22 @@ namespace ControlAllTheThings
 
         private void Messenger_UnknownCommand( ReceivedCommand args )
         {
-            OnLog( String.Format( "\nUnknown command: {0}", FormatCommand( args ) ) );
+            String message = String.Format( "\nUnknown command: {0}", FormatCommand( args ) );
+            Logger.Log( message );
+            OnLog( message );
         }
 
         private void Messenger_DebugCommand( ReceivedCommand args )
         {
-            OnLog( args.ReadStringArg() );
+            String debug = args.ReadStringArg();
+            Logger.Log( debug );
+            OnLog( debug );
         }
 
         private void Messenger_InitialzationFinishedCommand( ReceivedCommand args )
         {
             Initializing = false;
+            Logger.Log( "Initialization Finished" );
             OnLog( "+----- Initialization Finished -----+" );
         }
 
@@ -259,6 +291,7 @@ namespace ControlAllTheThings
 
         public void Dispose()
         {
+            Logger.Dispose();
             _messenger.Disconnect();
             _messenger.Dispose();
             _transport.Dispose();

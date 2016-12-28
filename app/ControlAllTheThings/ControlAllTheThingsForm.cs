@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Ports;
@@ -32,6 +33,7 @@ namespace ControlAllTheThings
             _board.Disconnected += Board_Disconnected;
             _board.Log += Board_Log;
             _board.PinSet += Board_PinSet;
+            _board.Start();
 
             Pin12ButtonComponent.BoardInterface = _board;
             Pin11ButtonComponent.BoardInterface = _board;
@@ -95,6 +97,8 @@ namespace ControlAllTheThings
             return icon;
         }
 
+        #region Board Interface Event Handlers
+
         private void Board_Connected( object sender, EventArgs e )
         {
             ConnectionStatusLabel.Text = "Connected";
@@ -136,6 +140,10 @@ namespace ControlAllTheThings
             LogTextBox.ScrollToCaret();
         }
 
+        #endregion
+
+        #region Form Event Handlers
+
         protected override void OnClosed( EventArgs e )
         {
             base.OnClosed( e );
@@ -156,5 +164,12 @@ namespace ControlAllTheThings
                 this.Hide();
             }
         }
+
+        private void ViewLogFileMenuItem_Click( object sender, EventArgs e )
+        {
+            Process.Start( "explorer.exe", String.Format( "/select,{0}", _board.Logger.FileName ) );
+        }
+
+        #endregion
     }
 }
