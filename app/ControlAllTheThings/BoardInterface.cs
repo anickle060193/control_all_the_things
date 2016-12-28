@@ -36,6 +36,13 @@ namespace ControlAllTheThings
     {
         private static readonly bool VERBOSE = false;
 
+        public enum PinMode
+        {
+            Input = 0,
+            Output = 1,
+            InputPullup = 2
+        }
+
         public delegate void LogHandler( object sender, LogEventArgs e );
         public delegate void PinSetHandler( object sender, PinSetEventArgs e );
 
@@ -53,6 +60,8 @@ namespace ControlAllTheThings
             InitializationFinished,
             Debug,
             SetLed,
+            SetPinMode,
+            SetPin,
             PinSet
         }
 
@@ -96,6 +105,8 @@ namespace ControlAllTheThings
             _connectionManager.StartConnectionManager();
         }
 
+        #region Command Senders
+
         public void SetLed( bool state )
         {
             _messenger.SendCommand( new SendCommand( (int)Command.SetLed, state ) );
@@ -105,6 +116,26 @@ namespace ControlAllTheThings
         {
             _messenger.SendCommand( new SendCommand( (int)Command.CreateButton, pin ) );
         }
+
+        public void SetPinMode( int pin, PinMode mode )
+        {
+            var c = new SendCommand( (int)Command.SetPinMode );
+            c.AddArgument( pin );
+            c.AddArgument( (int)mode );
+            _messenger.SendCommand( c );
+        }
+
+        public void SetPin( int pin, bool state )
+        {
+            var c = new SendCommand( (int)Command.SetPin );
+            c.AddArgument( pin );
+            c.AddArgument( state );
+            _messenger.SendCommand( c );
+        }
+
+        #endregion
+
+        #region Event Triggerers
 
         private void OnConnected()
         {
@@ -148,6 +179,10 @@ namespace ControlAllTheThings
             }
         }
 
+        #endregion
+
+        #region Messenger Event Handlers
+
         private void ConnectionManager_Progress( object sender, ConnectionManagerProgressEventArgs e )
         {
             if( VERBOSE )
@@ -187,6 +222,10 @@ namespace ControlAllTheThings
             }
         }
 
+        #endregion
+
+        #region Messenger Command Handlers
+
         private void Messenger_UnknownCommand( ReceivedCommand args )
         {
             OnLog( String.Format( "\nUnknown command: {0}", FormatCommand( args ) ) );
@@ -209,6 +248,8 @@ namespace ControlAllTheThings
             bool state = args.ReadBoolArg();
             OnPinSet( pin, state );
         }
+
+        #endregion
 
         public void Dispose()
         {

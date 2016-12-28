@@ -11,6 +11,8 @@ namespace APPI
         Command__InitializationFinished,
         Command__Debug,
         Command__SetLed,
+        Command__SetPinMode,
+        Command__SetPin,
         Command__PinSet
     };
 
@@ -57,7 +59,6 @@ namespace APPI
         {
             initializeListener();
         }
-
         messenger->sendCmd( Command__InitializationFinished );
     }
 
@@ -65,6 +66,20 @@ namespace APPI
     {
         boolean enabled = messenger->readBoolArg();
         digitalWrite( LED_BUILTIN, enabled );
+    }
+
+    static void OnSetPinModeCommand()
+    {
+        int pin = messenger->readInt32Arg();
+        int mode = messenger->readInt32Arg();
+        pinMode( pin, mode );
+    }
+
+    static void OnSetPinCommand()
+    {
+        int pin = messenger->readInt32Arg();
+        bool state = messenger->readBoolArg();
+        digitalWrite( pin, state );
     }
 
     void Setup()
@@ -79,6 +94,8 @@ namespace APPI
         messenger->attach( Command__CreateButton, OnCreateButtonCommand );
         messenger->attach( Command__Initialize, OnInitializeCommand );
         messenger->attach( Command__SetLed, OnSetLedCommand );
+        messenger->attach( Command__SetPinMode, OnSetPinModeCommand );
+        messenger->attach( Command__SetPin, OnSetPinCommand );
     }
 
     void Loop()

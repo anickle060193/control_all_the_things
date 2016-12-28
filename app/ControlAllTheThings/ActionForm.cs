@@ -13,9 +13,9 @@ namespace ControlAllTheThings
 {
     public partial class ActionForm : Form
     {
-        public IBoardAction Action { get; set; }
+        public BoardAction Action { get; set; }
 
-        public ActionForm( IBoardAction currentAction )
+        public ActionForm( BoardAction currentAction )
         {
             InitializeComponent();
 
@@ -23,23 +23,54 @@ namespace ControlAllTheThings
 
             DialogResult = DialogResult.Cancel;
 
-            if( Action is SetLedBoardAction )
-            {
-                SetLedAction.Checked = true;
-                SetLedActionStateOption.Checked = ( (SetLedBoardAction)Action ).SetToState;
-            }
+            SetLedAction.Tag = SetLedActionOptions;
+            SetPinAction.Tag = SetPinActionOptions;
+
+            SetLedActionOptions.Enabled = false;
+            SetPinActionOptions.Enabled = false;
+
+            SetUiFromAction();
         }
 
         public ActionForm() : this( null )
         {
         }
 
-        private void OkButton_Click( object sender, EventArgs e )
+        private void SetUiFromAction()
+        {
+            if( Action is SetLedBoardAction )
+            {
+                SetLedAction.Checked = true;
+                SetLedBoardAction a = Action as SetLedBoardAction;
+                SetLedActionStateOption.Checked = a.SetToState;
+            }
+            else if( Action is SetPinBoardAction )
+            {
+                SetPinAction.Checked = true;
+                SetPinBoardAction a = Action as SetPinBoardAction;
+                SetPinActionPinOption.Value = a.Pin;
+                SetPinActionStateOption.Checked = a.SetToState;
+            }
+        }
+
+        private void SetActionFromUi()
         {
             if( SetLedAction.Checked )
             {
-                Action = new SetLedBoardAction( SetLedActionStateOption.Checked );
+                bool setToState = SetLedActionStateOption.Checked;
+                Action = new SetLedBoardAction( setToState );
             }
+            else if( SetPinAction.Checked )
+            {
+                int pin = (int)SetPinActionPinOption.Value;
+                bool setToState = SetPinActionStateOption.Checked;
+                Action = new SetPinBoardAction( pin, setToState );
+            }
+        }
+
+        private void OkButton_Click( object sender, EventArgs e )
+        {
+            SetActionFromUi();
 
             if( Action == null )
             {
@@ -50,6 +81,24 @@ namespace ControlAllTheThings
             {
                 DialogResult = DialogResult.OK;
                 this.Close();
+            }
+        }
+
+        private void CancelButton_Click( object sender, EventArgs e )
+        {
+            this.Close();
+        }
+
+        private void Action_CheckedChanged( object sender, EventArgs e )
+        {
+            RadioButton r = sender as RadioButton;
+            if( r != null )
+            {
+                GroupBox g = r.Tag as GroupBox;
+                if( g != null )
+                {
+                    g.Enabled = r.Checked;
+                }
             }
         }
     }

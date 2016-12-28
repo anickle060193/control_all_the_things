@@ -50,8 +50,9 @@
     <Compile Include="ActionForm.Designer.cs">
       <DependentUpon>ActionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BoardActions\IBoardAction.cs" />
+    <Compile Include="BoardActions\BoardAction.cs" />
     <Compile Include="BoardActions\SetLedBoardAction.cs" />
+    <Compile Include="BoardActions\SetPinBoardAction.cs" />
     <Compile Include="BoardInterface.cs" />
     <Compile Include="ButtonComponent.cs">
       <SubType>UserControl</SubType>

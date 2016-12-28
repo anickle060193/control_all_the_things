@@ -33,8 +33,11 @@ namespace ControlAllTheThings
 
         public BoardInterface BoardInterface { get; set; }
 
-        public IBoardAction PressedAction { get; set; }
-        public IBoardAction UnpressedAction { get; set; }
+        [Browsable( false )]
+        public BoardAction PressedAction { get; set; }
+
+        [Browsable( false )]
+        public BoardAction UnpressedAction { get; set; }
 
         [DefaultValue( typeof( Color ), "LightGray" )]
         public Color UnpressedColor

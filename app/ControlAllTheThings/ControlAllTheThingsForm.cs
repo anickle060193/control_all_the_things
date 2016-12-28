@@ -2,6 +2,7 @@
 using CommandMessenger.Transport;
 using CommandMessenger.Transport.Serial;
 using ControlAllTheThings.BoardActions;
+using ControlAllTheThings.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,8 +33,48 @@ namespace ControlAllTheThings
             _board.PinSet += Board_PinSet;
 
             Pin12ButtonComponent.BoardInterface = _board;
-            Pin12ButtonComponent.PressedAction = new SetLedBoardAction( true );
-            Pin12ButtonComponent.UnpressedAction = new SetLedBoardAction( false );
+            Pin11ButtonComponent.BoardInterface = _board;
+
+            LoadSettings();
+
+            this.FormClosed += ( sender, e ) => SaveSettings();
+            this.LostFocus += ( sender, e ) => SaveSettings();
+        }
+
+        private void LoadSettings()
+        {
+            BoardAction a;
+            
+            a = BoardAction.FromSetting( Settings.Default.Pin12ButtonPressedAction );
+            Pin12ButtonComponent.PressedAction = a;
+
+            a = BoardAction.FromSetting( Settings.Default.Pin12ButtonUnpressedAction );
+            Pin12ButtonComponent.UnpressedAction = a;
+
+            a = BoardAction.FromSetting( Settings.Default.Pin11ButtonPressedAction );
+            Pin11ButtonComponent.PressedAction = a;
+
+            a = BoardAction.FromSetting( Settings.Default.Pin11ButtonUnpressedAction );
+            Pin11ButtonComponent.UnpressedAction = a;
+        }
+
+        private void SaveSettings()
+        {
+            String setting;
+
+            setting = BoardAction.ToSetting( Pin12ButtonComponent.PressedAction );
+            Settings.Default.Pin12ButtonPressedAction = setting;
+
+            setting = BoardAction.ToSetting( Pin12ButtonComponent.UnpressedAction );
+            Settings.Default.Pin12ButtonUnpressedAction = setting;
+
+            setting = BoardAction.ToSetting( Pin11ButtonComponent.PressedAction );
+            Settings.Default.Pin11ButtonPressedAction = setting;
+
+            setting = BoardAction.ToSetting( Pin11ButtonComponent.UnpressedAction );
+            Settings.Default.Pin11ButtonUnpressedAction = setting;
+
+            Settings.Default.Save();
         }
 
         private void Board_Connected( object sender, EventArgs e )
@@ -42,6 +83,7 @@ namespace ControlAllTheThings
 
             _board.CreateButton( 12 );
             _board.CreateButton( 11 );
+            _board.SetPinMode( 10, BoardInterface.PinMode.Output );
         }
 
         private void Board_Disconnected( object sender, EventArgs e )

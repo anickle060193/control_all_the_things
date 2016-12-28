@@ -6,18 +6,20 @@ using System.Threading.Tasks;
 
 namespace ControlAllTheThings.BoardActions
 {
-    class SetLedBoardAction : BoardAction
+    class SetPinBoardAction : BoardAction
     {
+        public int Pin { get; private set; }
         public bool SetToState { get; private set; }
 
-        public SetLedBoardAction( bool setToState )
+        public SetPinBoardAction( int pin, bool setToState )
         {
+            Pin = pin;
             SetToState = setToState;
         }
 
         public override void Perform( BoardInterface b )
         {
-            b.SetLed( SetToState );
+            b.SetPin( Pin, SetToState );
         }
     }
 }
