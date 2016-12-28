@@ -69,7 +69,7 @@ namespace ControlAllTheThings
         {
             _transport = new SerialTransport()
             {
-                CurrentSerialSettings = { DtrEnable = false }
+                CurrentSerialSettings = { DtrEnable = false, BaudRate = 9600 }
             };
 
             _messenger = new CmdMessenger( _transport, BoardType.Bit16 )
@@ -87,7 +87,8 @@ namespace ControlAllTheThings
 
             _connectionManager = new SerialConnectionManager( _transport as SerialTransport, _messenger, (int)Command.Watchdog, COMMUNICATION_IDENTIFIER )
             {
-                WatchdogEnabled = true
+                WatchdogEnabled = true,
+                DeviceScanBaudRateSelection = false
             };
             _connectionManager.Progress += ConnectionManager_Progress;
             _connectionManager.ConnectionFound += ConnectionManager_ConnectionFound;

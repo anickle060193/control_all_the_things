@@ -70,6 +70,7 @@ namespace APPI
     void Setup()
     {
         Serial.begin( 9600 );
+        while( !Serial );
 
         messenger = new CmdMessenger( Serial );
         messenger->attach( OnUnknownCommand );
