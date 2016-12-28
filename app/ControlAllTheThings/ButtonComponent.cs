@@ -17,6 +17,9 @@ namespace ControlAllTheThings
         private Color _pressedColor;
         private Color _unpressedColor;
 
+        private BoardAction _pressedAction;
+        private BoardAction _unpressedAction;
+
         private bool _pressed;
         private int _pin;
         
@@ -34,10 +37,26 @@ namespace ControlAllTheThings
         public BoardInterface BoardInterface { get; set; }
 
         [Browsable( false )]
-        public BoardAction PressedAction { get; set; }
+        public BoardAction PressedAction
+        {
+            get { return _pressedAction; }
+            set
+            {
+                _pressedAction = value;
+                ClearPressedAction.Enabled = _pressedAction != null;
+            }
+        }
 
         [Browsable( false )]
-        public BoardAction UnpressedAction { get; set; }
+        public BoardAction UnpressedAction
+        {
+            get { return _unpressedAction; }
+            set
+            {
+                _unpressedAction = value;
+                ClearUnpressedAction.Enabled = _unpressedAction != null;
+            }
+        }
 
         [DefaultValue( typeof( Color ), "LightGray" )]
         public Color UnpressedColor
@@ -131,22 +150,55 @@ namespace ControlAllTheThings
             }
         }
 
-        private void SetPressedBehaviorMenuItem_Click( object sender, EventArgs e )
+        private bool ChoosePressedAction()
         {
             ActionForm f = new ActionForm( PressedAction );
             if( f.ShowDialog() == DialogResult.OK )
             {
                 PressedAction = f.Action;
+                return true;
             }
+            return false;
         }
 
-        private void SetUnpressedBehaviorMenuItem_Click( object sender, EventArgs e )
+        private bool ChooseUnpressedAction()
         {
             ActionForm f = new ActionForm( UnpressedAction );
             if( f.ShowDialog() == DialogResult.OK )
             {
                 UnpressedAction = f.Action;
+                return true;
             }
+            return false;
+        }
+
+        private void SetPressedAction_Click( object sender, EventArgs e )
+        {
+            ChoosePressedAction();
+        }
+
+        private void SetUnpressedAction_Click( object sender, EventArgs e )
+        {
+            ChooseUnpressedAction();
+        }
+
+        private void ClearPressedAction_Click( object sender, EventArgs e )
+        {
+            PressedAction = null;
+        }
+
+        private void ClearUnpressedAction_Click( object sender, EventArgs e )
+        {
+            UnpressedAction = null;
+        }
+
+        private void ButtonComponent_DoubleClick( object sender, EventArgs e )
+        {
+            if( !ChoosePressedAction() )
+            {
+                return;
+            }
+            ChooseUnpressedAction();
         }
     }
 }

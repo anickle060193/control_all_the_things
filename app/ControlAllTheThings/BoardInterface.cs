@@ -62,6 +62,7 @@ namespace ControlAllTheThings
             SetLed,
             SetPinMode,
             SetPin,
+            TogglePin,
             PinSet
         }
 
@@ -131,6 +132,11 @@ namespace ControlAllTheThings
             c.AddArgument( pin );
             c.AddArgument( state );
             _messenger.SendCommand( c );
+        }
+
+        public void TogglePin( int pin )
+        {
+            _messenger.SendCommand( new SendCommand( (int)Command.TogglePin, pin ) );
         }
 
         #endregion

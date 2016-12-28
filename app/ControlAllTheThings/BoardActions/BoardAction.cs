@@ -25,6 +25,11 @@ namespace ControlAllTheThings.BoardActions
                     SetPinBoardAction action = a as SetPinBoardAction;
                     return String.Format( "SetPin {0} {1}", action.Pin, action.SetToState );
                 }
+                else if( actionType == typeof( TogglePinBoardAction ) )
+                {
+                    TogglePinBoardAction action = a as TogglePinBoardAction;
+                    return String.Format( "TogglePin {0}", action.Pin );
+                }
             }
 
             return "";
@@ -51,6 +56,11 @@ namespace ControlAllTheThings.BoardActions
                         int pin = Int32.Parse( setPinSettings[ 0 ] );
                         bool setToState = Boolean.Parse( setPinSettings[ 1 ] );
                         return new SetPinBoardAction( pin, setToState );
+                    }
+                    else if( actionName == "TogglePin" )
+                    {
+                        int pin = Int32.Parse( actionSettings );
+                        return new TogglePinBoardAction( pin );
                     }
                 }
             }

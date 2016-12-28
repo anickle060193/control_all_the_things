@@ -25,9 +25,11 @@ namespace ControlAllTheThings
 
             SetLedAction.Tag = SetLedActionOptions;
             SetPinAction.Tag = SetPinActionOptions;
+            TogglePinAction.Tag = TogglePinActionOptions;
 
             SetLedActionOptions.Enabled = false;
             SetPinActionOptions.Enabled = false;
+            TogglePinActionOptions.Enabled = false;
 
             SetUiFromAction();
         }
@@ -51,6 +53,12 @@ namespace ControlAllTheThings
                 SetPinActionPinOption.Value = a.Pin;
                 SetPinActionStateOption.Checked = a.SetToState;
             }
+            else if( Action is TogglePinBoardAction )
+            {
+                TogglePinAction.Checked = true;
+                TogglePinBoardAction a = Action as TogglePinBoardAction;
+                TogglePinActionPinOption.Value = a.Pin;
+            }
         }
 
         private void SetActionFromUi()
@@ -66,25 +74,22 @@ namespace ControlAllTheThings
                 bool setToState = SetPinActionStateOption.Checked;
                 Action = new SetPinBoardAction( pin, setToState );
             }
+            else if( TogglePinAction.Checked )
+            {
+                int pin = (int)TogglePinActionPinOption.Value;
+                Action = new TogglePinBoardAction( pin );
+            }
         }
 
-        private void OkButton_Click( object sender, EventArgs e )
+        private void Ok_Click( object sender, EventArgs e )
         {
             SetActionFromUi();
 
-            if( Action == null )
-            {
-                MessageBox.Show( "An action must be selected." );
-                return;
-            }
-            else
-            {
-                DialogResult = DialogResult.OK;
-                this.Close();
-            }
+            DialogResult = DialogResult.OK;
+            this.Close();
         }
 
-        private void CancelButton_Click( object sender, EventArgs e )
+        private void Cancel_Click( object sender, EventArgs e )
         {
             this.Close();
         }

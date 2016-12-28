@@ -13,6 +13,7 @@ namespace APPI
         Command__SetLed,
         Command__SetPinMode,
         Command__SetPin,
+        Command__TogglePin,
         Command__PinSet
     };
 
@@ -82,6 +83,13 @@ namespace APPI
         digitalWrite( pin, state );
     }
 
+    static void OnTogglePinCommand()
+    {
+        int pin = messenger->readInt32Arg();
+        bool state = digitalRead( pin );
+        digitalWrite( pin, !state );
+    }
+
     void Setup()
     {
         Serial.begin( 9600 );
@@ -96,6 +104,7 @@ namespace APPI
         messenger->attach( Command__SetLed, OnSetLedCommand );
         messenger->attach( Command__SetPinMode, OnSetPinModeCommand );
         messenger->attach( Command__SetPin, OnSetPinCommand );
+        messenger->attach( Command__TogglePin, OnTogglePinCommand );
     }
 
     void Loop()
