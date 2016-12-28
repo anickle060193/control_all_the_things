@@ -98,7 +98,7 @@ namespace ControlAllTheThings
             _connectionManager = new SerialConnectionManager( _transport as SerialTransport, _messenger, (int)Command.Watchdog, COMMUNICATION_IDENTIFIER )
             {
                 WatchdogEnabled = true,
-                DeviceScanBaudRateSelection = false
+                //DeviceScanBaudRateSelection = false
             };
             _connectionManager.Progress += ConnectionManager_Progress;
             _connectionManager.ConnectionFound += ConnectionManager_ConnectionFound;
@@ -191,7 +191,7 @@ namespace ControlAllTheThings
 
         private void ConnectionManager_Progress( object sender, ConnectionManagerProgressEventArgs e )
         {
-            if( VERBOSE )
+            if( VERBOSE || !IsConnected )
             {
                 OnLog( e.Description );
             }
@@ -214,7 +214,7 @@ namespace ControlAllTheThings
 
         private void Messenger_NewLineReceived( object sender, CommandEventArgs e )
         {
-            if( VERBOSE || e.Command.CmdId != (int)Command.Watchdog )
+            if( VERBOSE || e.Command.CmdId != (int)Command.Watchdog || !IsConnected )
             {
                 OnLog( String.Format( "@Received> {0}", FormatCommand( e.Command ) ) );
             }
@@ -222,7 +222,7 @@ namespace ControlAllTheThings
 
         private void Messenger_NewLineSent( object sender, CommandEventArgs e )
         {
-            if( VERBOSE || e.Command.CmdId != (int)Command.Watchdog )
+            if( VERBOSE || e.Command.CmdId != (int)Command.Watchdog || !IsConnected )
             {
                 OnLog( String.Format( "@Sent> {0}", FormatCommand( e.Command ) ) );
             }

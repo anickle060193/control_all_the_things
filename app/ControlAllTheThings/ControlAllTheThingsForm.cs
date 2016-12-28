@@ -21,6 +21,7 @@ namespace ControlAllTheThings
     public partial class ControlAllTheThingsForm : Form
     {
         private readonly BoardInterface _board;
+        private readonly NotifyIcon _notifyIcon;
 
         public ControlAllTheThingsForm()
         {
@@ -36,6 +37,8 @@ namespace ControlAllTheThings
             Pin11ButtonComponent.BoardInterface = _board;
 
             LoadSettings();
+
+            _notifyIcon = CreateNotifyIcon();
 
             this.FormClosed += ( sender, e ) => SaveSettings();
             this.LostFocus += ( sender, e ) => SaveSettings();
@@ -77,9 +80,27 @@ namespace ControlAllTheThings
             Settings.Default.Save();
         }
 
+        private NotifyIcon CreateNotifyIcon()
+        {
+            NotifyIcon icon = new NotifyIcon();
+            icon.Visible = true;
+            icon.Text = "Not Connected";
+            icon.Icon = SystemIcons.Application;
+            icon.DoubleClick += ( sender, e ) => this.Show();
+
+            ContextMenu menu = new ContextMenu();
+            menu.MenuItems.Add( "Exit" ).Click += ( sender, e ) => Application.Exit();
+            icon.ContextMenu = menu;
+
+            return icon;
+        }
+
         private void Board_Connected( object sender, EventArgs e )
         {
-            ConnectionStateTextBox.Text = "Connected";
+            ConnectionStatusLabel.Text = "Connected";
+            _notifyIcon.Text = "Connected";
+            _notifyIcon.Icon = SystemIcons.Application;
+            ConnectionStatusProgressBar.Style = ProgressBarStyle.Continuous;
 
             _board.CreateButton( 12 );
             _board.CreateButton( 11 );
@@ -88,7 +109,10 @@ namespace ControlAllTheThings
 
         private void Board_Disconnected( object sender, EventArgs e )
         {
-            ConnectionStateTextBox.Text = "Disconnected";
+            ConnectionStatusLabel.Text = "Disconnected";
+            _notifyIcon.Text = "Disconnected";
+            _notifyIcon.Icon = SystemIcons.Warning;
+            ConnectionStatusProgressBar.Style = ProgressBarStyle.Marquee;
         }
 
         private void Board_PinSet( object sender, PinSetEventArgs e )
@@ -107,7 +131,7 @@ namespace ControlAllTheThings
 
         private void Board_Log( object sender, LogEventArgs e )
         {
-            LogTextBox.AppendText( e.Message + "\n" );
+            LogTextBox.AppendText( String.Format( "[{0:MM/dd/yy hh:mm:ss.ff tt}] {1}{2}", DateTime.Now, e.Message, Environment.NewLine ) );
             LogTextBox.SelectionStart = LogTextBox.TextLength;
             LogTextBox.ScrollToCaret();
         }
@@ -117,6 +141,20 @@ namespace ControlAllTheThings
             base.OnClosed( e );
 
             _board.Dispose();
+        }
+
+        private void Exit_Click( object sender, EventArgs e )
+        {
+            Application.Exit();
+        }
+
+        private void ControlAllTheThingsForm_FormClosing( object sender, FormClosingEventArgs e )
+        {
+            if( e.CloseReason == CloseReason.UserClosing )
+            {
+                e.Cancel = true;
+                this.Hide();
+            }
         }
     }
 }
