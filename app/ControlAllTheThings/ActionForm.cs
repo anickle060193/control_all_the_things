@@ -13,8 +13,8 @@ namespace ControlAllTheThings
 {
     public partial class ActionForm : Form
     {
-        public BoardInterface Board { get; set; }
-        public BoardAction Action { get; set; }
+        public BoardInterface Board { get; private set; }
+        public BoardAction Action { get; private set; }
 
         public ActionForm( String title, BoardAction currentAction, BoardInterface board )
         {
@@ -42,33 +42,37 @@ namespace ControlAllTheThings
                 SetPinActionPinOption.Items.AddRange( pins );
                 TogglePinActionPinOption.Items.AddRange( pins );
             }
+            else
+            {
+                TestAction.Hide();
+            }
 
-            SetUiFromAction();
+            UpdateUiForAction( Action );
         }
 
-        public ActionForm( String title, BoardInterface board ) : this( title, null, board )
+        public ActionForm() : this( "", null, null )
         {
         }
 
-        private void SetUiFromAction()
+        private void UpdateUiForAction( BoardAction action )
         {
-            if( Action is SetLedBoardAction )
+            if( action is SetLedBoardAction )
             {
                 SetLedAction.Checked = true;
-                SetLedBoardAction a = Action as SetLedBoardAction;
+                SetLedBoardAction a = action as SetLedBoardAction;
                 SetLedActionStateOption.Checked = a.SetToState;
             }
-            else if( Action is SetPinBoardAction )
+            else if( action is SetPinBoardAction )
             {
                 SetPinAction.Checked = true;
-                SetPinBoardAction a = Action as SetPinBoardAction;
+                SetPinBoardAction a = action as SetPinBoardAction;
                 SetPinActionPinOption.SelectedItem = a.Pin;
                 SetPinActionStateOption.Checked = a.SetToState;
             }
-            else if( Action is TogglePinBoardAction )
+            else if( action is TogglePinBoardAction )
             {
                 TogglePinAction.Checked = true;
-                TogglePinBoardAction a = Action as TogglePinBoardAction;
+                TogglePinBoardAction a = action as TogglePinBoardAction;
                 TogglePinActionPinOption.SelectedItem = a.Pin;
             }
             else
@@ -77,33 +81,37 @@ namespace ControlAllTheThings
             }
         }
 
-        private void SetActionFromUi()
+        private BoardAction CreateActionFromUi()
         {
             if( NoAction.Checked )
             {
-                Action = null;
+                return null;
             }
             else if( SetLedAction.Checked )
             {
                 bool setToState = SetLedActionStateOption.Checked;
-                Action = new SetLedBoardAction( setToState );
+                return new SetLedBoardAction( setToState );
             }
             else if( SetPinAction.Checked )
             {
                 int pin = (int)SetPinActionPinOption.SelectedItem;
                 bool setToState = SetPinActionStateOption.Checked;
-                Action = new SetPinBoardAction( pin, setToState );
+                return new SetPinBoardAction( pin, setToState );
             }
             else if( TogglePinAction.Checked )
             {
                 int pin = (int)TogglePinActionPinOption.SelectedItem;
-                Action = new TogglePinBoardAction( pin );
+                return new TogglePinBoardAction( pin );
+            }
+            else
+            {
+                return null;
             }
         }
 
         private void Ok_Click( object sender, EventArgs e )
         {
-            SetActionFromUi();
+            Action = CreateActionFromUi();
 
             DialogResult = DialogResult.OK;
             this.Close();
@@ -123,6 +131,18 @@ namespace ControlAllTheThings
                 if( c != null )
                 {
                     c.Enabled = r.Checked;
+                }
+            }
+        }
+
+        private void TestAction_Click( object sender, EventArgs e )
+        {
+            if( Board != null )
+            {
+                BoardAction action = CreateActionFromUi();
+                if( action != null )
+                {
+                    action.Perform( Board );
                 }
             }
         }

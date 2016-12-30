@@ -37,13 +37,14 @@
             this.SetPinActionStateOption = new System.Windows.Forms.CheckBox();
             this.ActionFormTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.SetPinActionOptions = new System.Windows.Forms.GroupBox();
+            this.SetPinActionPinOption = new System.Windows.Forms.ComboBox();
             this.TogglePinAction = new System.Windows.Forms.RadioButton();
             this.TogglePinActionOptions = new System.Windows.Forms.GroupBox();
-            this.TogglePinActionPinOptionLabel = new System.Windows.Forms.Label();
-            this.SetPinActionPinOption = new System.Windows.Forms.ComboBox();
             this.TogglePinActionPinOption = new System.Windows.Forms.ComboBox();
+            this.TogglePinActionPinOptionLabel = new System.Windows.Forms.Label();
             this.NoAction = new System.Windows.Forms.RadioButton();
             this.NoActionLabel = new System.Windows.Forms.Label();
+            this.TestAction = new System.Windows.Forms.Button();
             this.SetLedActionOptions.SuspendLayout();
             this.ActionFormTableLayout.SuspendLayout();
             this.SetPinActionOptions.SuspendLayout();
@@ -165,6 +166,14 @@
             this.SetPinActionOptions.TabStop = false;
             this.SetPinActionOptions.Text = "Set Pin";
             // 
+            // SetPinActionPinOption
+            // 
+            this.SetPinActionPinOption.FormattingEnabled = true;
+            this.SetPinActionPinOption.Location = new System.Drawing.Point(32, 18);
+            this.SetPinActionPinOption.Name = "SetPinActionPinOption";
+            this.SetPinActionPinOption.Size = new System.Drawing.Size(35, 21);
+            this.SetPinActionPinOption.TabIndex = 9;
+            // 
             // TogglePinAction
             // 
             this.TogglePinAction.AutoSize = true;
@@ -189,6 +198,14 @@
             this.TogglePinActionOptions.TabStop = false;
             this.TogglePinActionOptions.Text = "Toggle Pin";
             // 
+            // TogglePinActionPinOption
+            // 
+            this.TogglePinActionPinOption.FormattingEnabled = true;
+            this.TogglePinActionPinOption.Location = new System.Drawing.Point(32, 18);
+            this.TogglePinActionPinOption.Name = "TogglePinActionPinOption";
+            this.TogglePinActionPinOption.Size = new System.Drawing.Size(35, 21);
+            this.TogglePinActionPinOption.TabIndex = 10;
+            // 
             // TogglePinActionPinOptionLabel
             // 
             this.TogglePinActionPinOptionLabel.AutoSize = true;
@@ -197,22 +214,6 @@
             this.TogglePinActionPinOptionLabel.Size = new System.Drawing.Size(25, 13);
             this.TogglePinActionPinOptionLabel.TabIndex = 6;
             this.TogglePinActionPinOptionLabel.Text = "Pin:";
-            // 
-            // SetPinActionPinOption
-            // 
-            this.SetPinActionPinOption.FormattingEnabled = true;
-            this.SetPinActionPinOption.Location = new System.Drawing.Point(32, 18);
-            this.SetPinActionPinOption.Name = "SetPinActionPinOption";
-            this.SetPinActionPinOption.Size = new System.Drawing.Size(35, 21);
-            this.SetPinActionPinOption.TabIndex = 9;
-            // 
-            // TogglePinActionPinOption
-            // 
-            this.TogglePinActionPinOption.FormattingEnabled = true;
-            this.TogglePinActionPinOption.Location = new System.Drawing.Point(32, 18);
-            this.TogglePinActionPinOption.Name = "TogglePinActionPinOption";
-            this.TogglePinActionPinOption.Size = new System.Drawing.Size(35, 21);
-            this.TogglePinActionPinOption.TabIndex = 10;
             // 
             // NoAction
             // 
@@ -238,12 +239,24 @@
             this.NoActionLabel.Text = "No Action";
             this.NoActionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // TestAction
+            // 
+            this.TestAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.TestAction.Location = new System.Drawing.Point(12, 189);
+            this.TestAction.Name = "TestAction";
+            this.TestAction.Size = new System.Drawing.Size(75, 23);
+            this.TestAction.TabIndex = 11;
+            this.TestAction.Text = "Test Action";
+            this.TestAction.UseVisualStyleBackColor = true;
+            this.TestAction.Click += new System.EventHandler(this.TestAction_Click);
+            // 
             // ActionForm
             // 
             this.AcceptButton = this.Ok;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(195, 224);
+            this.Controls.Add(this.TestAction);
             this.Controls.Add(this.ActionFormTableLayout);
             this.Controls.Add(this.Ok);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -282,5 +295,6 @@
         private System.Windows.Forms.ComboBox TogglePinActionPinOption;
         private System.Windows.Forms.RadioButton NoAction;
         private System.Windows.Forms.Label NoActionLabel;
+        private System.Windows.Forms.Button TestAction;
     }
 }
