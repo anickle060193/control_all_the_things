@@ -39,7 +39,7 @@ namespace ControlAllTheThings.BoardActions
                     TogglePinBoardAction action = a as TogglePinBoardAction;
                     return new Setting()
                     {
-                        { "ActionName", "SetPin" },
+                        { "ActionName", "TogglePin" },
                         { "Pin", action.Pin }
                     };
                 }
@@ -61,13 +61,13 @@ namespace ControlAllTheThings.BoardActions
                     }
                     else if( actionName == "SetPin" )
                     {
-                        int pin = (int)setting[ "Pin" ];
+                        int pin = (int)(long)setting[ "Pin" ];
                         bool setToState = (bool)setting[ "SetToState" ];
                         return new SetPinBoardAction( pin, setToState );
                     }
                     else if( actionName == "TogglePin" )
                     {
-                        int pin = (int)setting[ "Pin" ];
+                        int pin = (int)(long)setting[ "Pin" ];
                         return new TogglePinBoardAction( pin );
                     }
                 }

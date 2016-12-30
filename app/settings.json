@@ -1,0 +1,78 @@
+{
+  "YellowButton": {
+    "PressedActionSetting": {
+      "ActionName": "TogglePin",
+      "Pin": 1
+    },
+    "UnpressedActionSetting": null
+  },
+  "GreenButton": {
+    "PressedActionSetting": {
+      "ActionName": "TogglePin",
+      "Pin": 3
+    },
+    "UnpressedActionSetting": null
+  },
+  "BlueButton": {
+    "PressedActionSetting": {
+      "ActionName": "TogglePin",
+      "Pin": 6
+    },
+    "UnpressedActionSetting": null
+  },
+  "WhiteButton": {
+    "PressedActionSetting": {
+      "ActionName": "TogglePin",
+      "Pin": 9
+    },
+    "UnpressedActionSetting": null
+  },
+  "YellowLatch": {
+    "PressedActionSetting": {
+      "ActionName": "SetPin",
+      "Pin": 22,
+      "SetToState": true
+    },
+    "UnpressedActionSetting": {
+      "ActionName": "SetPin",
+      "Pin": 22,
+      "SetToState": false
+    }
+  },
+  "GreenLatch": {
+    "PressedActionSetting": {
+      "ActionName": "SetPin",
+      "Pin": 19,
+      "SetToState": true
+    },
+    "UnpressedActionSetting": {
+      "ActionName": "SetPin",
+      "Pin": 19,
+      "SetToState": false
+    }
+  },
+  "BlueLatch": {
+    "PressedActionSetting": {
+      "ActionName": "SetPin",
+      "Pin": 16,
+      "SetToState": true
+    },
+    "UnpressedActionSetting": {
+      "ActionName": "SetPin",
+      "Pin": 16,
+      "SetToState": false
+    }
+  },
+  "WhiteLatch": {
+    "PressedActionSetting": {
+      "ActionName": "SetPin",
+      "Pin": 14,
+      "SetToState": true
+    },
+    "UnpressedActionSetting": {
+      "ActionName": "SetPin",
+      "Pin": 14,
+      "SetToState": false
+    }
+  }
+}

@@ -59,7 +59,6 @@ namespace ControlAllTheThings
             _notifyIcon = CreateNotifyIcon();
 
             this.FormClosed += ( sender, e ) => SaveSettings();
-            this.LostFocus += ( sender, e ) => SaveSettings();
 
             _board.InputPins.AddRange( _buttons.Keys );
             _board.OutputPins.AddRange( LED_PINS );
@@ -69,24 +68,22 @@ namespace ControlAllTheThings
 
         private void LoadSettings()
         {
+            String settingsFileLocation = Properties.Settings.Default.SettingsFileLocation;
             try
             {
-                if( File.Exists( "settings.json" ) )
+                String s = null;
+                using( StreamReader r = new StreamReader( settingsFileLocation ) )
                 {
-                    String s = null;
-                    using( StreamReader r = new StreamReader( "settings.json" ) )
+                    s = r.ReadToEnd();
+                }
+                Settings settings = JsonConvert.DeserializeObject<Settings>( s );
+                foreach( ButtonComponent b in _buttons.Values )
+                {
+                    if( settings.ContainsKey( b.Name ) )
                     {
-                        s = r.ReadToEnd();
-                    }
-                    Settings settings = JsonConvert.DeserializeObject<Settings>( s );
-                    foreach( ButtonComponent b in _buttons.Values )
-                    {
-                        if( settings.ContainsKey( b.Name ) )
-                        {
-                            ButtonSettings bs = settings[ b.Name ];
-                            b.PressedAction = BoardAction.FromSetting( bs.PressedActionSetting );
-                            b.UnpressedAction = BoardAction.FromSetting( bs.UnpressedActionSetting );
-                        }
+                        ButtonSettings bs = settings[ b.Name ];
+                        b.PressedAction = BoardAction.FromSetting( bs.PressedActionSetting );
+                        b.UnpressedAction = BoardAction.FromSetting( bs.UnpressedActionSetting );
                     }
                 }
             }
@@ -106,7 +103,9 @@ namespace ControlAllTheThings
                         .SetUnpressedAction( BoardAction.ToSetting( b.UnpressedAction ) );
                 }
                 String s = JsonConvert.SerializeObject( settings, Formatting.Indented );
-                using( StreamWriter w = new StreamWriter( "settings.json" ) )
+
+                String settingsFileLocation = Properties.Settings.Default.SettingsFileLocation;
+                using( StreamWriter w = new StreamWriter( settingsFileLocation ) )
                 {
                     w.Write( s );
                 }
@@ -192,6 +191,25 @@ namespace ControlAllTheThings
         private void ViewLogFileMenuItem_Click( object sender, EventArgs e )
         {
             Process.Start( "explorer.exe", String.Format( "/select,{0}", _board.Logger.FileName ) );
+        }
+
+        private void ChooseSettingsLocation_Click( object sender, EventArgs e )
+        {
+            if( SettingsFileLocationDialog.ShowDialog() == DialogResult.OK )
+            {
+                String saveFileLocation = SettingsFileLocationDialog.FileName;
+
+                Properties.Settings.Default.SettingsFileLocation = SettingsFileLocationDialog.FileName;
+                Properties.Settings.Default.Save();
+
+                if( File.Exists( saveFileLocation ) )
+                {
+                    if( MessageBox.Show( "Load settings now?", "Settings", MessageBoxButtons.YesNo ) == DialogResult.Yes )
+                    {
+                        LoadSettings();
+                    }
+                }
+            }
         }
 
         #endregion
