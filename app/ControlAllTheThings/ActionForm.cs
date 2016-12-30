@@ -16,10 +16,11 @@ namespace ControlAllTheThings
         public BoardInterface Board { get; set; }
         public BoardAction Action { get; set; }
 
-        public ActionForm( BoardAction currentAction, BoardInterface board )
+        public ActionForm( String title, BoardAction currentAction, BoardInterface board )
         {
             InitializeComponent();
 
+            Text = title;
             Board = board;
             Action = currentAction;
 
@@ -45,7 +46,7 @@ namespace ControlAllTheThings
             SetUiFromAction();
         }
 
-        public ActionForm( BoardInterface board ) : this( null, board )
+        public ActionForm( String title, BoardInterface board ) : this( title, null, board )
         {
         }
 

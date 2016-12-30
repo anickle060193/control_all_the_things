@@ -152,7 +152,7 @@ namespace ControlAllTheThings
 
         private bool ChoosePressedAction()
         {
-            ActionForm f = new ActionForm( PressedAction, BoardInterface );
+            ActionForm f = new ActionForm( "Pressed Action", PressedAction, BoardInterface );
             if( f.ShowDialog() == DialogResult.OK )
             {
                 PressedAction = f.Action;
@@ -163,7 +163,7 @@ namespace ControlAllTheThings
 
         private bool ChooseUnpressedAction()
         {
-            ActionForm f = new ActionForm( UnpressedAction, BoardInterface );
+            ActionForm f = new ActionForm( "Unpressed Action", UnpressedAction, BoardInterface );
             if( f.ShowDialog() == DialogResult.OK )
             {
                 UnpressedAction = f.Action;
