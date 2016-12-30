@@ -22,53 +22,5 @@ namespace ControlAllTheThings.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Pin12ButtonPressedAction {
-            get {
-                return ((string)(this["Pin12ButtonPressedAction"]));
-            }
-            set {
-                this["Pin12ButtonPressedAction"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Pin12ButtonUnpressedAction {
-            get {
-                return ((string)(this["Pin12ButtonUnpressedAction"]));
-            }
-            set {
-                this["Pin12ButtonUnpressedAction"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Pin11ButtonPressedAction {
-            get {
-                return ((string)(this["Pin11ButtonPressedAction"]));
-            }
-            set {
-                this["Pin11ButtonPressedAction"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Pin11ButtonUnpressedAction {
-            get {
-                return ((string)(this["Pin11ButtonUnpressedAction"]));
-            }
-            set {
-                this["Pin11ButtonUnpressedAction"] = value;
-            }
-        }
     }
 }

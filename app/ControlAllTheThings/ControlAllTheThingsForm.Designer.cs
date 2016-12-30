@@ -34,13 +34,19 @@
             this.StatusStripSpring = new System.Windows.Forms.ToolStripStatusLabel();
             this.ConnectionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.ConnectionStatusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
-            this.Pin11ButtonComponent = new ControlAllTheThings.ButtonComponent();
-            this.Pin12ButtonComponent = new ControlAllTheThings.ButtonComponent();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.OptionsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ViewLogFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OptionsMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.ExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.WhiteButton = new ControlAllTheThings.ButtonComponent();
+            this.BlueButton = new ControlAllTheThings.ButtonComponent();
+            this.GreenButton = new ControlAllTheThings.ButtonComponent();
+            this.YellowButton = new ControlAllTheThings.ButtonComponent();
+            this.BlueLatch = new ControlAllTheThings.ButtonComponent();
+            this.WhiteLatch = new ControlAllTheThings.ButtonComponent();
+            this.GreenLatch = new ControlAllTheThings.ButtonComponent();
+            this.YellowLatch = new ControlAllTheThings.ButtonComponent();
             this.StatusStrip.SuspendLayout();
             this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -50,12 +56,12 @@
             this.LogTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.LogTextBox.Location = new System.Drawing.Point(12, 73);
+            this.LogTextBox.Location = new System.Drawing.Point(12, 119);
             this.LogTextBox.Multiline = true;
             this.LogTextBox.Name = "LogTextBox";
             this.LogTextBox.ReadOnly = true;
             this.LogTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.LogTextBox.Size = new System.Drawing.Size(363, 193);
+            this.LogTextBox.Size = new System.Drawing.Size(363, 225);
             this.LogTextBox.TabIndex = 2;
             this.LogTextBox.WordWrap = false;
             // 
@@ -65,7 +71,7 @@
             this.StatusStripSpring,
             this.ConnectionStatusLabel,
             this.ConnectionStatusProgressBar});
-            this.StatusStrip.Location = new System.Drawing.Point(0, 275);
+            this.StatusStrip.Location = new System.Drawing.Point(0, 353);
             this.StatusStrip.Name = "StatusStrip";
             this.StatusStrip.Size = new System.Drawing.Size(387, 22);
             this.StatusStrip.TabIndex = 5;
@@ -88,36 +94,6 @@
             this.ConnectionStatusProgressBar.Name = "ConnectionStatusProgressBar";
             this.ConnectionStatusProgressBar.Size = new System.Drawing.Size(100, 16);
             this.ConnectionStatusProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            // 
-            // Pin11ButtonComponent
-            // 
-            this.Pin11ButtonComponent.BackColor = System.Drawing.Color.LightGray;
-            this.Pin11ButtonComponent.BoardInterface = null;
-            this.Pin11ButtonComponent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Pin11ButtonComponent.Location = new System.Drawing.Point(58, 27);
-            this.Pin11ButtonComponent.MaximumSize = new System.Drawing.Size(40, 40);
-            this.Pin11ButtonComponent.MinimumSize = new System.Drawing.Size(40, 40);
-            this.Pin11ButtonComponent.Name = "Pin11ButtonComponent";
-            this.Pin11ButtonComponent.Pin = 11;
-            this.Pin11ButtonComponent.PressedAction = null;
-            this.Pin11ButtonComponent.Size = new System.Drawing.Size(40, 40);
-            this.Pin11ButtonComponent.TabIndex = 4;
-            this.Pin11ButtonComponent.UnpressedAction = null;
-            // 
-            // Pin12ButtonComponent
-            // 
-            this.Pin12ButtonComponent.BackColor = System.Drawing.Color.LightGray;
-            this.Pin12ButtonComponent.BoardInterface = null;
-            this.Pin12ButtonComponent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Pin12ButtonComponent.Location = new System.Drawing.Point(12, 27);
-            this.Pin12ButtonComponent.MaximumSize = new System.Drawing.Size(40, 40);
-            this.Pin12ButtonComponent.MinimumSize = new System.Drawing.Size(40, 40);
-            this.Pin12ButtonComponent.Name = "Pin12ButtonComponent";
-            this.Pin12ButtonComponent.Pin = 12;
-            this.Pin12ButtonComponent.PressedAction = null;
-            this.Pin12ButtonComponent.Size = new System.Drawing.Size(40, 40);
-            this.Pin12ButtonComponent.TabIndex = 1;
-            this.Pin12ButtonComponent.UnpressedAction = null;
             // 
             // MenuStrip
             // 
@@ -157,16 +133,134 @@
             this.ExitMenuItem.Text = "Exit";
             this.ExitMenuItem.Click += new System.EventHandler(this.Exit_Click);
             // 
+            // WhiteButton
+            // 
+            this.WhiteButton.BackColor = System.Drawing.Color.LightGray;
+            this.WhiteButton.BoardInterface = null;
+            this.WhiteButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.WhiteButton.Location = new System.Drawing.Point(150, 27);
+            this.WhiteButton.MaximumSize = new System.Drawing.Size(40, 40);
+            this.WhiteButton.MinimumSize = new System.Drawing.Size(40, 40);
+            this.WhiteButton.Name = "WhiteButton";
+            this.WhiteButton.PressedAction = null;
+            this.WhiteButton.Size = new System.Drawing.Size(40, 40);
+            this.WhiteButton.TabIndex = 13;
+            this.WhiteButton.UnpressedAction = null;
+            // 
+            // BlueButton
+            // 
+            this.BlueButton.BackColor = System.Drawing.Color.LightGray;
+            this.BlueButton.BoardInterface = null;
+            this.BlueButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BlueButton.Location = new System.Drawing.Point(104, 27);
+            this.BlueButton.MaximumSize = new System.Drawing.Size(40, 40);
+            this.BlueButton.MinimumSize = new System.Drawing.Size(40, 40);
+            this.BlueButton.Name = "BlueButton";
+            this.BlueButton.PressedAction = null;
+            this.BlueButton.Size = new System.Drawing.Size(40, 40);
+            this.BlueButton.TabIndex = 12;
+            this.BlueButton.UnpressedAction = null;
+            // 
+            // GreenButton
+            // 
+            this.GreenButton.BackColor = System.Drawing.Color.LightGray;
+            this.GreenButton.BoardInterface = null;
+            this.GreenButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.GreenButton.Location = new System.Drawing.Point(58, 27);
+            this.GreenButton.MaximumSize = new System.Drawing.Size(40, 40);
+            this.GreenButton.MinimumSize = new System.Drawing.Size(40, 40);
+            this.GreenButton.Name = "GreenButton";
+            this.GreenButton.PressedAction = null;
+            this.GreenButton.Size = new System.Drawing.Size(40, 40);
+            this.GreenButton.TabIndex = 11;
+            this.GreenButton.UnpressedAction = null;
+            // 
+            // YellowButton
+            // 
+            this.YellowButton.BackColor = System.Drawing.Color.LightGray;
+            this.YellowButton.BoardInterface = null;
+            this.YellowButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.YellowButton.Location = new System.Drawing.Point(12, 27);
+            this.YellowButton.MaximumSize = new System.Drawing.Size(40, 40);
+            this.YellowButton.MinimumSize = new System.Drawing.Size(40, 40);
+            this.YellowButton.Name = "YellowButton";
+            this.YellowButton.PressedAction = null;
+            this.YellowButton.Size = new System.Drawing.Size(40, 40);
+            this.YellowButton.TabIndex = 10;
+            this.YellowButton.UnpressedAction = null;
+            // 
+            // BlueLatch
+            // 
+            this.BlueLatch.BackColor = System.Drawing.Color.LightGray;
+            this.BlueLatch.BoardInterface = null;
+            this.BlueLatch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BlueLatch.Location = new System.Drawing.Point(104, 73);
+            this.BlueLatch.MaximumSize = new System.Drawing.Size(40, 40);
+            this.BlueLatch.MinimumSize = new System.Drawing.Size(40, 40);
+            this.BlueLatch.Name = "BlueLatch";
+            this.BlueLatch.PressedAction = null;
+            this.BlueLatch.Size = new System.Drawing.Size(40, 40);
+            this.BlueLatch.TabIndex = 9;
+            this.BlueLatch.UnpressedAction = null;
+            // 
+            // WhiteLatch
+            // 
+            this.WhiteLatch.BackColor = System.Drawing.Color.LightGray;
+            this.WhiteLatch.BoardInterface = null;
+            this.WhiteLatch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.WhiteLatch.Location = new System.Drawing.Point(150, 73);
+            this.WhiteLatch.MaximumSize = new System.Drawing.Size(40, 40);
+            this.WhiteLatch.MinimumSize = new System.Drawing.Size(40, 40);
+            this.WhiteLatch.Name = "WhiteLatch";
+            this.WhiteLatch.PressedAction = null;
+            this.WhiteLatch.Size = new System.Drawing.Size(40, 40);
+            this.WhiteLatch.TabIndex = 8;
+            this.WhiteLatch.UnpressedAction = null;
+            // 
+            // GreenLatch
+            // 
+            this.GreenLatch.BackColor = System.Drawing.Color.LightGray;
+            this.GreenLatch.BoardInterface = null;
+            this.GreenLatch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.GreenLatch.Location = new System.Drawing.Point(58, 73);
+            this.GreenLatch.MaximumSize = new System.Drawing.Size(40, 40);
+            this.GreenLatch.MinimumSize = new System.Drawing.Size(40, 40);
+            this.GreenLatch.Name = "GreenLatch";
+            this.GreenLatch.PressedAction = null;
+            this.GreenLatch.Size = new System.Drawing.Size(40, 40);
+            this.GreenLatch.TabIndex = 4;
+            this.GreenLatch.UnpressedAction = null;
+            // 
+            // YellowLatch
+            // 
+            this.YellowLatch.BackColor = System.Drawing.Color.LightGray;
+            this.YellowLatch.BoardInterface = null;
+            this.YellowLatch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.YellowLatch.Location = new System.Drawing.Point(12, 73);
+            this.YellowLatch.MaximumSize = new System.Drawing.Size(40, 40);
+            this.YellowLatch.MinimumSize = new System.Drawing.Size(40, 40);
+            this.YellowLatch.Name = "YellowLatch";
+            this.YellowLatch.PressedAction = null;
+            this.YellowLatch.Size = new System.Drawing.Size(40, 40);
+            this.YellowLatch.TabIndex = 1;
+            this.YellowLatch.UnpressedAction = null;
+            // 
             // ControlAllTheThingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(387, 297);
+            this.ClientSize = new System.Drawing.Size(387, 375);
+            this.Controls.Add(this.WhiteButton);
+            this.Controls.Add(this.BlueButton);
+            this.Controls.Add(this.GreenButton);
+            this.Controls.Add(this.YellowButton);
+            this.Controls.Add(this.BlueLatch);
+            this.Controls.Add(this.WhiteLatch);
             this.Controls.Add(this.StatusStrip);
             this.Controls.Add(this.MenuStrip);
-            this.Controls.Add(this.Pin11ButtonComponent);
+            this.Controls.Add(this.GreenLatch);
             this.Controls.Add(this.LogTextBox);
-            this.Controls.Add(this.Pin12ButtonComponent);
+            this.Controls.Add(this.YellowLatch);
             this.MainMenuStrip = this.MenuStrip;
             this.Name = "ControlAllTheThingsForm";
             this.Text = "Control All The Things";
@@ -182,9 +276,9 @@
 
         #endregion
 
-        private ButtonComponent Pin12ButtonComponent;
+        private ButtonComponent YellowLatch;
         private System.Windows.Forms.TextBox LogTextBox;
-        private ButtonComponent Pin11ButtonComponent;
+        private ButtonComponent GreenLatch;
         private System.Windows.Forms.StatusStrip StatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel StatusStripSpring;
         private System.Windows.Forms.ToolStripStatusLabel ConnectionStatusLabel;
@@ -194,6 +288,12 @@
         private System.Windows.Forms.ToolStripMenuItem ViewLogFileMenuItem;
         private System.Windows.Forms.ToolStripSeparator OptionsMenuSeparator;
         private System.Windows.Forms.ToolStripMenuItem ExitMenuItem;
+        private ButtonComponent WhiteLatch;
+        private ButtonComponent BlueLatch;
+        private ButtonComponent YellowButton;
+        private ButtonComponent GreenButton;
+        private ButtonComponent BlueButton;
+        private ButtonComponent WhiteButton;
 
     }
 }

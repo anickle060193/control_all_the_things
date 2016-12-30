@@ -10,7 +10,7 @@ namespace ControlAllTheThings.BoardActions
     {
         public abstract void Perform( BoardInterface b );
 
-        public static String ToSetting( BoardAction a )
+        public static Setting ToSetting( BoardAction a )
         {
             if( a != null )
             {
@@ -18,53 +18,63 @@ namespace ControlAllTheThings.BoardActions
                 if( actionType == typeof( SetLedBoardAction ) )
                 {
                     SetLedBoardAction action = a as SetLedBoardAction;
-                    return String.Format( "SetLed {0}", action.SetToState.ToString() );
+                    return new Setting()
+                    {
+                        { "ActionName", "SetLed" },
+                        { "SetToState", action.SetToState }
+                    };
                 }
                 else if( actionType == typeof( SetPinBoardAction ) )
                 {
                     SetPinBoardAction action = a as SetPinBoardAction;
-                    return String.Format( "SetPin {0} {1}", action.Pin, action.SetToState );
+                    return new Setting()
+                    {
+                        { "ActionName", "SetPin" },
+                        { "Pin", action.Pin },
+                        { "SetToState", action.SetToState }
+                    };
                 }
                 else if( actionType == typeof( TogglePinBoardAction ) )
                 {
                     TogglePinBoardAction action = a as TogglePinBoardAction;
-                    return String.Format( "TogglePin {0}", action.Pin );
+                    return new Setting()
+                    {
+                        { "ActionName", "SetPin" },
+                        { "Pin", action.Pin }
+                    };
                 }
             }
-
-            return "";
+            return null;
         }
-
-        public static BoardAction FromSetting( String setting )
+        
+        public static BoardAction FromSetting( Setting setting )
         {
-            if( setting != null )
+            try
             {
-                String[] s = setting.Split( new char[] { ' ' }, 2 );
-                if( s.Length == 2 )
+                if( setting != null )
                 {
-                    String actionName = s[ 0 ];
-                    String actionSettings = s[ 1 ];
-
+                    String actionName = (String)setting[ "ActionName" ];
                     if( actionName == "SetLed" )
                     {
-                        bool setToState = Boolean.Parse( actionSettings );
+                        bool setToState = (bool)setting[ "SetToState" ];
                         return new SetLedBoardAction( setToState );
                     }
                     else if( actionName == "SetPin" )
                     {
-                        String[] setPinSettings = actionSettings.Split( ' ' );
-                        int pin = Int32.Parse( setPinSettings[ 0 ] );
-                        bool setToState = Boolean.Parse( setPinSettings[ 1 ] );
+                        int pin = (int)setting[ "Pin" ];
+                        bool setToState = (bool)setting[ "SetToState" ];
                         return new SetPinBoardAction( pin, setToState );
                     }
                     else if( actionName == "TogglePin" )
                     {
-                        int pin = Int32.Parse( actionSettings );
+                        int pin = (int)setting[ "Pin" ];
                         return new TogglePinBoardAction( pin );
                     }
                 }
             }
-
+            catch( KeyNotFoundException ) { }
+            catch( InvalidCastException ) { }
+        
             return null;
         }
     }

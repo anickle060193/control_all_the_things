@@ -3,6 +3,7 @@ using CommandMessenger.Transport;
 using CommandMessenger.Transport.Serial;
 using ControlAllTheThings.BoardActions;
 using ControlAllTheThings.Properties;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,6 +22,10 @@ namespace ControlAllTheThings
 {
     public partial class ControlAllTheThingsForm : Form
     {
+        private static readonly int[] LED_PINS = { 1, 3, 6, 9, 14, 16, 19, 22 };
+
+        private readonly Dictionary<int, ButtonComponent> _buttons = new Dictionary<int, ButtonComponent>();
+
         private readonly BoardInterface _board;
         private readonly NotifyIcon _notifyIcon;
 
@@ -34,14 +39,20 @@ namespace ControlAllTheThings
             _board.Log += Board_Log;
             _board.PinSet += Board_PinSet;
 
-            _board.InputPins.Add( 12 );
-            _board.InputPins.Add( 11 );
-            _board.OutputPins.Add( 10 );
+            _buttons.Add(  0, YellowButton );
+            _buttons.Add(  4, GreenButton );
+            _buttons.Add(  7, BlueButton );
+            _buttons.Add( 11, WhiteButton );
+            _buttons.Add( 23, YellowLatch );
+            _buttons.Add( 20, GreenLatch );
+            _buttons.Add( 17, BlueLatch );
+            _buttons.Add( 15, WhiteLatch );
 
-            _board.Start();
-
-            Pin12ButtonComponent.BoardInterface = _board;
-            Pin11ButtonComponent.BoardInterface = _board;
+            foreach( KeyValuePair<int, ButtonComponent> pb in _buttons )
+            {
+                pb.Value.Pin = pb.Key;
+                pb.Value.BoardInterface = _board;
+            }
 
             LoadSettings();
 
@@ -49,42 +60,59 @@ namespace ControlAllTheThings
 
             this.FormClosed += ( sender, e ) => SaveSettings();
             this.LostFocus += ( sender, e ) => SaveSettings();
+
+            _board.InputPins.AddRange( _buttons.Keys );
+            _board.OutputPins.AddRange( LED_PINS );
+
+            _board.Start();
         }
 
         private void LoadSettings()
         {
-            BoardAction a;
-            
-            a = BoardAction.FromSetting( Settings.Default.Pin12ButtonPressedAction );
-            Pin12ButtonComponent.PressedAction = a;
-
-            a = BoardAction.FromSetting( Settings.Default.Pin12ButtonUnpressedAction );
-            Pin12ButtonComponent.UnpressedAction = a;
-
-            a = BoardAction.FromSetting( Settings.Default.Pin11ButtonPressedAction );
-            Pin11ButtonComponent.PressedAction = a;
-
-            a = BoardAction.FromSetting( Settings.Default.Pin11ButtonUnpressedAction );
-            Pin11ButtonComponent.UnpressedAction = a;
+            try
+            {
+                if( File.Exists( "settings.json" ) )
+                {
+                    String s = null;
+                    using( StreamReader r = new StreamReader( "settings.json" ) )
+                    {
+                        s = r.ReadToEnd();
+                    }
+                    Settings settings = JsonConvert.DeserializeObject<Settings>( s );
+                    foreach( ButtonComponent b in _buttons.Values )
+                    {
+                        if( settings.ContainsKey( b.Name ) )
+                        {
+                            ButtonSettings bs = settings[ b.Name ];
+                            b.PressedAction = BoardAction.FromSetting( bs.PressedActionSetting );
+                            b.UnpressedAction = BoardAction.FromSetting( bs.UnpressedActionSetting );
+                        }
+                    }
+                }
+            }
+            catch( IOException ) { }
+            catch( JsonException ) { }
         }
 
         private void SaveSettings()
         {
-            String setting;
-
-            setting = BoardAction.ToSetting( Pin12ButtonComponent.PressedAction );
-            Settings.Default.Pin12ButtonPressedAction = setting;
-
-            setting = BoardAction.ToSetting( Pin12ButtonComponent.UnpressedAction );
-            Settings.Default.Pin12ButtonUnpressedAction = setting;
-
-            setting = BoardAction.ToSetting( Pin11ButtonComponent.PressedAction );
-            Settings.Default.Pin11ButtonPressedAction = setting;
-
-            setting = BoardAction.ToSetting( Pin11ButtonComponent.UnpressedAction );
-            Settings.Default.Pin11ButtonUnpressedAction = setting;
-
-            Settings.Default.Save();
+            try
+            {
+                Settings settings = new Settings();
+                foreach( ButtonComponent b in _buttons.Values )
+                {
+                    settings.AddButtonSettings( b.Name )
+                        .SetPressedAction( BoardAction.ToSetting( b.PressedAction ) )
+                        .SetUnpressedAction( BoardAction.ToSetting( b.UnpressedAction ) );
+                }
+                String s = JsonConvert.SerializeObject( settings, Formatting.Indented );
+                using( StreamWriter w = new StreamWriter( "settings.json" ) )
+                {
+                    w.Write( s );
+                }
+            }
+            catch( IOException ) { }
+            catch( JsonException ) { }
         }
 
         private NotifyIcon CreateNotifyIcon()
@@ -122,15 +150,10 @@ namespace ControlAllTheThings
 
         private void Board_PinSet( object sender, PinSetEventArgs e )
         {
-            switch( e.Pin )
+            ButtonComponent b;
+            if( _buttons.TryGetValue( e.Pin, out b ) )
             {
-                case 12:
-                    Pin12ButtonComponent.Pressed = e.State;
-                    break;
-
-                case 11:
-                    Pin11ButtonComponent.Pressed = e.State;
-                    break;
+                b.Pressed = e.State;
             }
         }
 
