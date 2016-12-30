@@ -93,7 +93,8 @@ namespace APPI
     void Setup()
     {
         Serial.begin( 9600 );
-        while( !Serial );
+        unsigned long start = millis();
+        while( !Serial && ( millis() - start < 5000 ) ) { }
 
         messenger = new CmdMessenger( Serial );
         messenger->attach( OnUnknownCommand );

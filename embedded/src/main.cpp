@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
-#include "button.h"
 #include "appi.h"
+#include "button.h"
 
 #define MAX_BUTTONS     ( 20 )
 
