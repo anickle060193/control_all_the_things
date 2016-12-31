@@ -38,9 +38,8 @@
             this.OptionsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ChooseSettingsLocationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ViewLogFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.OptionsMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.ExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SettingsFileLocationDialog = new System.Windows.Forms.OpenFileDialog();
+            this.MinimizeToSystemTrayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.WhiteButton = new ControlAllTheThings.ButtonComponent();
             this.BlueButton = new ControlAllTheThings.ButtonComponent();
             this.GreenButton = new ControlAllTheThings.ButtonComponent();
@@ -110,9 +109,8 @@
             // 
             this.OptionsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ChooseSettingsLocationMenuItem,
-            this.ViewLogFileMenuItem,
-            this.OptionsMenuSeparator,
-            this.ExitMenuItem});
+            this.MinimizeToSystemTrayMenuItem,
+            this.ViewLogFileMenuItem});
             this.OptionsMenu.Name = "OptionsMenu";
             this.OptionsMenu.Size = new System.Drawing.Size(61, 20);
             this.OptionsMenu.Text = "Options";
@@ -131,24 +129,21 @@
             this.ViewLogFileMenuItem.Text = "View Log File";
             this.ViewLogFileMenuItem.Click += new System.EventHandler(this.ViewLogFileMenuItem_Click);
             // 
-            // OptionsMenuSeparator
-            // 
-            this.OptionsMenuSeparator.Name = "OptionsMenuSeparator";
-            this.OptionsMenuSeparator.Size = new System.Drawing.Size(214, 6);
-            // 
-            // ExitMenuItem
-            // 
-            this.ExitMenuItem.Name = "ExitMenuItem";
-            this.ExitMenuItem.Size = new System.Drawing.Size(217, 22);
-            this.ExitMenuItem.Text = "Exit";
-            this.ExitMenuItem.Click += new System.EventHandler(this.Exit_Click);
-            // 
             // SettingsFileLocationDialog
             // 
             this.SettingsFileLocationDialog.CheckFileExists = false;
             this.SettingsFileLocationDialog.FileName = "settings.json";
             this.SettingsFileLocationDialog.SupportMultiDottedExtensions = true;
             this.SettingsFileLocationDialog.Title = "Choose settings file location:";
+            // 
+            // MinimizeToSystemTrayMenuItem
+            // 
+            this.MinimizeToSystemTrayMenuItem.Checked = true;
+            this.MinimizeToSystemTrayMenuItem.CheckOnClick = true;
+            this.MinimizeToSystemTrayMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.MinimizeToSystemTrayMenuItem.Name = "MinimizeToSystemTrayMenuItem";
+            this.MinimizeToSystemTrayMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.MinimizeToSystemTrayMenuItem.Text = "Minimize to System Tray";
             // 
             // WhiteButton
             // 
@@ -281,7 +276,7 @@
             this.MainMenuStrip = this.MenuStrip;
             this.Name = "ControlAllTheThingsForm";
             this.Text = "Control All The Things";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ControlAllTheThingsForm_FormClosing);
+            this.Resize += new System.EventHandler(this.ControlAllTheThingsForm_Resize);
             this.StatusStrip.ResumeLayout(false);
             this.StatusStrip.PerformLayout();
             this.MenuStrip.ResumeLayout(false);
@@ -302,8 +297,6 @@
         private System.Windows.Forms.ToolStripProgressBar ConnectionStatusProgressBar;
         private System.Windows.Forms.MenuStrip MenuStrip;
         private System.Windows.Forms.ToolStripMenuItem OptionsMenu;
-        private System.Windows.Forms.ToolStripSeparator OptionsMenuSeparator;
-        private System.Windows.Forms.ToolStripMenuItem ExitMenuItem;
         private ButtonComponent WhiteLatch;
         private ButtonComponent BlueLatch;
         private ButtonComponent YellowButton;
@@ -313,6 +306,7 @@
         private System.Windows.Forms.ToolStripMenuItem ChooseSettingsLocationMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ViewLogFileMenuItem;
         private System.Windows.Forms.OpenFileDialog SettingsFileLocationDialog;
+        private System.Windows.Forms.ToolStripMenuItem MinimizeToSystemTrayMenuItem;
 
     }
 }

@@ -54,8 +54,6 @@ namespace ControlAllTheThings
                 pb.Value.BoardInterface = _board;
             }
 
-            LoadSettings();
-
             _notifyIcon = CreateNotifyIcon();
 
             this.FormClosed += ( sender, e ) => SaveSettings();
@@ -63,12 +61,17 @@ namespace ControlAllTheThings
             _board.InputPins.AddRange( _buttons.Keys );
             _board.OutputPins.AddRange( LED_PINS );
 
+            LoadSettings();
+
             _board.Start();
         }
 
         private void LoadSettings()
         {
+            MinimizeToSystemTrayMenuItem.Checked = Properties.Settings.Default.MinimizeToSystemTray;
             String settingsFileLocation = Properties.Settings.Default.SettingsFileLocation;
+            SettingsFileLocationDialog.FileName = settingsFileLocation;
+
             try
             {
                 String s = null;
@@ -83,12 +86,12 @@ namespace ControlAllTheThings
                     {
                         ButtonSettings bs = settings[ b.Name ];
                         BoardAction pa = BoardAction.FromSetting( bs.PressedActionSetting );
-                        if( pa.Valid( _board ) )
+                        if( pa != null && pa.Valid( _board ) )
                         {
                             b.PressedAction = pa;
                         }
                         BoardAction ua = BoardAction.FromSetting( bs.UnpressedActionSetting );
-                        if( ua.Valid( _board ) )
+                        if( ua != null && ua.Valid( _board ) )
                         {
                             b.UnpressedAction = ua;
                         }
@@ -120,6 +123,9 @@ namespace ControlAllTheThings
             }
             catch( IOException ) { }
             catch( JsonException ) { }
+
+            Properties.Settings.Default.MinimizeToSystemTray = MinimizeToSystemTrayMenuItem.Checked;
+            Properties.Settings.Default.Save();
         }
 
         private NotifyIcon CreateNotifyIcon()
@@ -128,10 +134,10 @@ namespace ControlAllTheThings
             icon.Visible = true;
             icon.Text = "Not Connected";
             icon.Icon = SystemIcons.Application;
-            icon.DoubleClick += ( sender, e ) => this.Show();
+            icon.DoubleClick += NotifyIcon_DoubleClick;
 
             ContextMenu menu = new ContextMenu();
-            menu.MenuItems.Add( "Exit" ).Click += ( sender, e ) => Application.Exit();
+            menu.MenuItems.Add( "Exit" ).Click += Exit_Click;
             icon.ContextMenu = menu;
 
             return icon;
@@ -184,16 +190,7 @@ namespace ControlAllTheThings
 
         private void Exit_Click( object sender, EventArgs e )
         {
-            Application.Exit();
-        }
-
-        private void ControlAllTheThingsForm_FormClosing( object sender, FormClosingEventArgs e )
-        {
-            if( e.CloseReason == CloseReason.UserClosing )
-            {
-                e.Cancel = true;
-                this.Hide();
-            }
+            this.Close();
         }
 
         private void ViewLogFileMenuItem_Click( object sender, EventArgs e )
@@ -218,6 +215,24 @@ namespace ControlAllTheThings
                     }
                 }
             }
+        }
+
+        private void NotifyIcon_DoubleClick( object sender, EventArgs e )
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+        }
+
+        private void ControlAllTheThingsForm_Resize( object sender, EventArgs e )
+        {
+            if( MinimizeToSystemTrayMenuItem.Checked )
+            {
+                if( this.WindowState == FormWindowState.Minimized )
+                {
+                    this.Hide();
+                }
+            }
+            Properties.Settings.Default.Save();
         }
 
         #endregion
