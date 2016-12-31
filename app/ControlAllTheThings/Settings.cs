@@ -8,20 +8,23 @@ using System.Threading.Tasks;
 
 namespace ControlAllTheThings
 {
-    public class Settings : Dictionary<String, ButtonSettings>
+    public interface ISetting
     {
-        public ButtonSettings AddButtonSettings( String buttonName )
+    }
+
+    public class Settings : Dictionary<String, ISetting>
+    {
+        private static readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings()
         {
-            ButtonSettings s = new ButtonSettings();
-            this[ buttonName ] = s;
-            return s;
-        }
+            Formatting = Formatting.Indented,
+            TypeNameHandling = TypeNameHandling.Auto
+        };
 
         public void Save( String settingsFileName )
         {
             try
             {
-                String s = JsonConvert.SerializeObject( this, Formatting.Indented );
+                String s = JsonConvert.SerializeObject( this, _serializerSettings );
 
                 using( StreamWriter w = new StreamWriter( settingsFileName ) )
                 {
@@ -41,38 +44,12 @@ namespace ControlAllTheThings
                 {
                     s = r.ReadToEnd();
                 }
-                return JsonConvert.DeserializeObject<Settings>( s );
+                return JsonConvert.DeserializeObject<Settings>( s, _serializerSettings );
             }
             catch( IOException ) { }
             catch( JsonException ) { }
 
             return null;
-        }
-    }
-
-    public class ButtonSettings
-    {
-        public Setting PressedActionSetting { get; set; }
-        public Setting UnpressedActionSetting { get; set; }
-
-        public ButtonSettings SetPressedAction( Setting pressedActionSetting )
-        {
-            PressedActionSetting = pressedActionSetting;
-            return this;
-        }
-
-        public ButtonSettings SetUnpressedAction( Setting unpressedActionSetting )
-        {
-            UnpressedActionSetting = unpressedActionSetting;
-            return this;
-        }
-    }
-
-    public class Setting : Dictionary<String, Object>
-    {
-        public T Get<T>( String key )
-        {
-            return (T)Convert.ChangeType( this[ key ], typeof( T ) );
         }
     }
 }

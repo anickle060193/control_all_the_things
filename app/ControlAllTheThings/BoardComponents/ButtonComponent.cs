@@ -201,24 +201,32 @@ namespace ControlAllTheThings.BoardComponents
             ChooseUnpressedAction();
         }
 
+        class ButtonComponentSettings : ISetting
+        {
+            public BoardAction PressedActionSetting { get; set; }
+            public BoardAction UnpressedActionSetting { get; set; }
+        }
+
         public override void SaveSettings( Settings settings )
         {
-            settings.AddButtonSettings( this.Name )
-                .SetPressedAction( BoardAction.ToSetting( PressedAction ) )
-                .SetUnpressedAction( BoardAction.ToSetting( UnpressedAction ) );
+            settings[ this.Name ] = new ButtonComponentSettings()
+            {
+                PressedActionSetting = this.PressedAction,
+                UnpressedActionSetting = this.UnpressedAction
+            };
         }
 
         public override void LoadSettings( Settings settings )
         {
             if( settings.ContainsKey( this.Name ) )
             {
-                ButtonSettings bs = settings[ this.Name ];
-                BoardAction pa = BoardAction.FromSetting( bs.PressedActionSetting );
+                ButtonComponentSettings s = (ButtonComponentSettings)settings[ this.Name ];
+                BoardAction pa = s.PressedActionSetting;
                 if( pa != null && pa.Valid( BoardInterface ) )
                 {
                     PressedAction = pa;
                 }
-                BoardAction ua = BoardAction.FromSetting( bs.UnpressedActionSetting );
+                BoardAction ua = s.UnpressedActionSetting;
                 if( ua != null && ua.Valid( BoardInterface ) )
                 {
                     UnpressedAction = ua;
