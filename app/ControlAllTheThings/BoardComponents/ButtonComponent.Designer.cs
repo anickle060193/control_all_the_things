@@ -1,4 +1,4 @@
-﻿namespace ControlAllTheThings
+﻿namespace ControlAllTheThings.BoardComponents
 {
     partial class ButtonComponent
     {

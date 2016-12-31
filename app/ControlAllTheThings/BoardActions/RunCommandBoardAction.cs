@@ -39,7 +39,7 @@ namespace ControlAllTheThings.BoardActions
             }
             catch( Win32Exception e )
             {
-                String message =  String.Format( "An error occured while running the command: FileName: \"{0}\" Arguments: \"{1}\"\n{2}", FileName, Arguments, e )
+                String message = String.Format( "An error occured while running the command: FileName: \"{0}\" Arguments: \"{1}\"\n{2}", FileName, Arguments, e );
                 Logger.Log( message );
                 MessageBox.Show( message );
             }

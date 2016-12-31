@@ -2,6 +2,7 @@
 using CommandMessenger.Transport;
 using CommandMessenger.Transport.Serial;
 using ControlAllTheThings.BoardActions;
+using ControlAllTheThings.BoardComponents;
 using ControlAllTheThings.Properties;
 using Newtonsoft.Json;
 using System;
@@ -77,60 +78,27 @@ namespace ControlAllTheThings
             String settingsFileLocation = Properties.Settings.Default.SettingsFileLocation;
             SettingsFileLocationDialog.FileName = settingsFileLocation;
 
-            try
+            Settings settings = Settings.Load( settingsFileLocation );
+            if( settings != null )
             {
-                String s = null;
-                using( StreamReader r = new StreamReader( settingsFileLocation ) )
-                {
-                    s = r.ReadToEnd();
-                }
-                Settings settings = JsonConvert.DeserializeObject<Settings>( s );
                 foreach( ButtonComponent b in _buttons.Values )
                 {
-                    if( settings.ContainsKey( b.Name ) )
-                    {
-                        ButtonSettings bs = settings[ b.Name ];
-                        BoardAction pa = BoardAction.FromSetting( bs.PressedActionSetting );
-                        if( pa != null && pa.Valid( _board ) )
-                        {
-                            b.PressedAction = pa;
-                        }
-                        BoardAction ua = BoardAction.FromSetting( bs.UnpressedActionSetting );
-                        if( ua != null && ua.Valid( _board ) )
-                        {
-                            b.UnpressedAction = ua;
-                        }
-                    }
+                    b.LoadSettings( settings );
                 }
             }
-            catch( IOException ) { }
-            catch( JsonException ) { }
         }
 
         private void SaveSettings()
         {
-            try
-            {
-                Settings settings = new Settings();
-                foreach( ButtonComponent b in _buttons.Values )
-                {
-                    settings.AddButtonSettings( b.Name )
-                        .SetPressedAction( BoardAction.ToSetting( b.PressedAction ) )
-                        .SetUnpressedAction( BoardAction.ToSetting( b.UnpressedAction ) );
-                }
-                String s = JsonConvert.SerializeObject( settings, Formatting.Indented );
-
-                String settingsFileLocation = Properties.Settings.Default.SettingsFileLocation;
-                using( StreamWriter w = new StreamWriter( settingsFileLocation ) )
-                {
-                    w.Write( s );
-                }
-            }
-            catch( IOException ) { }
-            catch( JsonException ) { }
-
             Properties.Settings.Default.MinimizeToSystemTray = MinimizeToSystemTrayMenuItem.Checked;
             Properties.Settings.Default.Save();
+
+            Settings settings = new Settings();
+            foreach( ButtonComponent b in _buttons.Values )
+            {
+                b.SaveSettings( settings );
+            }
+            settings.Save( Properties.Settings.Default.SettingsFileLocation );
         }
 
         private NotifyIcon CreateNotifyIcon()

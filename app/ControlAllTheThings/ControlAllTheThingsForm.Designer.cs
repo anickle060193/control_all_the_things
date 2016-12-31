@@ -41,14 +41,14 @@
             this.SettingsFileLocationDialog = new System.Windows.Forms.OpenFileDialog();
             this.MinimizeToSystemTrayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RunOnStartup = new System.Windows.Forms.ToolStripMenuItem();
-            this.WhiteButton = new ControlAllTheThings.ButtonComponent();
-            this.BlueButton = new ControlAllTheThings.ButtonComponent();
-            this.GreenButton = new ControlAllTheThings.ButtonComponent();
-            this.YellowButton = new ControlAllTheThings.ButtonComponent();
-            this.BlueLatch = new ControlAllTheThings.ButtonComponent();
-            this.WhiteLatch = new ControlAllTheThings.ButtonComponent();
-            this.GreenLatch = new ControlAllTheThings.ButtonComponent();
-            this.YellowLatch = new ControlAllTheThings.ButtonComponent();
+            this.WhiteButton = new ControlAllTheThings.BoardComponents.ButtonComponent();
+            this.BlueButton = new ControlAllTheThings.BoardComponents.ButtonComponent();
+            this.GreenButton = new ControlAllTheThings.BoardComponents.ButtonComponent();
+            this.YellowButton = new ControlAllTheThings.BoardComponents.ButtonComponent();
+            this.BlueLatch = new ControlAllTheThings.BoardComponents.ButtonComponent();
+            this.WhiteLatch = new ControlAllTheThings.BoardComponents.ButtonComponent();
+            this.GreenLatch = new ControlAllTheThings.BoardComponents.ButtonComponent();
+            this.YellowLatch = new ControlAllTheThings.BoardComponents.ButtonComponent();
             this.StatusStrip.SuspendLayout();
             this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -298,21 +298,21 @@
 
         #endregion
 
-        private ButtonComponent YellowLatch;
+        private BoardComponents.ButtonComponent YellowLatch;
         private System.Windows.Forms.TextBox LogTextBox;
-        private ButtonComponent GreenLatch;
+        private BoardComponents.ButtonComponent GreenLatch;
         private System.Windows.Forms.StatusStrip StatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel StatusStripSpring;
         private System.Windows.Forms.ToolStripStatusLabel ConnectionStatusLabel;
         private System.Windows.Forms.ToolStripProgressBar ConnectionStatusProgressBar;
         private System.Windows.Forms.MenuStrip MenuStrip;
         private System.Windows.Forms.ToolStripMenuItem OptionsMenu;
-        private ButtonComponent WhiteLatch;
-        private ButtonComponent BlueLatch;
-        private ButtonComponent YellowButton;
-        private ButtonComponent GreenButton;
-        private ButtonComponent BlueButton;
-        private ButtonComponent WhiteButton;
+        private BoardComponents.ButtonComponent WhiteLatch;
+        private BoardComponents.ButtonComponent BlueLatch;
+        private BoardComponents.ButtonComponent YellowButton;
+        private BoardComponents.ButtonComponent GreenButton;
+        private BoardComponents.ButtonComponent BlueButton;
+        private BoardComponents.ButtonComponent WhiteButton;
         private System.Windows.Forms.ToolStripMenuItem ChooseSettingsLocationMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ViewLogFileMenuItem;
         private System.Windows.Forms.OpenFileDialog SettingsFileLocationDialog;

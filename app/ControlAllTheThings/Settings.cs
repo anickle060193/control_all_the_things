@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +15,38 @@ namespace ControlAllTheThings
             ButtonSettings s = new ButtonSettings();
             this[ buttonName ] = s;
             return s;
+        }
+
+        public void Save( String settingsFileName )
+        {
+            try
+            {
+                String s = JsonConvert.SerializeObject( this, Formatting.Indented );
+
+                using( StreamWriter w = new StreamWriter( settingsFileName ) )
+                {
+                    w.Write( s );
+                }
+            }
+            catch( IOException ) { }
+            catch( JsonException ) { }
+        }
+
+        public static Settings Load( String settingsFileName )
+        {
+            try
+            {
+                String s = null;
+                using( StreamReader r = new StreamReader( settingsFileName ) )
+                {
+                    s = r.ReadToEnd();
+                }
+                return JsonConvert.DeserializeObject<Settings>( s );
+            }
+            catch( IOException ) { }
+            catch( JsonException ) { }
+
+            return null;
         }
     }
 

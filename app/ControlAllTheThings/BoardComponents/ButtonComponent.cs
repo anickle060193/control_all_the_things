@@ -10,9 +10,9 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using ControlAllTheThings.BoardActions;
 
-namespace ControlAllTheThings
+namespace ControlAllTheThings.BoardComponents
 {
-    public partial class ButtonComponent : UserControl
+    public partial class ButtonComponent : Component
     {
         private Color _pressedColor;
         private Color _unpressedColor;
@@ -199,6 +199,31 @@ namespace ControlAllTheThings
                 return;
             }
             ChooseUnpressedAction();
+        }
+
+        public override void SaveSettings( Settings settings )
+        {
+            settings.AddButtonSettings( this.Name )
+                .SetPressedAction( BoardAction.ToSetting( PressedAction ) )
+                .SetUnpressedAction( BoardAction.ToSetting( UnpressedAction ) );
+        }
+
+        public override void LoadSettings( Settings settings )
+        {
+            if( settings.ContainsKey( this.Name ) )
+            {
+                ButtonSettings bs = settings[ this.Name ];
+                BoardAction pa = BoardAction.FromSetting( bs.PressedActionSetting );
+                if( pa != null && pa.Valid( BoardInterface ) )
+                {
+                    PressedAction = pa;
+                }
+                BoardAction ua = BoardAction.FromSetting( bs.UnpressedActionSetting );
+                if( ua != null && ua.Valid( BoardInterface ) )
+                {
+                    UnpressedAction = ua;
+                }
+            }
         }
     }
 }

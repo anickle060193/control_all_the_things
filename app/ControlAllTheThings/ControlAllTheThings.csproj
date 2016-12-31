@@ -58,11 +58,14 @@
     <Compile Include="BoardActions\SetLedBoardAction.cs" />
     <Compile Include="BoardActions\SetPinBoardAction.cs" />
     <Compile Include="BoardActions\TogglePinBoardAction.cs" />
-    <Compile Include="BoardInterface.cs" />
-    <Compile Include="ButtonComponent.cs">
+    <Compile Include="BoardComponents\Component.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ButtonComponent.Designer.cs">
+    <Compile Include="BoardInterface.cs" />
+    <Compile Include="BoardComponents\ButtonComponent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BoardComponents\ButtonComponent.Designer.cs">
       <DependentUpon>ButtonComponent.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlAllTheThingsForm.cs">
@@ -78,7 +81,7 @@
     <EmbeddedResource Include="ActionForm.resx">
       <DependentUpon>ActionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ButtonComponent.resx">
+    <EmbeddedResource Include="BoardComponents\ButtonComponent.resx">
       <DependentUpon>ButtonComponent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlAllTheThingsForm.resx">
