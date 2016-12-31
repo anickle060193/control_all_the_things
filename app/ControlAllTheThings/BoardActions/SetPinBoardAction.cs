@@ -21,5 +21,10 @@ namespace ControlAllTheThings.BoardActions
         {
             b.SetPin( Pin, SetToState );
         }
+
+        public override bool Valid( BoardInterface b )
+        {
+            return b.OutputPins.Contains( Pin );
+        }
     }
 }

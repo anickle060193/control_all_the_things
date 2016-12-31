@@ -82,8 +82,16 @@ namespace ControlAllTheThings
                     if( settings.ContainsKey( b.Name ) )
                     {
                         ButtonSettings bs = settings[ b.Name ];
-                        b.PressedAction = BoardAction.FromSetting( bs.PressedActionSetting );
-                        b.UnpressedAction = BoardAction.FromSetting( bs.UnpressedActionSetting );
+                        BoardAction pa = BoardAction.FromSetting( bs.PressedActionSetting );
+                        if( pa.Valid( _board ) )
+                        {
+                            b.PressedAction = pa;
+                        }
+                        BoardAction ua = BoardAction.FromSetting( bs.UnpressedActionSetting );
+                        if( ua.Valid( _board ) )
+                        {
+                            b.UnpressedAction = ua;
+                        }
                     }
                 }
             }

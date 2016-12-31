@@ -19,5 +19,10 @@ namespace ControlAllTheThings.BoardActions
         {
             b.SetLed( SetToState );
         }
+
+        public override bool Valid( BoardInterface b )
+        {
+            return true;
+        }
     }
 }

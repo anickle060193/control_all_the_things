@@ -9,6 +9,7 @@ namespace ControlAllTheThings.BoardActions
     public abstract class BoardAction
     {
         public abstract void Perform( BoardInterface b );
+        public abstract bool Valid( BoardInterface b );
 
         public static Setting ToSetting( BoardAction a )
         {
