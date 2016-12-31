@@ -1,8 +1,9 @@
 {
   "YellowButton": {
     "PressedActionSetting": {
-      "ActionName": "TogglePin",
-      "Pin": 1
+      "ActionName": "RunCommand",
+      "FileName": "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
+      "Arguments": ""
     },
     "UnpressedActionSetting": null
   },

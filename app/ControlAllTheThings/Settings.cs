@@ -34,5 +34,11 @@ namespace ControlAllTheThings
         }
     }
 
-    public class Setting : Dictionary<String, Object> { }
+    public class Setting : Dictionary<String, Object>
+    {
+        public T Get<T>( String key )
+        {
+            return (T)Convert.ChangeType( this[ key ], typeof( T ) );
+        }
+    }
 }

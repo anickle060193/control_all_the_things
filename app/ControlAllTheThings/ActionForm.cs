@@ -26,15 +26,17 @@ namespace ControlAllTheThings
 
             DialogResult = DialogResult.Cancel;
 
+            NoAction.Tag = NoActionLabel;
             SetLedAction.Tag = SetLedActionOptions;
             SetPinAction.Tag = SetPinActionOptions;
             TogglePinAction.Tag = TogglePinActionOptions;
-            NoAction.Tag = NoActionLabel;
+            RunCommandAction.Tag = RunCommandActionOptions;
 
+            NoActionLabel.Enabled = false;
             SetLedActionOptions.Enabled = false;
             SetPinActionOptions.Enabled = false;
             TogglePinActionOptions.Enabled = false;
-            NoActionLabel.Enabled = false;
+            RunCommandActionOptions.Enabled = false;
 
             if( Board != null )
             {
@@ -58,28 +60,35 @@ namespace ControlAllTheThings
         {
             if( action is SetLedBoardAction )
             {
-                SetLedBoardAction a = action as SetLedBoardAction;
                 SetLedAction.Checked = true;
+                SetLedBoardAction a = action as SetLedBoardAction;
                 SetLedActionStateOption.Checked = a.SetToState;
             }
             else if( action is SetPinBoardAction )
             {
+                SetPinAction.Checked = true;
                 SetPinBoardAction a = action as SetPinBoardAction;
                 if( Board.OutputPins.Contains( a.Pin ) )
                 {
-                    SetPinAction.Checked = true;
                     SetPinActionPinOption.SelectedItem = a.Pin;
-                    SetPinActionStateOption.Checked = a.SetToState;
                 }
+                SetPinActionStateOption.Checked = a.SetToState;
             }
             else if( action is TogglePinBoardAction )
             {
+                TogglePinAction.Checked = true;
                 TogglePinBoardAction a = action as TogglePinBoardAction;
                 if( Board.OutputPins.Contains( a.Pin ) )
                 {
-                    TogglePinAction.Checked = true;
                     TogglePinActionPinOption.SelectedItem = a.Pin;
                 }
+            }
+            else if( action is RunCommandBoardAction )
+            {
+                RunCommandAction.Checked = true;
+                RunCommandBoardAction a = action as RunCommandBoardAction;
+                RunCommandActionFileNameOption.Text = a.FileName;
+                RunCommandActionArgumentsOption.Text = a.Arguments;
             }
             else
             {
@@ -127,6 +136,17 @@ namespace ControlAllTheThings
                     MessageBox.Show( "Must select pin." );
                 }
             }
+            else if( RunCommandAction.Checked )
+            {
+                String fileName = RunCommandActionFileNameOption.Text;
+                String arguments = RunCommandActionArgumentsOption.Text;
+                if( !String.IsNullOrWhiteSpace( fileName ) )
+                {
+                    action = new RunCommandBoardAction( fileName, arguments );
+                    return true;
+                }
+            }
+
             action = null;
             return false;
         }

@@ -44,6 +44,16 @@ namespace ControlAllTheThings.BoardActions
                         { "Pin", action.Pin }
                     };
                 }
+                else if( actionType == typeof( RunCommandBoardAction ) )
+                {
+                    RunCommandBoardAction action = a as RunCommandBoardAction;
+                    return new Setting()
+                    {
+                        { "ActionName", "RunCommand" },
+                        { "FileName", action.FileName },
+                        { "Arguments", action.Arguments }
+                    };
+                }
             }
             return null;
         }
@@ -54,22 +64,28 @@ namespace ControlAllTheThings.BoardActions
             {
                 if( setting != null )
                 {
-                    String actionName = (String)setting[ "ActionName" ];
+                    String actionName = setting.Get<String>( "ActionName" );
                     if( actionName == "SetLed" )
                     {
-                        bool setToState = (bool)setting[ "SetToState" ];
+                        bool setToState = setting.Get<bool>( "SetToState" );
                         return new SetLedBoardAction( setToState );
                     }
                     else if( actionName == "SetPin" )
                     {
-                        int pin = (int)(long)setting[ "Pin" ];
-                        bool setToState = (bool)setting[ "SetToState" ];
+                        int pin = setting.Get<int>( "Pin" );
+                        bool setToState = setting.Get<bool>( "SetToState" );
                         return new SetPinBoardAction( pin, setToState );
                     }
                     else if( actionName == "TogglePin" )
                     {
-                        int pin = (int)(long)setting[ "Pin" ];
+                        int pin = setting.Get<int>( "Pin" );
                         return new TogglePinBoardAction( pin );
+                    }
+                    else if( actionName == "RunCommand" )
+                    {
+                        String fileName = setting.Get<String>( "FileName" );
+                        String arguments = setting.Get<String>( "Arguments" );
+                        return new RunCommandBoardAction( fileName, arguments );
                     }
                 }
             }
