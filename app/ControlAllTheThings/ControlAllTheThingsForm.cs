@@ -13,6 +13,7 @@ using System.Drawing;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -68,6 +69,8 @@ namespace ControlAllTheThings
 
         private void LoadSettings()
         {
+            RunOnStartup.Checked = File.Exists( GetStartupShortcutLocation() );
+
             MinimizeToSystemTrayMenuItem.Checked = Properties.Settings.Default.MinimizeToSystemTray;
             String settingsFileLocation = Properties.Settings.Default.SettingsFileLocation;
             SettingsFileLocationDialog.FileName = settingsFileLocation;
@@ -141,6 +144,11 @@ namespace ControlAllTheThings
             icon.ContextMenu = menu;
 
             return icon;
+        }
+
+        private String GetStartupShortcutLocation()
+        {
+            return Path.Combine( Environment.GetFolderPath( Environment.SpecialFolder.Startup ), "ControlAllTheThings.lnk" );
         }
 
         #region Board Interface Event Handlers
@@ -233,6 +241,26 @@ namespace ControlAllTheThings
                 }
             }
             Properties.Settings.Default.Save();
+        }
+
+        private void RunOnStartup_CheckedChanged( object sender, EventArgs e )
+        {
+            String shortcutAddress = GetStartupShortcutLocation();
+            if( RunOnStartup.Checked )
+            {
+                Assembly assembly = Assembly.GetEntryAssembly();
+                String targetPath = Path.GetFullPath( new Uri( assembly.CodeBase ).LocalPath );
+                String workingDirectory = Path.GetDirectoryName( targetPath );
+                var shell = new IWshRuntimeLibrary.WshShell();
+                var shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut( shortcutAddress );
+                shortcut.TargetPath = targetPath;
+                shortcut.WorkingDirectory = workingDirectory;
+                shortcut.Save();
+            }
+            else
+            {
+                File.Delete( shortcutAddress );
+            }
         }
 
         #endregion

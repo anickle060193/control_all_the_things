@@ -40,6 +40,7 @@
             this.ViewLogFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SettingsFileLocationDialog = new System.Windows.Forms.OpenFileDialog();
             this.MinimizeToSystemTrayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RunOnStartup = new System.Windows.Forms.ToolStripMenuItem();
             this.WhiteButton = new ControlAllTheThings.ButtonComponent();
             this.BlueButton = new ControlAllTheThings.ButtonComponent();
             this.GreenButton = new ControlAllTheThings.ButtonComponent();
@@ -110,6 +111,7 @@
             this.OptionsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ChooseSettingsLocationMenuItem,
             this.MinimizeToSystemTrayMenuItem,
+            this.RunOnStartup,
             this.ViewLogFileMenuItem});
             this.OptionsMenu.Name = "OptionsMenu";
             this.OptionsMenu.Size = new System.Drawing.Size(61, 20);
@@ -144,6 +146,14 @@
             this.MinimizeToSystemTrayMenuItem.Name = "MinimizeToSystemTrayMenuItem";
             this.MinimizeToSystemTrayMenuItem.Size = new System.Drawing.Size(217, 22);
             this.MinimizeToSystemTrayMenuItem.Text = "Minimize to System Tray";
+            // 
+            // RunOnStartup
+            // 
+            this.RunOnStartup.CheckOnClick = true;
+            this.RunOnStartup.Name = "RunOnStartup";
+            this.RunOnStartup.Size = new System.Drawing.Size(217, 22);
+            this.RunOnStartup.Text = "Run on Startup";
+            this.RunOnStartup.CheckedChanged += new System.EventHandler(this.RunOnStartup_CheckedChanged);
             // 
             // WhiteButton
             // 
@@ -307,6 +317,7 @@
         private System.Windows.Forms.ToolStripMenuItem ViewLogFileMenuItem;
         private System.Windows.Forms.OpenFileDialog SettingsFileLocationDialog;
         private System.Windows.Forms.ToolStripMenuItem MinimizeToSystemTrayMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem RunOnStartup;
 
     }
 }
