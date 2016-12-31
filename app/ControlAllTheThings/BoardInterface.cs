@@ -72,8 +72,6 @@ namespace ControlAllTheThings
         private readonly CmdMessenger _messenger;
         private readonly ConnectionManager _connectionManager;
 
-        public Logger Logger { get; private set; }
-
         public List<int> OutputPins { get; private set; }
         public List<int> InputPins { get; private set; }
 
@@ -82,8 +80,6 @@ namespace ControlAllTheThings
 
         public BoardInterface( Control c )
         {
-            Logger = new ControlAllTheThings.Logger();
-
             OutputPins = new List<int>();
             InputPins = new List<int>();
 
@@ -307,7 +303,6 @@ namespace ControlAllTheThings
 
         public void Dispose()
         {
-            Logger.Dispose();
             _messenger.Disconnect();
             _messenger.Dispose();
             _transport.Dispose();

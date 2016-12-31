@@ -34,6 +34,8 @@ namespace ControlAllTheThings
         {
             InitializeComponent();
 
+            Logger.Init();
+
             _board = new BoardInterface( this );
             _board.Connected += Board_Connected;
             _board.Disconnected += Board_Disconnected;
@@ -194,6 +196,7 @@ namespace ControlAllTheThings
             base.OnClosed( e );
 
             _board.Dispose();
+            Logger.Close();
         }
 
         private void Exit_Click( object sender, EventArgs e )
@@ -203,7 +206,11 @@ namespace ControlAllTheThings
 
         private void ViewLogFileMenuItem_Click( object sender, EventArgs e )
         {
-            Process.Start( "explorer.exe", String.Format( "/select,{0}", _board.Logger.FileName ) );
+            String logFileName = Logger.GetFileName();
+            if( logFileName != null )
+            {
+                Process.Start( "explorer.exe", String.Format( "/select,{0}", Logger.GetFileName() ) );
+            }
         }
 
         private void ChooseSettingsLocation_Click( object sender, EventArgs e )

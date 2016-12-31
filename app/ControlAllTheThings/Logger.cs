@@ -7,30 +7,26 @@ using System.Threading.Tasks;
 
 namespace ControlAllTheThings
 {
-    public class Logger : IDisposable
+    public static class Logger
     {
-        private readonly StreamWriter _writer;
+        private static StreamWriter _writer;
+        private static String _fileName;
 
-        public String FileName { get; private set; }
-
-        public Logger() : this( Path.Combine( Path.GetTempPath(), "control_all_the_things.log" ) )
+        public static void Init( String logFileName )
         {
+            Close();
+
+            _fileName = logFileName;
+            _writer = new StreamWriter( _fileName );
+            _writer.AutoFlush = true;
         }
 
-        public Logger( String logFileName )
+        public static void Init()
         {
-            FileName = logFileName;
-            try
-            {
-                _writer = new StreamWriter( FileName );
-                _writer.AutoFlush = true;
-            }
-            catch( IOException )
-            {
-            }
+            Init( Path.Combine( Path.GetTempPath(), "control_all_the_things.log" ) );
         }
 
-        public void Log( String format, params Object[] args )
+        public static void Log( String format, params Object[] args )
         {
             String message = String.Format( format, args );
             try
@@ -42,14 +38,18 @@ namespace ControlAllTheThings
             }
         }
 
-        public void Dispose()
+        public static String GetFileName()
         {
-            try
+            return _fileName;
+        }
+
+        public static void Close()
+        {
+            if( _writer != null )
             {
                 _writer.Close();
-            }
-            catch( IOException )
-            {
+                _writer = null;
+                _fileName = null;
             }
         }
     }

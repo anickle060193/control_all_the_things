@@ -22,6 +22,7 @@ namespace ControlAllTheThings.BoardActions
 
         public override void Perform( BoardInterface b )
         {
+            Logger.Log( "RunCommandAction: FileName: \"{0}\" Arguments: \"{1}\"", FileName, Arguments );
             try
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo( FileName, Arguments );
@@ -32,12 +33,15 @@ namespace ControlAllTheThings.BoardActions
                 String stdout = p.StandardOutput.ReadToEnd();
                 if( !String.IsNullOrWhiteSpace( stdout ) )
                 {
+                    Logger.Log( "RunCommandAction: Output:\n{0}", stdout );
                     MessageBox.Show( stdout );
                 }
             }
             catch( Win32Exception e )
             {
-                MessageBox.Show( String.Format( "An error occured while running the command: \"{0} {1}\"\n{2}", FileName, Arguments, e ) );
+                String message =  String.Format( "An error occured while running the command: FileName: \"{0}\" Arguments: \"{1}\"\n{2}", FileName, Arguments, e )
+                Logger.Log( message );
+                MessageBox.Show( message );
             }
         }
 
