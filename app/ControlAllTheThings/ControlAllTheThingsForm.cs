@@ -43,6 +43,8 @@ namespace ControlAllTheThings
             _board.Log += Board_Log;
             _board.PinSet += Board_PinSet;
 
+            _board.OutputPins.AddRange( LED_PINS );
+
             _buttons.Add(  0, YellowButton );
             _buttons.Add(  4, GreenButton );
             _buttons.Add(  7, BlueButton );
@@ -63,7 +65,6 @@ namespace ControlAllTheThings
             this.FormClosed += ( sender, e ) => SaveSettings();
 
             _board.InputPins.AddRange( _buttons.Keys );
-            _board.OutputPins.AddRange( LED_PINS );
 
             LoadSettings();
 
