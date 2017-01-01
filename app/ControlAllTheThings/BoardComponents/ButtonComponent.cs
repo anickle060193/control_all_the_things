@@ -17,8 +17,8 @@ namespace ControlAllTheThings.BoardComponents
         private Color _pressedColor;
         private Color _unpressedColor;
 
-        private BoardAction _pressedAction;
-        private BoardAction _unpressedAction;
+        private List<BoardAction> _pressedActions = new List<BoardAction>();
+        private List<BoardAction> _unpressedActions = new List<BoardAction>();
 
         private bool _pressed;
         private int _pin;
@@ -35,28 +35,6 @@ namespace ControlAllTheThings.BoardComponents
         }
 
         public BoardInterface BoardInterface { get; set; }
-
-        [Browsable( false )]
-        public BoardAction PressedAction
-        {
-            get { return _pressedAction; }
-            set
-            {
-                _pressedAction = value;
-                ClearPressedAction.Enabled = _pressedAction != null;
-            }
-        }
-
-        [Browsable( false )]
-        public BoardAction UnpressedAction
-        {
-            get { return _unpressedAction; }
-            set
-            {
-                _unpressedAction = value;
-                ClearUnpressedAction.Enabled = _unpressedAction != null;
-            }
-        }
 
         [DefaultValue( typeof( Color ), "LightGray" )]
         public Color UnpressedColor
@@ -118,16 +96,16 @@ namespace ControlAllTheThings.BoardComponents
                 {
                     if( _pressed )
                     {
-                        if( PressedAction != null )
+                        foreach( BoardAction b in _pressedActions )
                         {
-                            PressedAction.Perform( BoardInterface );
+                            b.Perform( BoardInterface );
                         }
                     }
                     else
                     {
-                        if( UnpressedAction != null )
+                        foreach( BoardAction b in _unpressedActions )
                         {
-                            UnpressedAction.Perform( BoardInterface );
+                            b.Perform( BoardInterface );
                         }
                     }
                 }
@@ -150,69 +128,71 @@ namespace ControlAllTheThings.BoardComponents
             }
         }
 
-        private bool ChoosePressedAction()
+        private bool ChoosePressedActions()
         {
-            ActionForm f = new ActionForm( "Pressed Action", PressedAction, BoardInterface );
-            if( f.ShowDialog() == DialogResult.OK )
+            ActionsForm a = new ActionsForm( BoardInterface, this.Name + " Pressed Actions", _pressedActions );
+            if( a.ShowDialog() == DialogResult.OK )
             {
-                PressedAction = f.Action;
+                _pressedActions.Clear();
+                _pressedActions.AddRange( a.BoardActions );
                 return true;
             }
             return false;
         }
 
-        private bool ChooseUnpressedAction()
+        private bool ChooseUnpressedActions()
         {
-            ActionForm f = new ActionForm( "Unpressed Action", UnpressedAction, BoardInterface );
-            if( f.ShowDialog() == DialogResult.OK )
+            ActionsForm a = new ActionsForm( BoardInterface, this.Name + " Unpressed Actions", _unpressedActions );
+            if( a.ShowDialog() == DialogResult.OK )
             {
-                UnpressedAction = f.Action;
+                _unpressedActions.Clear();
+                _unpressedActions.AddRange( a.BoardActions );
                 return true;
             }
             return false;
         }
 
-        private void SetPressedAction_Click( object sender, EventArgs e )
+        private void SetPressedActions_Click( object sender, EventArgs e )
         {
-            ChoosePressedAction();
+            ChoosePressedActions();
         }
 
-        private void SetUnpressedAction_Click( object sender, EventArgs e )
+        private void SetUnpressedActions_Click( object sender, EventArgs e )
         {
-            ChooseUnpressedAction();
+            ChooseUnpressedActions();
         }
 
-        private void ClearPressedAction_Click( object sender, EventArgs e )
+        private void ClearPressedActions_Click( object sender, EventArgs e )
         {
-            PressedAction = null;
+            _pressedActions.Clear();
         }
 
-        private void ClearUnpressedAction_Click( object sender, EventArgs e )
+        private void ClearUnpressedActions_Click( object sender, EventArgs e )
         {
-            UnpressedAction = null;
+            _unpressedActions.Clear();
         }
 
         private void ButtonComponent_DoubleClick( object sender, EventArgs e )
         {
-            if( !ChoosePressedAction() )
+            if( !ChoosePressedActions() )
             {
                 return;
             }
-            ChooseUnpressedAction();
+            ChooseUnpressedActions();
         }
 
         class ButtonComponentSettings : ISetting
         {
-            public BoardAction PressedActionSetting { get; set; }
-            public BoardAction UnpressedActionSetting { get; set; }
+            public List<BoardAction> PressedActionSetting = new List<BoardAction>();
+            public List<BoardAction> UnpressedActionSetting = new List<BoardAction>();
         }
 
         public override void SaveSettings( Settings settings )
         {
             settings[ this.Name ] = new ButtonComponentSettings()
             {
-                PressedActionSetting = this.PressedAction,
-                UnpressedActionSetting = this.UnpressedAction
+                PressedActionSetting = _pressedActions,
+                UnpressedActionSetting = _unpressedActions
             };
         }
 
@@ -221,16 +201,8 @@ namespace ControlAllTheThings.BoardComponents
             if( settings.ContainsKey( this.Name ) )
             {
                 ButtonComponentSettings s = (ButtonComponentSettings)settings[ this.Name ];
-                BoardAction pa = s.PressedActionSetting;
-                if( pa != null && pa.Valid( BoardInterface ) )
-                {
-                    PressedAction = pa;
-                }
-                BoardAction ua = s.UnpressedActionSetting;
-                if( ua != null && ua.Valid( BoardInterface ) )
-                {
-                    UnpressedAction = ua;
-                }
+                _pressedActions.AddRange( s.PressedActionSetting.FindAll( a => a.Valid( BoardInterface ) ) );
+                _unpressedActions.AddRange( s.UnpressedActionSetting.FindAll( a => a.Valid( BoardInterface ) ) );
             }
         }
     }

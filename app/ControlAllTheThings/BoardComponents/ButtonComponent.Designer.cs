@@ -30,57 +30,57 @@
         {
             this.components = new System.ComponentModel.Container();
             this.ButtonComponentContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.SetPressedAction = new System.Windows.Forms.ToolStripMenuItem();
-            this.ClearPressedAction = new System.Windows.Forms.ToolStripMenuItem();
+            this.SetPressedActions = new System.Windows.Forms.ToolStripMenuItem();
+            this.ClearPressedActions = new System.Windows.Forms.ToolStripMenuItem();
             this.ButtonComponentContextMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.SetUnpressedAction = new System.Windows.Forms.ToolStripMenuItem();
-            this.ClearUnpressedAction = new System.Windows.Forms.ToolStripMenuItem();
+            this.SetUnpressedActions = new System.Windows.Forms.ToolStripMenuItem();
+            this.ClearUnpressedActions = new System.Windows.Forms.ToolStripMenuItem();
             this.ButtonComponentContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // ButtonComponentContextMenu
             // 
             this.ButtonComponentContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SetPressedAction,
-            this.ClearPressedAction,
+            this.SetPressedActions,
+            this.ClearPressedActions,
             this.ButtonComponentContextMenuSeparator,
-            this.SetUnpressedAction,
-            this.ClearUnpressedAction});
+            this.SetUnpressedActions,
+            this.ClearUnpressedActions});
             this.ButtonComponentContextMenu.Name = "ContextMenu";
-            this.ButtonComponentContextMenu.Size = new System.Drawing.Size(198, 120);
+            this.ButtonComponentContextMenu.Size = new System.Drawing.Size(203, 120);
             // 
-            // SetPressedAction
+            // SetPressedActions
             // 
-            this.SetPressedAction.Name = "SetPressedAction";
-            this.SetPressedAction.Size = new System.Drawing.Size(197, 22);
-            this.SetPressedAction.Text = "Set Pressed Action";
-            this.SetPressedAction.Click += new System.EventHandler(this.SetPressedAction_Click);
+            this.SetPressedActions.Name = "SetPressedActions";
+            this.SetPressedActions.Size = new System.Drawing.Size(202, 22);
+            this.SetPressedActions.Text = "Set Pressed Actions";
+            this.SetPressedActions.Click += new System.EventHandler(this.SetPressedActions_Click);
             // 
-            // ClearPressedAction
+            // ClearPressedActions
             // 
-            this.ClearPressedAction.Name = "ClearPressedAction";
-            this.ClearPressedAction.Size = new System.Drawing.Size(197, 22);
-            this.ClearPressedAction.Text = "Clear Pressed Action";
-            this.ClearPressedAction.Click += new System.EventHandler(this.ClearPressedAction_Click);
+            this.ClearPressedActions.Name = "ClearPressedActions";
+            this.ClearPressedActions.Size = new System.Drawing.Size(202, 22);
+            this.ClearPressedActions.Text = "Clear Pressed Actions";
+            this.ClearPressedActions.Click += new System.EventHandler(this.ClearPressedActions_Click);
             // 
             // ButtonComponentContextMenuSeparator
             // 
             this.ButtonComponentContextMenuSeparator.Name = "ButtonComponentContextMenuSeparator";
-            this.ButtonComponentContextMenuSeparator.Size = new System.Drawing.Size(194, 6);
+            this.ButtonComponentContextMenuSeparator.Size = new System.Drawing.Size(199, 6);
             // 
-            // SetUnpressedAction
+            // SetUnpressedActions
             // 
-            this.SetUnpressedAction.Name = "SetUnpressedAction";
-            this.SetUnpressedAction.Size = new System.Drawing.Size(197, 22);
-            this.SetUnpressedAction.Text = "Set Unpressed Action";
-            this.SetUnpressedAction.Click += new System.EventHandler(this.SetUnpressedAction_Click);
+            this.SetUnpressedActions.Name = "SetUnpressedActions";
+            this.SetUnpressedActions.Size = new System.Drawing.Size(202, 22);
+            this.SetUnpressedActions.Text = "Set Unpressed Actions";
+            this.SetUnpressedActions.Click += new System.EventHandler(this.SetUnpressedActions_Click);
             // 
-            // ClearUnpressedAction
+            // ClearUnpressedActions
             // 
-            this.ClearUnpressedAction.Name = "ClearUnpressedAction";
-            this.ClearUnpressedAction.Size = new System.Drawing.Size(197, 22);
-            this.ClearUnpressedAction.Text = "Clear Unpressed Action";
-            this.ClearUnpressedAction.Click += new System.EventHandler(this.ClearUnpressedAction_Click);
+            this.ClearUnpressedActions.Name = "ClearUnpressedActions";
+            this.ClearUnpressedActions.Size = new System.Drawing.Size(202, 22);
+            this.ClearUnpressedActions.Text = "Clear Unpressed Actions";
+            this.ClearUnpressedActions.Click += new System.EventHandler(this.ClearUnpressedActions_Click);
             // 
             // ButtonComponent
             // 
@@ -101,11 +101,11 @@
         #endregion
 
         private System.Windows.Forms.ContextMenuStrip ButtonComponentContextMenu;
-        private System.Windows.Forms.ToolStripMenuItem SetPressedAction;
-        private System.Windows.Forms.ToolStripMenuItem SetUnpressedAction;
-        private System.Windows.Forms.ToolStripMenuItem ClearPressedAction;
+        private System.Windows.Forms.ToolStripMenuItem SetPressedActions;
+        private System.Windows.Forms.ToolStripMenuItem SetUnpressedActions;
+        private System.Windows.Forms.ToolStripMenuItem ClearPressedActions;
         private System.Windows.Forms.ToolStripSeparator ButtonComponentContextMenuSeparator;
-        private System.Windows.Forms.ToolStripMenuItem ClearUnpressedAction;
+        private System.Windows.Forms.ToolStripMenuItem ClearUnpressedActions;
 
     }
 }

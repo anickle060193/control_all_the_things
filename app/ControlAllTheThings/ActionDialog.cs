@@ -11,12 +11,12 @@ using System.Windows.Forms;
 
 namespace ControlAllTheThings
 {
-    public partial class ActionForm : Form
+    public partial class ActionDialog : Form
     {
         public BoardInterface Board { get; private set; }
         public BoardAction Action { get; private set; }
 
-        public ActionForm( String title, BoardAction currentAction, BoardInterface board )
+        public ActionDialog( String title, BoardAction currentAction, BoardInterface board )
         {
             InitializeComponent();
 
@@ -52,7 +52,7 @@ namespace ControlAllTheThings
             UpdateUiForAction( Action );
         }
 
-        public ActionForm() : this( "", null, null )
+        public ActionDialog() : this( "", null, null )
         {
         }
 

@@ -49,5 +49,10 @@ namespace ControlAllTheThings.BoardActions
         {
             return true;
         }
+
+        public override string ToString()
+        {
+            return String.Format( "RunCommand( FileName=\"{0}\", Arguments=\"{1}\" )", FileName, Arguments );
+        }
     }
 }

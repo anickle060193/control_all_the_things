@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,5 +11,31 @@ namespace ControlAllTheThings.BoardActions
     {
         public abstract void Perform( BoardInterface b );
         public abstract bool Valid( BoardInterface b );
+
+        private String FormatPropertyValue( Object value )
+        {
+            if( value is String )
+            {
+                return "\"" + (String)value + "\"";
+            }
+            else
+            {
+                return value.ToString();
+            }
+        }
+
+        public override string ToString()
+        {
+            Type t = this.GetType();
+            
+            List<String> propertyStrings = new List<String>();
+            foreach( PropertyInfo p in t.GetProperties() )
+            {
+                propertyStrings.Add( String.Format( "{0}={1}", p.Name, FormatPropertyValue( p.GetValue( this ) ) ) );
+            }
+
+            return String.Format( "{0}( {1} )", t.Name, String.Join( ", ", propertyStrings ) );
+
+        }
     }
 }

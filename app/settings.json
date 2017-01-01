@@ -1,86 +1,502 @@
 {
   "YellowButton": {
     "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
-    "PressedActionSetting": {
-      "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
-      "Pin": 1
-    },
-    "UnpressedActionSetting": null
+    "PressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 1
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 3
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 6
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 9
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 14
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 16
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 19
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 22
+      }
+    ],
+    "UnpressedActionSetting": []
   },
   "GreenButton": {
     "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
-    "PressedActionSetting": {
-      "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
-      "Pin": 3
-    },
-    "UnpressedActionSetting": null
+    "PressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 1
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 3
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 6
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 9
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 14
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 16
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 19
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 22
+      }
+    ],
+    "UnpressedActionSetting": []
   },
   "BlueButton": {
     "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
-    "PressedActionSetting": {
-      "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
-      "Pin": 6
-    },
-    "UnpressedActionSetting": null
+    "PressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 1
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 3
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 6
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 9
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 14
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 16
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 19
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 22
+      }
+    ],
+    "UnpressedActionSetting": []
   },
   "WhiteButton": {
     "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
-    "PressedActionSetting": {
-      "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
-      "Pin": 9
-    },
-    "UnpressedActionSetting": null
+    "PressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 1
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 3
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 6
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 9
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 14
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 16
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 19
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 22
+      }
+    ],
+    "UnpressedActionSetting": []
   },
   "YellowLatch": {
     "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
-    "PressedActionSetting": {
-      "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-      "Pin": 22,
-      "SetToState": true
-    },
-    "UnpressedActionSetting": {
-      "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-      "Pin": 22,
-      "SetToState": false
-    }
+    "PressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 1,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 3,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 6,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 9,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 14,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 16,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 19,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 22,
+        "SetToState": true
+      }
+    ],
+    "UnpressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 1,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 3,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 6,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 9,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 14,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 16,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 19,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 22,
+        "SetToState": false
+      }
+    ]
   },
   "GreenLatch": {
     "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
-    "PressedActionSetting": {
-      "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-      "Pin": 19,
-      "SetToState": true
-    },
-    "UnpressedActionSetting": {
-      "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-      "Pin": 19,
-      "SetToState": false
-    }
+    "PressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 1,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 3,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 6,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 9,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 14,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 16,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 19,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 22,
+        "SetToState": true
+      }
+    ],
+    "UnpressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 1,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 3,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 6,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 9,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 14,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 16,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 19,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 22,
+        "SetToState": false
+      }
+    ]
   },
   "BlueLatch": {
     "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
-    "PressedActionSetting": {
-      "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-      "Pin": 16,
-      "SetToState": true
-    },
-    "UnpressedActionSetting": {
-      "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-      "Pin": 16,
-      "SetToState": false
-    }
+    "PressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 1,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 3,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 6,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 9,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 14,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 16,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 19,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 22,
+        "SetToState": true
+      }
+    ],
+    "UnpressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 1,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 3,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 6,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 9,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 14,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 16,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 19,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 22,
+        "SetToState": false
+      }
+    ]
   },
   "WhiteLatch": {
     "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
-    "PressedActionSetting": {
-      "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-      "Pin": 14,
-      "SetToState": true
-    },
-    "UnpressedActionSetting": {
-      "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-      "Pin": 14,
-      "SetToState": false
-    }
+    "PressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 1,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 3,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 6,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 9,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 14,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 16,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 19,
+        "SetToState": true
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 22,
+        "SetToState": true
+      }
+    ],
+    "UnpressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 1,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 3,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 6,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 9,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 14,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 16,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 19,
+        "SetToState": false
+      },
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 22,
+        "SetToState": false
+      }
+    ]
   }
 }
