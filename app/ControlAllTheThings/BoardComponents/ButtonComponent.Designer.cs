@@ -47,7 +47,7 @@
             this.SetUnpressedActions,
             this.ClearUnpressedActions});
             this.ButtonComponentContextMenu.Name = "ContextMenu";
-            this.ButtonComponentContextMenu.Size = new System.Drawing.Size(203, 120);
+            this.ButtonComponentContextMenu.Size = new System.Drawing.Size(203, 98);
             // 
             // SetPressedActions
             // 
@@ -88,10 +88,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.ContextMenuStrip = this.ButtonComponentContextMenu;
-            this.MaximumSize = new System.Drawing.Size(40, 40);
-            this.MinimumSize = new System.Drawing.Size(40, 40);
             this.Name = "ButtonComponent";
-            this.Size = new System.Drawing.Size(36, 36);
+            this.Size = new System.Drawing.Size(40, 40);
             this.DoubleClick += new System.EventHandler(this.ButtonComponent_DoubleClick);
             this.ButtonComponentContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
