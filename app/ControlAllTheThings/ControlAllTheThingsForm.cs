@@ -130,6 +130,31 @@ namespace ControlAllTheThings
             _notifyIcon.Text = "Connected";
             _notifyIcon.Icon = SystemIcons.Application;
             ConnectionStatusProgressBar.Style = ProgressBarStyle.Continuous;
+
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += Board_Startup;
+            worker.RunWorkerCompleted += Board_StartupCompleted;
+            worker.RunWorkerAsync();
+        }
+
+        private void Board_Startup( Object sender, DoWorkEventArgs e )
+        {
+            foreach( int pin in _board.OutputPins )
+            {
+                _board.SetPin( pin, true );
+                Thread.Sleep( 200 );
+            }
+
+            foreach( int pin in _board.OutputPins )
+            {
+                _board.SetPin( pin, false );
+                Thread.Sleep( 200 );
+            }
+        }
+
+        private void Board_StartupCompleted( Object sender, RunWorkerCompletedEventArgs e )
+        {
+            _board.StartInitialization();
         }
 
         private void Board_Disconnected( object sender, EventArgs e )

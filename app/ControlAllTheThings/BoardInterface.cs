@@ -117,6 +117,17 @@ namespace ControlAllTheThings
             _connectionManager.StartConnectionManager();
         }
 
+        public void StartInitialization()
+        {
+            Initializing = true;
+
+            Logger.Log( "Initialization Started" );
+            OnLog( "+----- Initialization Started -----+" );
+
+            Logger.Log( "Sending Initialize()" );
+            _messenger.SendCommand( new SendCommand( (int)Command.Initialize ) );
+        }
+
         #region Command Senders
 
         public void SetLed( bool state )
@@ -181,14 +192,6 @@ namespace ControlAllTheThings
             {
                 Connected( this, EventArgs.Empty );
             }
-
-            Initializing = true;
-            
-            Logger.Log( "Initialization Started" );
-            OnLog( "+----- Initialization Started -----+" );
-
-            Logger.Log( "Sending Initialize()" );
-            _messenger.SendCommand( new SendCommand( (int)Command.Initialize ) );
         }
 
         private void OnDisconnected()
