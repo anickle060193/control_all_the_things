@@ -24,8 +24,6 @@ namespace ControlAllTheThings
 {
     public partial class ControlAllTheThingsForm : Form
     {
-        private static readonly int[] LED_PINS = { 1, 3, 6, 9, 14, 16, 19, 22 };
-
         private readonly List<BaseComponent> _components = new List<BaseComponent>();
 
         private readonly BoardInterface _board;
@@ -42,16 +40,14 @@ namespace ControlAllTheThings
             _board.Disconnected += Board_Disconnected;
             _board.Log += Board_Log;
 
-            _board.OutputPins.AddRange( LED_PINS );
-
             _components.Add( YellowButton );
             _components.Add( GreenButton );
             _components.Add( BlueButton );
             _components.Add( WhiteButton );
-            _components.Add( YellowLatch );
-            _components.Add( GreenLatch );
-            _components.Add( BlueLatch );
             _components.Add( WhiteLatch );
+            _components.Add( BlueLatch );
+            _components.Add( GreenLatch );
+            _components.Add( YellowLatch );
 
             foreach( BaseComponent c in _components )
             {
@@ -133,17 +129,16 @@ namespace ControlAllTheThings
 
         private void Board_Startup( Object sender, DoWorkEventArgs e )
         {
-            foreach( int pin in _board.OutputPins )
+            for( int i = 0; i < _board.OutputPins.Count + 1; i++ )
             {
-                _board.SetPin( pin, true );
-                Thread.Sleep( 200 );
+                if( i - 1 >= 0 )
+                {
+                    _board.SetPin( _board.OutputPins[ i - 1 ], false );
+                }
+                _board.SetPin( _board.OutputPins[ i ], true );
+                Thread.Sleep( 100 );
             }
-
-            foreach( int pin in _board.OutputPins )
-            {
-                _board.SetPin( pin, false );
-                Thread.Sleep( 200 );
-            }
+            _board.SetPin( _board.OutputPins.Last(), false );
         }
 
         private void Board_StartupCompleted( Object sender, RunWorkerCompletedEventArgs e )

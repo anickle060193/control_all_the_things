@@ -191,10 +191,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ContextMenuStrip = this.ButtonComponentContextMenu;
             this.Name = "ButtonComponent";
             this.Size = new System.Drawing.Size(40, 40);
+            this.Load += new System.EventHandler(this.ButtonComponent_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ButtonComponent_Paint);
             this.DoubleClick += new System.EventHandler(this.ButtonComponent_DoubleClick);
             this.ButtonComponentContextMenu.ResumeLayout(false);

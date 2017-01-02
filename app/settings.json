@@ -39,34 +39,19 @@
     ],
     "UnpressedActionSetting": []
   },
-  "YellowLatch": {
+  "WhiteLatch": {
     "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
     "PressedActionSetting": [
       {
         "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 22,
+        "Pin": 14,
         "SetToState": true
       }
     ],
     "UnpressedActionSetting": [
       {
-        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
-        "Pin": 22
-      }
-    ]
-  },
-  "GreenLatch": {
-    "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
-    "PressedActionSetting": [
-      {
-        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
-        "Pin": 19
-      }
-    ],
-    "UnpressedActionSetting": [
-      {
         "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 19,
+        "Pin": 14,
         "SetToState": false
       }
     ]
@@ -88,20 +73,36 @@
       }
     ]
   },
-  "WhiteLatch": {
+  "GreenLatch": {
     "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
     "PressedActionSetting": [
       {
         "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 14,
+        "Pin": 19,
         "SetToState": true
       }
     ],
     "UnpressedActionSetting": [
       {
         "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 14,
+        "Pin": 19,
         "SetToState": false
+      }
+    ]
+  },
+  "YellowLatch": {
+    "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
+    "PressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": 22,
+        "SetToState": true
+      }
+    ],
+    "UnpressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 22
       }
     ]
   }

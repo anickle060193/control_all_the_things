@@ -67,6 +67,12 @@
     <Compile Include="BoardComponents\BaseComponent.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="BoardComponents\LedButtonComponent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BoardComponents\LedButtonComponent.Designer.cs">
+      <DependentUpon>LedButtonComponent.cs</DependentUpon>
+    </Compile>
     <Compile Include="BoardInterface.cs" />
     <Compile Include="BoardComponents\ButtonComponent.cs">
       <SubType>UserControl</SubType>
@@ -92,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BoardComponents\ButtonComponent.resx">
       <DependentUpon>ButtonComponent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BoardComponents\LedButtonComponent.resx">
+      <DependentUpon>LedButtonComponent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlAllTheThingsForm.resx">
       <DependentUpon>ControlAllTheThingsForm.cs</DependentUpon>

@@ -14,9 +14,6 @@ namespace ControlAllTheThings.BoardComponents
 {
     public partial class ButtonComponent : BaseComponent
     {
-        private Color _pressedColor;
-        private Color _unpressedColor;
-
         private List<BoardAction> _pressedActions = new List<BoardAction>();
         private List<BoardAction> _unpressedActions = new List<BoardAction>();
 
@@ -27,39 +24,8 @@ namespace ControlAllTheThings.BoardComponents
         {
             InitializeComponent();
 
-            UnpressedColor = Color.LightGray;
-            PressedColor = Color.DarkGray;
-
             Pressed = false;
             Pin = -1;
-        }
-
-        [DefaultValue( typeof( Color ), "LightGray" )]
-        public Color UnpressedColor
-        {
-            get { return _unpressedColor; }
-            set
-            {
-                _unpressedColor = value;
-                if( !this.Pressed )
-                {
-                    this.BackColor = _unpressedColor;
-                }
-            }
-        }
-
-        [DefaultValue( typeof( Color ), "DarkGray" )]
-        public Color PressedColor
-        {
-            get { return _pressedColor; }
-            set
-            {
-                _pressedColor = value;
-                if( this.Pressed )
-                {
-                    this.BackColor = _pressedColor;
-                }
-            }
         }
 
         [DefaultValue( -1 )]
@@ -80,14 +46,6 @@ namespace ControlAllTheThings.BoardComponents
             set
             {
                 _pressed = value;
-                if( _pressed )
-                {
-                    this.BackColor = this.PressedColor;
-                }
-                else
-                {
-                    this.BackColor = this.UnpressedColor;
-                }
                 this.Invalidate();
 
                 if( _board != null )
@@ -114,10 +72,11 @@ namespace ControlAllTheThings.BoardComponents
         {
             base.SetBoardInterface( board );
 
-            _board.InputPins.Add( this.Pin );
-            _board.PinSet += BoardInterface_PinSet;
-
-            CreateQuickAddActionMenus();
+            if( this.Pin >= 0 )
+            {
+                _board.InputPins.Add( this.Pin );
+                _board.PinSet += BoardInterface_PinSet;
+            }
         }
 
         private void BoardInterface_PinSet( object sender, PinSetEventArgs e )
@@ -130,9 +89,15 @@ namespace ControlAllTheThings.BoardComponents
 
         private void ButtonComponent_Paint( object sender, PaintEventArgs e )
         {
-            Brush b = this.Pressed ? Brushes.Green : Brushes.Red;
+            Color backColor = !this.Pressed ? this.BackColor : ControlPaint.Dark( this.BackColor, 0.1f );
+            using( SolidBrush b = new SolidBrush( backColor ) )
+            {
+                e.Graphics.FillRectangle( b, e.ClipRectangle );
+            }
+
+            Brush indicatorBrush = this.Pressed ? Brushes.Green : Brushes.Red;
             e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
-            e.Graphics.FillEllipse( b, 1, 1, 5, 5 );
+            e.Graphics.FillEllipse( indicatorBrush, 1, 1, 5, 5 );
 
             if( this.Pin >= 0 )
             {
@@ -142,12 +107,31 @@ namespace ControlAllTheThings.BoardComponents
             }
         }
 
+        private void ButtonComponent_DoubleClick( object sender, EventArgs e )
+        {
+            if( !ChoosePressedActions() )
+            {
+                return;
+            }
+            ChooseUnpressedActions();
+        }
+
+        private void ButtonComponent_Load( object sender, EventArgs e )
+        {
+            CreateQuickAddActionMenus();
+        }
+
         private void CreateQuickAddActionMenus()
         {
             QuickAddPressedActionSetPinMenu.DropDownItems.Clear();
             QuickAddUnpressedActionSetPinMenu.DropDownItems.Clear();
             QuickAddPressedActionTogglePinMenu.DropDownItems.Clear();
             QuickAddUnpressedActionTogglePinMenu.DropDownItems.Clear();
+
+            if( _board == null )
+            {
+                return;
+            }
 
             foreach( int pin in _board.OutputPins )
             {
@@ -271,15 +255,6 @@ namespace ControlAllTheThings.BoardComponents
         private void ClearUnpressedActions_Click( object sender, EventArgs e )
         {
             _unpressedActions.Clear();
-        }
-
-        private void ButtonComponent_DoubleClick( object sender, EventArgs e )
-        {
-            if( !ChoosePressedActions() )
-            {
-                return;
-            }
-            ChooseUnpressedActions();
         }
 
         class ButtonComponentSettings : ISetting
