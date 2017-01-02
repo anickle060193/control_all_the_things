@@ -26,7 +26,7 @@ namespace ControlAllTheThings
     {
         private static readonly int[] LED_PINS = { 1, 3, 6, 9, 14, 16, 19, 22 };
 
-        private readonly Dictionary<int, ButtonComponent> _buttons = new Dictionary<int, ButtonComponent>();
+        private readonly List<BaseComponent> _components = new List<BaseComponent>();
 
         private readonly BoardInterface _board;
         private readonly NotifyIcon _notifyIcon;
@@ -41,30 +41,24 @@ namespace ControlAllTheThings
             _board.Connected += Board_Connected;
             _board.Disconnected += Board_Disconnected;
             _board.Log += Board_Log;
-            _board.PinSet += Board_PinSet;
 
             _board.OutputPins.AddRange( LED_PINS );
 
-            _buttons.Add(  0, YellowButton );
-            _buttons.Add(  4, GreenButton );
-            _buttons.Add(  7, BlueButton );
-            _buttons.Add( 11, WhiteButton );
-            _buttons.Add( 23, YellowLatch );
-            _buttons.Add( 20, GreenLatch );
-            _buttons.Add( 17, BlueLatch );
-            _buttons.Add( 15, WhiteLatch );
+            _components.Add( YellowButton );
+            _components.Add( GreenButton );
+            _components.Add( BlueButton );
+            _components.Add( WhiteButton );
+            _components.Add( YellowLatch );
+            _components.Add( GreenLatch );
+            _components.Add( BlueLatch );
+            _components.Add( WhiteLatch );
 
-            foreach( KeyValuePair<int, ButtonComponent> pb in _buttons )
+            foreach( BaseComponent c in _components )
             {
-                pb.Value.Pin = pb.Key;
-                pb.Value.BoardInterface = _board;
+                c.SetBoardInterface( _board );
             }
 
             _notifyIcon = CreateNotifyIcon();
-
-            this.FormClosed += ( sender, e ) => SaveSettings();
-
-            _board.InputPins.AddRange( _buttons.Keys );
 
             LoadSettings();
 
@@ -82,9 +76,9 @@ namespace ControlAllTheThings
             Settings settings = Settings.Load( settingsFileLocation );
             if( settings != null )
             {
-                foreach( ButtonComponent b in _buttons.Values )
+                foreach( BaseComponent c in _components )
                 {
-                    b.LoadSettings( settings );
+                    c.LoadSettings( settings );
                 }
             }
         }
@@ -95,9 +89,9 @@ namespace ControlAllTheThings
             Properties.Settings.Default.Save();
 
             Settings settings = new Settings();
-            foreach( ButtonComponent b in _buttons.Values )
+            foreach( BaseComponent c in _components )
             {
-                b.SaveSettings( settings );
+                c.SaveSettings( settings );
             }
             settings.Save( Properties.Settings.Default.SettingsFileLocation );
         }
@@ -165,15 +159,6 @@ namespace ControlAllTheThings
             ConnectionStatusProgressBar.Style = ProgressBarStyle.Marquee;
         }
 
-        private void Board_PinSet( object sender, PinSetEventArgs e )
-        {
-            ButtonComponent b;
-            if( _buttons.TryGetValue( e.Pin, out b ) )
-            {
-                b.Pressed = e.State;
-            }
-        }
-
         private void Board_Log( object sender, LogEventArgs e )
         {
             LogTextBox.AppendText( String.Format( "[{0:MM/dd/yy hh:mm:ss.ff tt}] {1}{2}", DateTime.Now, e.Message, Environment.NewLine ) );
@@ -185,9 +170,9 @@ namespace ControlAllTheThings
 
         #region Form Event Handlers
 
-        protected override void OnClosed( EventArgs e )
+        private void ControlAllTheThingsForm_FormClosed( object sender, FormClosedEventArgs e )
         {
-            base.OnClosed( e );
+            SaveSettings();
 
             _board.Dispose();
             Logger.Close();

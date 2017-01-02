@@ -64,7 +64,7 @@
     <Compile Include="BoardActions\SetLedBoardAction.cs" />
     <Compile Include="BoardActions\SetPinBoardAction.cs" />
     <Compile Include="BoardActions\TogglePinBoardAction.cs" />
-    <Compile Include="BoardComponents\Component.cs">
+    <Compile Include="BoardComponents\BaseComponent.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="BoardInterface.cs" />

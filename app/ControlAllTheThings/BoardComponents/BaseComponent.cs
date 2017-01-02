@@ -7,8 +7,15 @@ using System.Windows.Forms;
 
 namespace ControlAllTheThings.BoardComponents
 {
-    public abstract class Component : UserControl
+    public abstract class BaseComponent : UserControl
     {
+        protected BoardInterface _board;
+
+        public virtual void SetBoardInterface( BoardInterface board )
+        {
+            _board = board;
+        }
+
         public abstract void SaveSettings( Settings settings );
         public abstract void LoadSettings( Settings settings );
     }

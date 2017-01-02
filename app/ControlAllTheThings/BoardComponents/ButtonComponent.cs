@@ -12,15 +12,13 @@ using ControlAllTheThings.BoardActions;
 
 namespace ControlAllTheThings.BoardComponents
 {
-    public partial class ButtonComponent : Component
+    public partial class ButtonComponent : BaseComponent
     {
         private Color _pressedColor;
         private Color _unpressedColor;
 
         private List<BoardAction> _pressedActions = new List<BoardAction>();
         private List<BoardAction> _unpressedActions = new List<BoardAction>();
-
-        private BoardInterface _board;
 
         private bool _pressed;
         private int _pin;
@@ -34,20 +32,6 @@ namespace ControlAllTheThings.BoardComponents
 
             Pressed = false;
             Pin = -1;
-        }
-
-        public BoardInterface BoardInterface
-        {
-            get { return _board; }
-            set
-            {
-                _board = value;
-
-                if( _board != null )
-                {
-                    CreateQuickAddActionMenus();
-                }
-            }
         }
 
         [DefaultValue( typeof( Color ), "LightGray" )]
@@ -106,31 +90,47 @@ namespace ControlAllTheThings.BoardComponents
                 }
                 this.Invalidate();
 
-                if( BoardInterface != null )
+                if( _board != null )
                 {
                     if( _pressed )
                     {
                         foreach( BoardAction b in _pressedActions )
                         {
-                            b.Perform( BoardInterface );
+                            b.Perform( _board );
                         }
                     }
                     else
                     {
                         foreach( BoardAction b in _unpressedActions )
                         {
-                            b.Perform( BoardInterface );
+                            b.Perform( _board );
                         }
                     }
                 }
             }
         }
 
-        protected override void OnPaint( PaintEventArgs e )
+        public override void SetBoardInterface( BoardInterface board )
         {
-            base.OnPaint( e );
+            base.SetBoardInterface( board );
 
-            Brush b = this.Pressed ? Brushes.Green: Brushes.Red;
+            _board.InputPins.Add( this.Pin );
+            _board.PinSet += BoardInterface_PinSet;
+
+            CreateQuickAddActionMenus();
+        }
+
+        private void BoardInterface_PinSet( object sender, PinSetEventArgs e )
+        {
+            if( e.Pin == this.Pin )
+            {
+                this.Pressed = e.State;
+            }
+        }
+
+        private void ButtonComponent_Paint( object sender, PaintEventArgs e )
+        {
+            Brush b = this.Pressed ? Brushes.Green : Brushes.Red;
             e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
             e.Graphics.FillEllipse( b, 1, 1, 5, 5 );
 
@@ -149,7 +149,7 @@ namespace ControlAllTheThings.BoardComponents
             QuickAddPressedActionTogglePinMenu.DropDownItems.Clear();
             QuickAddUnpressedActionTogglePinMenu.DropDownItems.Clear();
 
-            foreach( int pin in BoardInterface.OutputPins )
+            foreach( int pin in _board.OutputPins )
             {
                 ToolStripMenuItem pressedSetPinMenu = new ToolStripMenuItem( pin.ToString() );
                 QuickAddPressedActionSetPinMenu.DropDownItems.Add( pressedSetPinMenu );
@@ -183,6 +183,18 @@ namespace ControlAllTheThings.BoardComponents
             }
         }
 
+        private void QuickAddPressedActionSetLed_Click( object sender, EventArgs e )
+        {
+            bool setToState = sender == QuickAddPressedActionSetLedOn;
+            _pressedActions.Add( new SetLedBoardAction( setToState ) );
+        }
+
+        private void QuickAddUnpressedActionSetLed_Click( object sender, EventArgs e )
+        {
+            bool setToState = sender == QuickAddUnpressedActionSetLedOn;
+            _unpressedActions.Add( new SetLedBoardAction( setToState ) );
+        }
+
         private void QuickAddPressedSetPin_Click( object sender, EventArgs e )
         {
             ToolStripItem item = sender as ToolStripItem;
@@ -213,7 +225,7 @@ namespace ControlAllTheThings.BoardComponents
 
         private bool ChoosePressedActions()
         {
-            ActionsForm a = new ActionsForm( BoardInterface, this.Name + " Pressed Actions", _pressedActions );
+            ActionsForm a = new ActionsForm( _board, this.Name + " Pressed Actions", _pressedActions );
             if( a.ShowDialog() == DialogResult.OK )
             {
                 _pressedActions.Clear();
@@ -225,7 +237,7 @@ namespace ControlAllTheThings.BoardComponents
 
         private bool ChooseUnpressedActions()
         {
-            ActionsForm a = new ActionsForm( BoardInterface, this.Name + " Unpressed Actions", _unpressedActions );
+            ActionsForm a = new ActionsForm( _board, this.Name + " Unpressed Actions", _unpressedActions );
             if( a.ShowDialog() == DialogResult.OK )
             {
                 _unpressedActions.Clear();
@@ -243,6 +255,12 @@ namespace ControlAllTheThings.BoardComponents
         private void SetUnpressedActions_Click( object sender, EventArgs e )
         {
             ChooseUnpressedActions();
+        }
+
+        private void ButtonComponentContextMenu_Opening( object sender, CancelEventArgs e )
+        {
+            ClearPressedActions.Enabled = _pressedActions.Count > 0;
+            ClearUnpressedActions.Enabled = _unpressedActions.Count > 0;
         }
 
         private void ClearPressedActions_Click( object sender, EventArgs e )
@@ -284,27 +302,9 @@ namespace ControlAllTheThings.BoardComponents
             if( settings.ContainsKey( this.Name ) )
             {
                 ButtonComponentSettings s = (ButtonComponentSettings)settings[ this.Name ];
-                _pressedActions.AddRange( s.PressedActionSetting.FindAll( a => a.Valid( BoardInterface ) ) );
-                _unpressedActions.AddRange( s.UnpressedActionSetting.FindAll( a => a.Valid( BoardInterface ) ) );
+                _pressedActions.AddRange( s.PressedActionSetting.FindAll( a => a.Valid( _board ) ) );
+                _unpressedActions.AddRange( s.UnpressedActionSetting.FindAll( a => a.Valid( _board ) ) );
             }
-        }
-
-        private void QuickAddPressedActionSetLed_Click( object sender, EventArgs e )
-        {
-            bool setToState = sender == QuickAddPressedActionSetLedOn;
-            _pressedActions.Add( new SetLedBoardAction( setToState ) );
-        }
-
-        private void QuickAddUnpressedActionSetLed_Click( object sender, EventArgs e )
-        {
-            bool setToState = sender == QuickAddUnpressedActionSetLedOn;
-            _unpressedActions.Add( new SetLedBoardAction( setToState ) );
-        }
-
-        private void ButtonComponentContextMenu_Opening( object sender, CancelEventArgs e )
-        {
-            ClearPressedActions.Enabled = _pressedActions.Count > 0;
-            ClearUnpressedActions.Enabled = _unpressedActions.Count > 0;
         }
     }
 }

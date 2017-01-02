@@ -41,7 +41,6 @@
             this.ViewLogFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SettingsFileLocationDialog = new System.Windows.Forms.OpenFileDialog();
             this.BoardPanel = new System.Windows.Forms.Panel();
-            this.LogTextBox = new System.Windows.Forms.RichTextBox();
             this.YellowButton = new ControlAllTheThings.BoardComponents.ButtonComponent();
             this.YellowLatch = new ControlAllTheThings.BoardComponents.ButtonComponent();
             this.WhiteButton = new ControlAllTheThings.BoardComponents.ButtonComponent();
@@ -50,6 +49,7 @@
             this.BlueButton = new ControlAllTheThings.BoardComponents.ButtonComponent();
             this.GreenButton = new ControlAllTheThings.BoardComponents.ButtonComponent();
             this.BlueLatch = new ControlAllTheThings.BoardComponents.ButtonComponent();
+            this.LogTextBox = new System.Windows.Forms.RichTextBox();
             this.StatusStrip.SuspendLayout();
             this.MenuStrip.SuspendLayout();
             this.BoardPanel.SuspendLayout();
@@ -163,6 +163,86 @@
             this.BoardPanel.Size = new System.Drawing.Size(230, 118);
             this.BoardPanel.TabIndex = 15;
             // 
+            // YellowButton
+            // 
+            this.YellowButton.BackColor = System.Drawing.Color.LightGray;
+            this.YellowButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.YellowButton.Location = new System.Drawing.Point(6, 6);
+            this.YellowButton.Name = "YellowButton";
+            this.YellowButton.Pin = 0;
+            this.YellowButton.Size = new System.Drawing.Size(50, 50);
+            this.YellowButton.TabIndex = 10;
+            // 
+            // YellowLatch
+            // 
+            this.YellowLatch.BackColor = System.Drawing.Color.LightGray;
+            this.YellowLatch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.YellowLatch.Location = new System.Drawing.Point(6, 62);
+            this.YellowLatch.Name = "YellowLatch";
+            this.YellowLatch.Pin = 23;
+            this.YellowLatch.Size = new System.Drawing.Size(50, 50);
+            this.YellowLatch.TabIndex = 1;
+            // 
+            // WhiteButton
+            // 
+            this.WhiteButton.BackColor = System.Drawing.Color.LightGray;
+            this.WhiteButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.WhiteButton.Location = new System.Drawing.Point(174, 6);
+            this.WhiteButton.Name = "WhiteButton";
+            this.WhiteButton.Pin = 11;
+            this.WhiteButton.Size = new System.Drawing.Size(50, 50);
+            this.WhiteButton.TabIndex = 13;
+            // 
+            // GreenLatch
+            // 
+            this.GreenLatch.BackColor = System.Drawing.Color.LightGray;
+            this.GreenLatch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.GreenLatch.Location = new System.Drawing.Point(62, 62);
+            this.GreenLatch.Name = "GreenLatch";
+            this.GreenLatch.Pin = 20;
+            this.GreenLatch.Size = new System.Drawing.Size(50, 50);
+            this.GreenLatch.TabIndex = 4;
+            // 
+            // WhiteLatch
+            // 
+            this.WhiteLatch.BackColor = System.Drawing.Color.LightGray;
+            this.WhiteLatch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.WhiteLatch.Location = new System.Drawing.Point(174, 62);
+            this.WhiteLatch.Name = "WhiteLatch";
+            this.WhiteLatch.Pin = 15;
+            this.WhiteLatch.Size = new System.Drawing.Size(50, 50);
+            this.WhiteLatch.TabIndex = 8;
+            // 
+            // BlueButton
+            // 
+            this.BlueButton.BackColor = System.Drawing.Color.LightGray;
+            this.BlueButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BlueButton.Location = new System.Drawing.Point(118, 6);
+            this.BlueButton.Name = "BlueButton";
+            this.BlueButton.Pin = 7;
+            this.BlueButton.Size = new System.Drawing.Size(50, 50);
+            this.BlueButton.TabIndex = 12;
+            // 
+            // GreenButton
+            // 
+            this.GreenButton.BackColor = System.Drawing.Color.LightGray;
+            this.GreenButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.GreenButton.Location = new System.Drawing.Point(62, 6);
+            this.GreenButton.Name = "GreenButton";
+            this.GreenButton.Pin = 4;
+            this.GreenButton.Size = new System.Drawing.Size(50, 50);
+            this.GreenButton.TabIndex = 11;
+            // 
+            // BlueLatch
+            // 
+            this.BlueLatch.BackColor = System.Drawing.Color.LightGray;
+            this.BlueLatch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BlueLatch.Location = new System.Drawing.Point(118, 62);
+            this.BlueLatch.Name = "BlueLatch";
+            this.BlueLatch.Pin = 17;
+            this.BlueLatch.Size = new System.Drawing.Size(50, 50);
+            this.BlueLatch.TabIndex = 9;
+            // 
             // LogTextBox
             // 
             this.LogTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -177,86 +257,6 @@
             this.LogTextBox.Text = "";
             this.LogTextBox.WordWrap = false;
             // 
-            // YellowButton
-            // 
-            this.YellowButton.BackColor = System.Drawing.Color.LightGray;
-            this.YellowButton.BoardInterface = null;
-            this.YellowButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.YellowButton.Location = new System.Drawing.Point(6, 6);
-            this.YellowButton.Name = "YellowButton";
-            this.YellowButton.Size = new System.Drawing.Size(50, 50);
-            this.YellowButton.TabIndex = 10;
-            // 
-            // YellowLatch
-            // 
-            this.YellowLatch.BackColor = System.Drawing.Color.LightGray;
-            this.YellowLatch.BoardInterface = null;
-            this.YellowLatch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.YellowLatch.Location = new System.Drawing.Point(6, 62);
-            this.YellowLatch.Name = "YellowLatch";
-            this.YellowLatch.Size = new System.Drawing.Size(50, 50);
-            this.YellowLatch.TabIndex = 1;
-            // 
-            // WhiteButton
-            // 
-            this.WhiteButton.BackColor = System.Drawing.Color.LightGray;
-            this.WhiteButton.BoardInterface = null;
-            this.WhiteButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.WhiteButton.Location = new System.Drawing.Point(174, 6);
-            this.WhiteButton.Name = "WhiteButton";
-            this.WhiteButton.Size = new System.Drawing.Size(50, 50);
-            this.WhiteButton.TabIndex = 13;
-            // 
-            // GreenLatch
-            // 
-            this.GreenLatch.BackColor = System.Drawing.Color.LightGray;
-            this.GreenLatch.BoardInterface = null;
-            this.GreenLatch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.GreenLatch.Location = new System.Drawing.Point(62, 62);
-            this.GreenLatch.Name = "GreenLatch";
-            this.GreenLatch.Size = new System.Drawing.Size(50, 50);
-            this.GreenLatch.TabIndex = 4;
-            // 
-            // WhiteLatch
-            // 
-            this.WhiteLatch.BackColor = System.Drawing.Color.LightGray;
-            this.WhiteLatch.BoardInterface = null;
-            this.WhiteLatch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.WhiteLatch.Location = new System.Drawing.Point(174, 62);
-            this.WhiteLatch.Name = "WhiteLatch";
-            this.WhiteLatch.Size = new System.Drawing.Size(50, 50);
-            this.WhiteLatch.TabIndex = 8;
-            // 
-            // BlueButton
-            // 
-            this.BlueButton.BackColor = System.Drawing.Color.LightGray;
-            this.BlueButton.BoardInterface = null;
-            this.BlueButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.BlueButton.Location = new System.Drawing.Point(118, 6);
-            this.BlueButton.Name = "BlueButton";
-            this.BlueButton.Size = new System.Drawing.Size(50, 50);
-            this.BlueButton.TabIndex = 12;
-            // 
-            // GreenButton
-            // 
-            this.GreenButton.BackColor = System.Drawing.Color.LightGray;
-            this.GreenButton.BoardInterface = null;
-            this.GreenButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.GreenButton.Location = new System.Drawing.Point(62, 6);
-            this.GreenButton.Name = "GreenButton";
-            this.GreenButton.Size = new System.Drawing.Size(50, 50);
-            this.GreenButton.TabIndex = 11;
-            // 
-            // BlueLatch
-            // 
-            this.BlueLatch.BackColor = System.Drawing.Color.LightGray;
-            this.BlueLatch.BoardInterface = null;
-            this.BlueLatch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.BlueLatch.Location = new System.Drawing.Point(118, 62);
-            this.BlueLatch.Name = "BlueLatch";
-            this.BlueLatch.Size = new System.Drawing.Size(50, 50);
-            this.BlueLatch.TabIndex = 9;
-            // 
             // ControlAllTheThingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -269,6 +269,7 @@
             this.MainMenuStrip = this.MenuStrip;
             this.Name = "ControlAllTheThingsForm";
             this.Text = "Control All The Things";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ControlAllTheThingsForm_FormClosed);
             this.Resize += new System.EventHandler(this.ControlAllTheThingsForm_Resize);
             this.StatusStrip.ResumeLayout(false);
             this.StatusStrip.PerformLayout();
