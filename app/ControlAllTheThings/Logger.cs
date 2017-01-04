@@ -24,13 +24,16 @@ namespace ControlAllTheThings
 
         public static void Log( String format, params Object[] args )
         {
-            String message = String.Format( format, args );
-            try
+            if( _writer != null )
             {
-                _writer.WriteLine( "[{0:MM/dd/yy hh:mm:ss.ff tt}] {1}", DateTime.Now, message );
-            }
-            catch( IOException )
-            {
+                String message = String.Format( format, args );
+                try
+                {
+                    _writer.WriteLine( "[{0:MM/dd/yy hh:mm:ss.ff tt}] {1}", DateTime.Now, message );
+                }
+                catch( IOException )
+                {
+                }
             }
         }
 
