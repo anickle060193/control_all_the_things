@@ -30,13 +30,13 @@ namespace ControlAllTheThings
             SetLedAction.Tag = SetLedActionOptions;
             SetPinAction.Tag = SetPinActionOptions;
             TogglePinAction.Tag = TogglePinActionOptions;
-            RunCommandAction.Tag = RunCommandActionOptions;
+            RunScriptAction.Tag = RunScriptActionOptions;
 
             NoActionLabel.Enabled = false;
             SetLedActionOptions.Enabled = false;
             SetPinActionOptions.Enabled = false;
             TogglePinActionOptions.Enabled = false;
-            RunCommandActionOptions.Enabled = false;
+            RunScriptActionOptions.Enabled = false;
 
             if( Board != null )
             {
@@ -83,12 +83,12 @@ namespace ControlAllTheThings
                     TogglePinActionPinOption.SelectedItem = a.Pin;
                 }
             }
-            else if( action is RunCommandBoardAction )
+            else if( action is RunScriptBoardAction )
             {
-                RunCommandAction.Checked = true;
-                RunCommandBoardAction a = action as RunCommandBoardAction;
-                RunCommandActionFileNameOption.Text = a.FileName;
-                RunCommandActionArgumentsOption.Text = a.Arguments;
+                RunScriptAction.Checked = true;
+                RunScriptBoardAction a = action as RunScriptBoardAction;
+                RunScriptActionFileNameOption.Text = a.FileName;
+                RunScriptActionArgumentsOption.Text = a.Arguments;
             }
             else
             {
@@ -136,13 +136,13 @@ namespace ControlAllTheThings
                     MessageBox.Show( "Must select pin." );
                 }
             }
-            else if( RunCommandAction.Checked )
+            else if( RunScriptAction.Checked )
             {
-                String fileName = RunCommandActionFileNameOption.Text;
-                String arguments = RunCommandActionArgumentsOption.Text;
+                String fileName = RunScriptActionFileNameOption.Text;
+                String arguments = RunScriptActionArgumentsOption.Text;
                 if( !String.IsNullOrWhiteSpace( fileName ) )
                 {
-                    action = new RunCommandBoardAction( fileName, arguments );
+                    action = new RunScriptBoardAction( fileName, arguments );
                     return true;
                 }
             }

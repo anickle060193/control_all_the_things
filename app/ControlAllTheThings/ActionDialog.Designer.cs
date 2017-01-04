@@ -36,7 +36,7 @@
             this.SetPinActionPinOptionLabel = new System.Windows.Forms.Label();
             this.SetPinActionStateOption = new System.Windows.Forms.CheckBox();
             this.ActionFormTableLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.RunCommandAction = new System.Windows.Forms.RadioButton();
+            this.RunScriptAction = new System.Windows.Forms.RadioButton();
             this.SetPinActionOptions = new System.Windows.Forms.GroupBox();
             this.SetPinActionPinOption = new System.Windows.Forms.ComboBox();
             this.TogglePinAction = new System.Windows.Forms.RadioButton();
@@ -45,17 +45,17 @@
             this.TogglePinActionPinOptionLabel = new System.Windows.Forms.Label();
             this.NoAction = new System.Windows.Forms.RadioButton();
             this.NoActionLabel = new System.Windows.Forms.Label();
-            this.RunCommandActionOptions = new System.Windows.Forms.GroupBox();
-            this.RunCommandActionArgumentsOption = new System.Windows.Forms.TextBox();
-            this.RunCommandActionFileNameOption = new System.Windows.Forms.TextBox();
-            this.RunCommandActionArgumentsOptionLabel = new System.Windows.Forms.Label();
-            this.RunCommandActionFileNameOptionLabel = new System.Windows.Forms.Label();
+            this.RunScriptActionOptions = new System.Windows.Forms.GroupBox();
+            this.RunScriptActionArgumentsOption = new System.Windows.Forms.TextBox();
+            this.RunScriptActionFileNameOption = new System.Windows.Forms.TextBox();
+            this.RunScriptActionArgumentsOptionLabel = new System.Windows.Forms.Label();
+            this.RunScriptActionFileNameOptionLabel = new System.Windows.Forms.Label();
             this.TestAction = new System.Windows.Forms.Button();
             this.SetLedActionOptions.SuspendLayout();
             this.ActionFormTableLayout.SuspendLayout();
             this.SetPinActionOptions.SuspendLayout();
             this.TogglePinActionOptions.SuspendLayout();
-            this.RunCommandActionOptions.SuspendLayout();
+            this.RunScriptActionOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // SetLedAction
@@ -142,7 +142,7 @@
             this.ActionFormTableLayout.ColumnCount = 2;
             this.ActionFormTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.ActionFormTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ActionFormTableLayout.Controls.Add(this.RunCommandAction, 0, 4);
+            this.ActionFormTableLayout.Controls.Add(this.RunScriptAction, 0, 4);
             this.ActionFormTableLayout.Controls.Add(this.SetLedAction, 0, 1);
             this.ActionFormTableLayout.Controls.Add(this.SetLedActionOptions, 1, 1);
             this.ActionFormTableLayout.Controls.Add(this.SetPinAction, 0, 2);
@@ -151,7 +151,7 @@
             this.ActionFormTableLayout.Controls.Add(this.TogglePinActionOptions, 1, 3);
             this.ActionFormTableLayout.Controls.Add(this.NoAction, 0, 0);
             this.ActionFormTableLayout.Controls.Add(this.NoActionLabel, 1, 0);
-            this.ActionFormTableLayout.Controls.Add(this.RunCommandActionOptions, 1, 4);
+            this.ActionFormTableLayout.Controls.Add(this.RunScriptActionOptions, 1, 4);
             this.ActionFormTableLayout.Location = new System.Drawing.Point(4, 4);
             this.ActionFormTableLayout.Name = "ActionFormTableLayout";
             this.ActionFormTableLayout.RowCount = 6;
@@ -164,16 +164,16 @@
             this.ActionFormTableLayout.Size = new System.Drawing.Size(318, 261);
             this.ActionFormTableLayout.TabIndex = 10;
             // 
-            // RunCommandAction
+            // RunScriptAction
             // 
-            this.RunCommandAction.AutoSize = true;
-            this.RunCommandAction.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RunCommandAction.Location = new System.Drawing.Point(3, 181);
-            this.RunCommandAction.Name = "RunCommandAction";
-            this.RunCommandAction.Size = new System.Drawing.Size(14, 76);
-            this.RunCommandAction.TabIndex = 15;
-            this.RunCommandAction.UseVisualStyleBackColor = true;
-            this.RunCommandAction.CheckedChanged += new System.EventHandler(this.Action_CheckedChanged);
+            this.RunScriptAction.AutoSize = true;
+            this.RunScriptAction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RunScriptAction.Location = new System.Drawing.Point(3, 181);
+            this.RunScriptAction.Name = "RunScriptAction";
+            this.RunScriptAction.Size = new System.Drawing.Size(14, 76);
+            this.RunScriptAction.TabIndex = 15;
+            this.RunScriptAction.UseVisualStyleBackColor = true;
+            this.RunScriptAction.CheckedChanged += new System.EventHandler(this.Action_CheckedChanged);
             // 
             // SetPinActionOptions
             // 
@@ -262,56 +262,56 @@
             this.NoActionLabel.Text = "No Action";
             this.NoActionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // RunCommandActionOptions
+            // RunScriptActionOptions
             // 
-            this.RunCommandActionOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.RunScriptActionOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.RunCommandActionOptions.Controls.Add(this.RunCommandActionArgumentsOption);
-            this.RunCommandActionOptions.Controls.Add(this.RunCommandActionFileNameOption);
-            this.RunCommandActionOptions.Controls.Add(this.RunCommandActionArgumentsOptionLabel);
-            this.RunCommandActionOptions.Controls.Add(this.RunCommandActionFileNameOptionLabel);
-            this.RunCommandActionOptions.Location = new System.Drawing.Point(23, 181);
-            this.RunCommandActionOptions.Name = "RunCommandActionOptions";
-            this.RunCommandActionOptions.Size = new System.Drawing.Size(292, 76);
-            this.RunCommandActionOptions.TabIndex = 16;
-            this.RunCommandActionOptions.TabStop = false;
-            this.RunCommandActionOptions.Text = "Run Command";
+            this.RunScriptActionOptions.Controls.Add(this.RunScriptActionArgumentsOption);
+            this.RunScriptActionOptions.Controls.Add(this.RunScriptActionFileNameOption);
+            this.RunScriptActionOptions.Controls.Add(this.RunScriptActionArgumentsOptionLabel);
+            this.RunScriptActionOptions.Controls.Add(this.RunScriptActionFileNameOptionLabel);
+            this.RunScriptActionOptions.Location = new System.Drawing.Point(23, 181);
+            this.RunScriptActionOptions.Name = "RunScriptActionOptions";
+            this.RunScriptActionOptions.Size = new System.Drawing.Size(292, 76);
+            this.RunScriptActionOptions.TabIndex = 16;
+            this.RunScriptActionOptions.TabStop = false;
+            this.RunScriptActionOptions.Text = "Run Script";
             // 
-            // RunCommandActionArgumentsOption
+            // RunScriptActionArgumentsOption
             // 
-            this.RunCommandActionArgumentsOption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.RunScriptActionArgumentsOption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.RunCommandActionArgumentsOption.Location = new System.Drawing.Point(72, 45);
-            this.RunCommandActionArgumentsOption.Name = "RunCommandActionArgumentsOption";
-            this.RunCommandActionArgumentsOption.Size = new System.Drawing.Size(214, 20);
-            this.RunCommandActionArgumentsOption.TabIndex = 3;
+            this.RunScriptActionArgumentsOption.Location = new System.Drawing.Point(72, 45);
+            this.RunScriptActionArgumentsOption.Name = "RunScriptActionArgumentsOption";
+            this.RunScriptActionArgumentsOption.Size = new System.Drawing.Size(214, 20);
+            this.RunScriptActionArgumentsOption.TabIndex = 3;
             // 
-            // RunCommandActionFileNameOption
+            // RunScriptActionFileNameOption
             // 
-            this.RunCommandActionFileNameOption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.RunScriptActionFileNameOption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.RunCommandActionFileNameOption.Location = new System.Drawing.Point(72, 19);
-            this.RunCommandActionFileNameOption.Name = "RunCommandActionFileNameOption";
-            this.RunCommandActionFileNameOption.Size = new System.Drawing.Size(214, 20);
-            this.RunCommandActionFileNameOption.TabIndex = 2;
+            this.RunScriptActionFileNameOption.Location = new System.Drawing.Point(72, 19);
+            this.RunScriptActionFileNameOption.Name = "RunScriptActionFileNameOption";
+            this.RunScriptActionFileNameOption.Size = new System.Drawing.Size(214, 20);
+            this.RunScriptActionFileNameOption.TabIndex = 2;
             // 
-            // RunCommandActionArgumentsOptionLabel
+            // RunScriptActionArgumentsOptionLabel
             // 
-            this.RunCommandActionArgumentsOptionLabel.AutoSize = true;
-            this.RunCommandActionArgumentsOptionLabel.Location = new System.Drawing.Point(6, 48);
-            this.RunCommandActionArgumentsOptionLabel.Name = "RunCommandActionArgumentsOptionLabel";
-            this.RunCommandActionArgumentsOptionLabel.Size = new System.Drawing.Size(60, 13);
-            this.RunCommandActionArgumentsOptionLabel.TabIndex = 1;
-            this.RunCommandActionArgumentsOptionLabel.Text = "Arguments:";
+            this.RunScriptActionArgumentsOptionLabel.AutoSize = true;
+            this.RunScriptActionArgumentsOptionLabel.Location = new System.Drawing.Point(6, 48);
+            this.RunScriptActionArgumentsOptionLabel.Name = "RunScriptActionArgumentsOptionLabel";
+            this.RunScriptActionArgumentsOptionLabel.Size = new System.Drawing.Size(60, 13);
+            this.RunScriptActionArgumentsOptionLabel.TabIndex = 1;
+            this.RunScriptActionArgumentsOptionLabel.Text = "Arguments:";
             // 
-            // RunCommandActionFileNameOptionLabel
+            // RunScriptActionFileNameOptionLabel
             // 
-            this.RunCommandActionFileNameOptionLabel.AutoSize = true;
-            this.RunCommandActionFileNameOptionLabel.Location = new System.Drawing.Point(6, 22);
-            this.RunCommandActionFileNameOptionLabel.Name = "RunCommandActionFileNameOptionLabel";
-            this.RunCommandActionFileNameOptionLabel.Size = new System.Drawing.Size(57, 13);
-            this.RunCommandActionFileNameOptionLabel.TabIndex = 0;
-            this.RunCommandActionFileNameOptionLabel.Text = "File Name:";
+            this.RunScriptActionFileNameOptionLabel.AutoSize = true;
+            this.RunScriptActionFileNameOptionLabel.Location = new System.Drawing.Point(6, 22);
+            this.RunScriptActionFileNameOptionLabel.Name = "RunScriptActionFileNameOptionLabel";
+            this.RunScriptActionFileNameOptionLabel.Size = new System.Drawing.Size(57, 13);
+            this.RunScriptActionFileNameOptionLabel.TabIndex = 0;
+            this.RunScriptActionFileNameOptionLabel.Text = "File Name:";
             // 
             // TestAction
             // 
@@ -347,8 +347,8 @@
             this.SetPinActionOptions.PerformLayout();
             this.TogglePinActionOptions.ResumeLayout(false);
             this.TogglePinActionOptions.PerformLayout();
-            this.RunCommandActionOptions.ResumeLayout(false);
-            this.RunCommandActionOptions.PerformLayout();
+            this.RunScriptActionOptions.ResumeLayout(false);
+            this.RunScriptActionOptions.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -372,11 +372,11 @@
         private System.Windows.Forms.RadioButton NoAction;
         private System.Windows.Forms.Label NoActionLabel;
         private System.Windows.Forms.Button TestAction;
-        private System.Windows.Forms.RadioButton RunCommandAction;
-        private System.Windows.Forms.GroupBox RunCommandActionOptions;
-        private System.Windows.Forms.TextBox RunCommandActionArgumentsOption;
-        private System.Windows.Forms.TextBox RunCommandActionFileNameOption;
-        private System.Windows.Forms.Label RunCommandActionArgumentsOptionLabel;
-        private System.Windows.Forms.Label RunCommandActionFileNameOptionLabel;
+        private System.Windows.Forms.RadioButton RunScriptAction;
+        private System.Windows.Forms.GroupBox RunScriptActionOptions;
+        private System.Windows.Forms.TextBox RunScriptActionArgumentsOption;
+        private System.Windows.Forms.TextBox RunScriptActionFileNameOption;
+        private System.Windows.Forms.Label RunScriptActionArgumentsOptionLabel;
+        private System.Windows.Forms.Label RunScriptActionFileNameOptionLabel;
     }
 }

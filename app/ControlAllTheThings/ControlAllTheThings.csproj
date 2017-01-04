@@ -60,7 +60,7 @@
       <DependentUpon>ActionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="BoardActions\BoardAction.cs" />
-    <Compile Include="BoardActions\RunCommandBoardAction.cs" />
+    <Compile Include="BoardActions\RunScriptBoardAction.cs" />
     <Compile Include="BoardActions\SetLedBoardAction.cs" />
     <Compile Include="BoardActions\SetPinBoardAction.cs" />
     <Compile Include="BoardActions\TogglePinBoardAction.cs" />
