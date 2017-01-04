@@ -1,4 +1,5 @@
-﻿using ControlAllTheThings.BoardComponents;
+﻿using ControlAllTheThings;
+using ControlAllTheThings.BoardComponents;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,16 +11,16 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace ControlAllTheThings
+namespace PrototypeController
 {
-    public partial class ControlAllTheThingsForm : Form
+    public partial class PrototypeControllerForm : Form
     {
         private readonly List<BaseComponent> _components = new List<BaseComponent>();
 
         private readonly BoardInterface _board;
         private readonly NotifyIcon _notifyIcon;
 
-        public ControlAllTheThingsForm()
+        public PrototypeControllerForm()
         {
             InitializeComponent();
 

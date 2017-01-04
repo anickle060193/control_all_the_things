@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ControlAllTheThings.Properties {
+namespace PrototypeController.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -20,6 +20,30 @@ namespace ControlAllTheThings.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("settings.json")]
+        public string SettingsFileLocation {
+            get {
+                return ((string)(this["SettingsFileLocation"]));
+            }
+            set {
+                this["SettingsFileLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool MinimizeToSystemTray {
+            get {
+                return ((bool)(this["MinimizeToSystemTray"]));
+            }
+            set {
+                this["MinimizeToSystemTray"] = value;
             }
         }
     }

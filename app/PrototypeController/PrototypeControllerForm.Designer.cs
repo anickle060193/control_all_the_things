@@ -1,6 +1,6 @@
-﻿namespace ControlAllTheThings
+﻿namespace PrototypeController
 {
-    partial class ControlAllTheThingsForm
+    partial class PrototypeControllerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PrototypeControllerForm));
             this.StatusStrip = new System.Windows.Forms.StatusStrip();
             this.StatusStripSpring = new System.Windows.Forms.ToolStripStatusLabel();
             this.ConnectionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -42,7 +43,6 @@
             this.RunOnStartup = new System.Windows.Forms.ToolStripMenuItem();
             this.SettingsFileLocationDialog = new System.Windows.Forms.OpenFileDialog();
             this.BoardPanel = new System.Windows.Forms.Panel();
-            this.LogTextBox = new System.Windows.Forms.RichTextBox();
             this.WhiteLatch = new ControlAllTheThings.BoardComponents.LedButtonComponent();
             this.BlueLatch = new ControlAllTheThings.BoardComponents.LedButtonComponent();
             this.GreenLatch = new ControlAllTheThings.BoardComponents.LedButtonComponent();
@@ -51,6 +51,7 @@
             this.BlueButton = new ControlAllTheThings.BoardComponents.LedButtonComponent();
             this.GreenButton = new ControlAllTheThings.BoardComponents.LedButtonComponent();
             this.YellowButton = new ControlAllTheThings.BoardComponents.LedButtonComponent();
+            this.LogTextBox = new System.Windows.Forms.RichTextBox();
             this.StatusStrip.SuspendLayout();
             this.MenuStrip.SuspendLayout();
             this.BoardPanel.SuspendLayout();
@@ -170,20 +171,6 @@
             this.BoardPanel.Size = new System.Drawing.Size(230, 118);
             this.BoardPanel.TabIndex = 15;
             // 
-            // LogTextBox
-            // 
-            this.LogTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.LogTextBox.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LogTextBox.Location = new System.Drawing.Point(12, 151);
-            this.LogTextBox.Name = "LogTextBox";
-            this.LogTextBox.ReadOnly = true;
-            this.LogTextBox.Size = new System.Drawing.Size(470, 205);
-            this.LogTextBox.TabIndex = 16;
-            this.LogTextBox.Text = "";
-            this.LogTextBox.WordWrap = false;
-            // 
             // WhiteLatch
             // 
             this.WhiteLatch.BackColor = System.Drawing.Color.LightGray;
@@ -286,7 +273,21 @@
             this.YellowButton.Size = new System.Drawing.Size(50, 50);
             this.YellowButton.TabIndex = 17;
             // 
-            // ControlAllTheThingsForm
+            // LogTextBox
+            // 
+            this.LogTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LogTextBox.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LogTextBox.Location = new System.Drawing.Point(12, 151);
+            this.LogTextBox.Name = "LogTextBox";
+            this.LogTextBox.ReadOnly = true;
+            this.LogTextBox.Size = new System.Drawing.Size(470, 205);
+            this.LogTextBox.TabIndex = 16;
+            this.LogTextBox.Text = "";
+            this.LogTextBox.WordWrap = false;
+            // 
+            // PrototypeControllerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -295,9 +296,10 @@
             this.Controls.Add(this.BoardPanel);
             this.Controls.Add(this.StatusStrip);
             this.Controls.Add(this.MenuStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MenuStrip;
-            this.Name = "ControlAllTheThingsForm";
-            this.Text = "Control All The Things";
+            this.Name = "PrototypeControllerForm";
+            this.Text = "Prototype Controller";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ControlAllTheThingsForm_FormClosed);
             this.Resize += new System.EventHandler(this.ControlAllTheThingsForm_Resize);
             this.StatusStrip.ResumeLayout(false);
@@ -325,14 +327,14 @@
         private System.Windows.Forms.ToolStripMenuItem RunOnStartup;
         private System.Windows.Forms.Panel BoardPanel;
         private System.Windows.Forms.RichTextBox LogTextBox;
-        private BoardComponents.LedButtonComponent YellowButton;
-        private BoardComponents.LedButtonComponent GreenButton;
-        private BoardComponents.LedButtonComponent BlueButton;
-        private BoardComponents.LedButtonComponent WhiteLatch;
-        private BoardComponents.LedButtonComponent BlueLatch;
-        private BoardComponents.LedButtonComponent GreenLatch;
-        private BoardComponents.LedButtonComponent YellowLatch;
-        private BoardComponents.LedButtonComponent WhiteButton;
+        private ControlAllTheThings.BoardComponents.LedButtonComponent YellowButton;
+        private ControlAllTheThings.BoardComponents.LedButtonComponent GreenButton;
+        private ControlAllTheThings.BoardComponents.LedButtonComponent BlueButton;
+        private ControlAllTheThings.BoardComponents.LedButtonComponent WhiteLatch;
+        private ControlAllTheThings.BoardComponents.LedButtonComponent BlueLatch;
+        private ControlAllTheThings.BoardComponents.LedButtonComponent GreenLatch;
+        private ControlAllTheThings.BoardComponents.LedButtonComponent YellowLatch;
+        private ControlAllTheThings.BoardComponents.LedButtonComponent WhiteButton;
         private System.Windows.Forms.ToolStripSeparator OptionsMenuSeparator;
     }
 }
