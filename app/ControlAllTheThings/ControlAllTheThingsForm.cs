@@ -1,23 +1,13 @@
-﻿using CommandMessenger;
-using CommandMessenger.Transport;
-using CommandMessenger.Transport.Serial;
-using ControlAllTheThings.BoardActions;
-using ControlAllTheThings.BoardComponents;
-using ControlAllTheThings.Properties;
-using Newtonsoft.Json;
+﻿using ControlAllTheThings.BoardComponents;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.IO.Ports;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ControlAllTheThings
