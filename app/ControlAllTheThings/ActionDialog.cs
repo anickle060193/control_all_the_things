@@ -224,5 +224,13 @@ namespace ControlAllTheThings
                 }
             }
         }
+
+        private void RunScriptActionChooseFileNameOption_Click( object sender, EventArgs e )
+        {
+            if( RunScriptActionChooseFileNameOptionDialog.ShowDialog() == DialogResult.OK )
+            {
+                RunScriptActionFileNameOption.Text = RunScriptActionChooseFileNameOptionDialog.FileName;
+            }
+        }
     }
 }

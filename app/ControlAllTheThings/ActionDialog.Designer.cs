@@ -56,6 +56,8 @@
             this.SendTextActionOptions = new System.Windows.Forms.GroupBox();
             this.SendTextActionTextOptionLabel = new System.Windows.Forms.Label();
             this.SendTextActionTextOption = new System.Windows.Forms.TextBox();
+            this.RunScriptActionChooseFileNameOption = new System.Windows.Forms.Button();
+            this.RunScriptActionChooseFileNameOptionDialog = new System.Windows.Forms.OpenFileDialog();
             this.SetLedActionOptions.SuspendLayout();
             this.ActionFormTableLayout.SuspendLayout();
             this.SetPinActionOptions.SuspendLayout();
@@ -276,6 +278,7 @@
             // 
             this.RunScriptActionOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.RunScriptActionOptions.Controls.Add(this.RunScriptActionChooseFileNameOption);
             this.RunScriptActionOptions.Controls.Add(this.RunScriptActionArgumentsOption);
             this.RunScriptActionOptions.Controls.Add(this.RunScriptActionFileNameOption);
             this.RunScriptActionOptions.Controls.Add(this.RunScriptActionArgumentsOptionLabel);
@@ -302,7 +305,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RunScriptActionFileNameOption.Location = new System.Drawing.Point(72, 19);
             this.RunScriptActionFileNameOption.Name = "RunScriptActionFileNameOption";
-            this.RunScriptActionFileNameOption.Size = new System.Drawing.Size(214, 20);
+            this.RunScriptActionFileNameOption.Size = new System.Drawing.Size(188, 20);
             this.RunScriptActionFileNameOption.TabIndex = 2;
             // 
             // RunScriptActionArgumentsOptionLabel
@@ -389,6 +392,21 @@
             this.SendTextActionTextOption.Size = new System.Drawing.Size(243, 20);
             this.SendTextActionTextOption.TabIndex = 4;
             // 
+            // RunScriptActionChooseFileNameOption
+            // 
+            this.RunScriptActionChooseFileNameOption.Location = new System.Drawing.Point(262, 18);
+            this.RunScriptActionChooseFileNameOption.Name = "RunScriptActionChooseFileNameOption";
+            this.RunScriptActionChooseFileNameOption.Size = new System.Drawing.Size(24, 22);
+            this.RunScriptActionChooseFileNameOption.TabIndex = 4;
+            this.RunScriptActionChooseFileNameOption.Text = "...";
+            this.RunScriptActionChooseFileNameOption.UseVisualStyleBackColor = true;
+            this.RunScriptActionChooseFileNameOption.Click += new System.EventHandler(this.RunScriptActionChooseFileNameOption_Click);
+            // 
+            // RunScriptActionChooseFileNameOptionDialog
+            // 
+            this.RunScriptActionChooseFileNameOptionDialog.AddExtension = false;
+            this.RunScriptActionChooseFileNameOptionDialog.SupportMultiDottedExtensions = true;
+            // 
             // ActionDialog
             // 
             this.AcceptButton = this.Ok;
@@ -452,5 +470,7 @@
         private System.Windows.Forms.GroupBox SendTextActionOptions;
         private System.Windows.Forms.Label SendTextActionTextOptionLabel;
         private System.Windows.Forms.TextBox SendTextActionTextOption;
+        private System.Windows.Forms.Button RunScriptActionChooseFileNameOption;
+        private System.Windows.Forms.OpenFileDialog RunScriptActionChooseFileNameOptionDialog;
     }
 }
