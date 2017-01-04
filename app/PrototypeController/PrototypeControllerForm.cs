@@ -24,6 +24,8 @@ namespace PrototypeController
         {
             InitializeComponent();
 
+            this.Icon = Properties.Resources.PrototypeControllerIcon;
+
             Logger.Init();
 
             _board = new BoardInterface( this );

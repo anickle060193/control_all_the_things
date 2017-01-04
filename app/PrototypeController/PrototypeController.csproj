@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\PrototypeController.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,6 +67,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="PrototypeControllerForm.resx">
       <DependentUpon>PrototypeControllerForm.cs</DependentUpon>
@@ -84,7 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
-    <Content Include="PrototypeController.ico" />
+    <None Include="Resources\PrototypeController.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ControlAllTheThings\ControlAllTheThings.csproj">

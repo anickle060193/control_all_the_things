@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PrototypeControllerForm));
             this.StatusStrip = new System.Windows.Forms.StatusStrip();
             this.StatusStripSpring = new System.Windows.Forms.ToolStripStatusLabel();
             this.ConnectionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -296,7 +295,6 @@
             this.Controls.Add(this.BoardPanel);
             this.Controls.Add(this.StatusStrip);
             this.Controls.Add(this.MenuStrip);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MenuStrip;
             this.Name = "PrototypeControllerForm";
             this.Text = "Prototype Controller";
