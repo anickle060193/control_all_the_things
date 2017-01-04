@@ -205,7 +205,7 @@ namespace ControlAllTheThings.BoardComponents
 
         private void QuickAddPressedCustomActionMenuItem_Click( object sender, EventArgs e )
         {
-            ActionDialog d = new ActionDialog( "Add Pressed Action", null, _board );
+            ActionDialog d = new ActionDialog( _board, "Add Pressed Action" );
             if( d.ShowDialog() == DialogResult.OK )
             {
                 _pressedActions.Add( d.Action );
@@ -214,7 +214,7 @@ namespace ControlAllTheThings.BoardComponents
 
         private void QuickAddUnpressedCustomActionMenuItem_Click( object sender, EventArgs e )
         {
-            ActionDialog d = new ActionDialog( "Add Unpressed Action", null, _board );
+            ActionDialog d = new ActionDialog( _board, "Add Unpressed Action" );
             if( d.ShowDialog() == DialogResult.OK )
             {
                 _unpressedActions.Add( d.Action );

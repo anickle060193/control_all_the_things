@@ -11,7 +11,7 @@ namespace ControlAllTheThings
         public BoardInterface Board { get; private set; }
         public BoardAction Action { get; private set; }
 
-        public ActionDialog( String title, BoardAction currentAction, BoardInterface board )
+        public ActionDialog( BoardInterface board, String title, BoardAction currentAction )
         {
             InitializeComponent();
 
@@ -47,7 +47,11 @@ namespace ControlAllTheThings
             UpdateUiForAction( Action );
         }
 
-        public ActionDialog() : this( "", null, null )
+        public ActionDialog( BoardInterface board, String title ) : this( board, title, null )
+        {
+        }
+
+        public ActionDialog( BoardInterface board ) : this( board, "Create Action" )
         {
         }
 
@@ -91,6 +95,11 @@ namespace ControlAllTheThings
             }
         }
 
+        private void ShowError( String message )
+        {
+            MessageBox.Show( this, message, "Failed to Create Action", MessageBoxButtons.OK, MessageBoxIcon.Error );
+        }
+
         private bool CreateActionFromUi( out BoardAction action )
         {
             if( NoAction.Checked )
@@ -115,7 +124,7 @@ namespace ControlAllTheThings
                 }
                 else
                 {
-                    MessageBox.Show( "Must select pin." );
+                    ShowError( "Must select pin." );
                 }
             }
             else if( TogglePinAction.Checked )
@@ -128,7 +137,7 @@ namespace ControlAllTheThings
                 }
                 else
                 {
-                    MessageBox.Show( "Must select pin." );
+                    ShowError( "Must select pin." );
                 }
             }
             else if( RunScriptAction.Checked )
