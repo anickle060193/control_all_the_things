@@ -26,12 +26,14 @@ namespace ControlAllTheThings
             SetPinAction.Tag = SetPinActionOptions;
             TogglePinAction.Tag = TogglePinActionOptions;
             RunScriptAction.Tag = RunScriptActionOptions;
+            SendTextAction.Tag = SendTextActionOptions;
 
             NoActionLabel.Enabled = false;
             SetLedActionOptions.Enabled = false;
             SetPinActionOptions.Enabled = false;
             TogglePinActionOptions.Enabled = false;
             RunScriptActionOptions.Enabled = false;
+            SendTextActionOptions.Enabled = false;
 
             if( Board != null )
             {
@@ -89,6 +91,12 @@ namespace ControlAllTheThings
                 RunScriptActionFileNameOption.Text = a.FileName;
                 RunScriptActionArgumentsOption.Text = a.Arguments;
             }
+            else if( action is SendTextBoardAction )
+            {
+                SendTextAction.Checked = true;
+                SendTextBoardAction a = action as SendTextBoardAction;
+                SendTextActionTextOption.Text = a.Text;
+            }
             else
             {
                 NoAction.Checked = true;
@@ -144,9 +152,26 @@ namespace ControlAllTheThings
             {
                 String fileName = RunScriptActionFileNameOption.Text;
                 String arguments = RunScriptActionArgumentsOption.Text;
-                if( !String.IsNullOrWhiteSpace( fileName ) )
+                if( String.IsNullOrWhiteSpace( fileName ) )
+                {
+                    ShowError( "File name cannot be blank." );
+                }
+                else
                 {
                     action = new RunScriptBoardAction( fileName, arguments );
+                    return true;
+                }
+            }
+            else if( SendTextAction.Checked )
+            {
+                String text = SendTextActionTextOption.Text;
+                if( String.IsNullOrEmpty( text ) )
+                {
+                    ShowError( "Text cannot be empty." );
+                }
+                else
+                {
+                    action = new SendTextBoardAction( text );
                     return true;
                 }
             }

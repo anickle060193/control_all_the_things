@@ -51,11 +51,17 @@
             this.RunScriptActionArgumentsOptionLabel = new System.Windows.Forms.Label();
             this.RunScriptActionFileNameOptionLabel = new System.Windows.Forms.Label();
             this.TestAction = new System.Windows.Forms.Button();
+            this.Cancel = new System.Windows.Forms.Button();
+            this.SendTextAction = new System.Windows.Forms.RadioButton();
+            this.SendTextActionOptions = new System.Windows.Forms.GroupBox();
+            this.SendTextActionTextOptionLabel = new System.Windows.Forms.Label();
+            this.SendTextActionTextOption = new System.Windows.Forms.TextBox();
             this.SetLedActionOptions.SuspendLayout();
             this.ActionFormTableLayout.SuspendLayout();
             this.SetPinActionOptions.SuspendLayout();
             this.TogglePinActionOptions.SuspendLayout();
             this.RunScriptActionOptions.SuspendLayout();
+            this.SendTextActionOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // SetLedAction
@@ -95,7 +101,7 @@
             // Ok
             // 
             this.Ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Ok.Location = new System.Drawing.Point(239, 271);
+            this.Ok.Location = new System.Drawing.Point(239, 327);
             this.Ok.Name = "Ok";
             this.Ok.Size = new System.Drawing.Size(75, 23);
             this.Ok.TabIndex = 3;
@@ -152,16 +158,20 @@
             this.ActionFormTableLayout.Controls.Add(this.NoAction, 0, 0);
             this.ActionFormTableLayout.Controls.Add(this.NoActionLabel, 1, 0);
             this.ActionFormTableLayout.Controls.Add(this.RunScriptActionOptions, 1, 4);
+            this.ActionFormTableLayout.Controls.Add(this.SendTextAction, 0, 5);
+            this.ActionFormTableLayout.Controls.Add(this.SendTextActionOptions, 1, 5);
             this.ActionFormTableLayout.Location = new System.Drawing.Point(4, 4);
             this.ActionFormTableLayout.Name = "ActionFormTableLayout";
-            this.ActionFormTableLayout.RowCount = 6;
+            this.ActionFormTableLayout.RowCount = 7;
+            this.ActionFormTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.ActionFormTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.ActionFormTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.ActionFormTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.ActionFormTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.ActionFormTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.ActionFormTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.ActionFormTableLayout.Size = new System.Drawing.Size(318, 261);
+            this.ActionFormTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.ActionFormTableLayout.Size = new System.Drawing.Size(318, 317);
             this.ActionFormTableLayout.TabIndex = 10;
             // 
             // RunScriptAction
@@ -316,7 +326,7 @@
             // TestAction
             // 
             this.TestAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.TestAction.Location = new System.Drawing.Point(12, 271);
+            this.TestAction.Location = new System.Drawing.Point(12, 327);
             this.TestAction.Name = "TestAction";
             this.TestAction.Size = new System.Drawing.Size(75, 23);
             this.TestAction.TabIndex = 11;
@@ -324,12 +334,69 @@
             this.TestAction.UseVisualStyleBackColor = true;
             this.TestAction.Click += new System.EventHandler(this.TestAction_Click);
             // 
+            // Cancel
+            // 
+            this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Cancel.Location = new System.Drawing.Point(158, 327);
+            this.Cancel.Name = "Cancel";
+            this.Cancel.Size = new System.Drawing.Size(75, 23);
+            this.Cancel.TabIndex = 12;
+            this.Cancel.Text = "Cancel";
+            this.Cancel.UseVisualStyleBackColor = true;
+            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
+            // 
+            // SendTextAction
+            // 
+            this.SendTextAction.AutoSize = true;
+            this.SendTextAction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SendTextAction.Location = new System.Drawing.Point(3, 263);
+            this.SendTextAction.Name = "SendTextAction";
+            this.SendTextAction.Size = new System.Drawing.Size(14, 50);
+            this.SendTextAction.TabIndex = 17;
+            this.SendTextAction.TabStop = true;
+            this.SendTextAction.UseVisualStyleBackColor = true;
+            this.SendTextAction.CheckedChanged += new System.EventHandler(this.Action_CheckedChanged);
+            // 
+            // SendTextActionOptions
+            // 
+            this.SendTextActionOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SendTextActionOptions.Controls.Add(this.SendTextActionTextOption);
+            this.SendTextActionOptions.Controls.Add(this.SendTextActionTextOptionLabel);
+            this.SendTextActionOptions.Location = new System.Drawing.Point(23, 263);
+            this.SendTextActionOptions.Name = "SendTextActionOptions";
+            this.SendTextActionOptions.Size = new System.Drawing.Size(292, 50);
+            this.SendTextActionOptions.TabIndex = 18;
+            this.SendTextActionOptions.TabStop = false;
+            this.SendTextActionOptions.Text = "Send Text";
+            // 
+            // SendTextActionTextOptionLabel
+            // 
+            this.SendTextActionTextOptionLabel.AutoSize = true;
+            this.SendTextActionTextOptionLabel.Location = new System.Drawing.Point(6, 22);
+            this.SendTextActionTextOptionLabel.Name = "SendTextActionTextOptionLabel";
+            this.SendTextActionTextOptionLabel.Size = new System.Drawing.Size(31, 13);
+            this.SendTextActionTextOptionLabel.TabIndex = 4;
+            this.SendTextActionTextOptionLabel.Text = "Text:";
+            // 
+            // SendTextActionTextOption
+            // 
+            this.SendTextActionTextOption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SendTextActionTextOption.Location = new System.Drawing.Point(43, 19);
+            this.SendTextActionTextOption.Name = "SendTextActionTextOption";
+            this.SendTextActionTextOption.Size = new System.Drawing.Size(243, 20);
+            this.SendTextActionTextOption.TabIndex = 4;
+            // 
             // ActionDialog
             // 
             this.AcceptButton = this.Ok;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(326, 306);
+            this.CancelButton = this.Cancel;
+            this.ClientSize = new System.Drawing.Size(326, 362);
+            this.Controls.Add(this.Cancel);
             this.Controls.Add(this.TestAction);
             this.Controls.Add(this.ActionFormTableLayout);
             this.Controls.Add(this.Ok);
@@ -349,6 +416,8 @@
             this.TogglePinActionOptions.PerformLayout();
             this.RunScriptActionOptions.ResumeLayout(false);
             this.RunScriptActionOptions.PerformLayout();
+            this.SendTextActionOptions.ResumeLayout(false);
+            this.SendTextActionOptions.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -378,5 +447,10 @@
         private System.Windows.Forms.TextBox RunScriptActionFileNameOption;
         private System.Windows.Forms.Label RunScriptActionArgumentsOptionLabel;
         private System.Windows.Forms.Label RunScriptActionFileNameOptionLabel;
+        private System.Windows.Forms.Button Cancel;
+        private System.Windows.Forms.RadioButton SendTextAction;
+        private System.Windows.Forms.GroupBox SendTextActionOptions;
+        private System.Windows.Forms.Label SendTextActionTextOptionLabel;
+        private System.Windows.Forms.TextBox SendTextActionTextOption;
     }
 }
