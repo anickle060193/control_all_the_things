@@ -37,6 +37,7 @@
             this.QuickAddPressedActionSetLedOff = new System.Windows.Forms.ToolStripMenuItem();
             this.QuickAddPressedActionSetPinMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.QuickAddPressedActionTogglePinMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.QuickAddPressedCustomActionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ClearPressedActions = new System.Windows.Forms.ToolStripMenuItem();
             this.ButtonComponentContextMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.SetUnpressedActions = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +47,7 @@
             this.QuickAddUnpressedActionSetLedOff = new System.Windows.Forms.ToolStripMenuItem();
             this.QuickAddUnpressedActionSetPinMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.QuickAddUnpressedActionTogglePinMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.QuickAddUnpressedCustomActionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ClearUnpressedActions = new System.Windows.Forms.ToolStripMenuItem();
             this.ButtonComponentContextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -61,7 +63,7 @@
             this.QuickAddUnpressedActionMenu,
             this.ClearUnpressedActions});
             this.ButtonComponentContextMenu.Name = "ContextMenu";
-            this.ButtonComponentContextMenu.Size = new System.Drawing.Size(227, 142);
+            this.ButtonComponentContextMenu.Size = new System.Drawing.Size(227, 164);
             this.ButtonComponentContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ButtonComponentContextMenu_Opening);
             // 
             // SetPressedActions
@@ -76,7 +78,8 @@
             this.QuickAddPressedActionMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.QuickAddPressedActionSetLedMenu,
             this.QuickAddPressedActionSetPinMenu,
-            this.QuickAddPressedActionTogglePinMenu});
+            this.QuickAddPressedActionTogglePinMenu,
+            this.QuickAddPressedCustomActionMenuItem});
             this.QuickAddPressedActionMenu.Name = "QuickAddPressedActionMenu";
             this.QuickAddPressedActionMenu.Size = new System.Drawing.Size(226, 22);
             this.QuickAddPressedActionMenu.Text = "Quick Add Pressed Action";
@@ -87,7 +90,7 @@
             this.QuickAddPressedActionSetLedOn,
             this.QuickAddPressedActionSetLedOff});
             this.QuickAddPressedActionSetLedMenu.Name = "QuickAddPressedActionSetLedMenu";
-            this.QuickAddPressedActionSetLedMenu.Size = new System.Drawing.Size(131, 22);
+            this.QuickAddPressedActionSetLedMenu.Size = new System.Drawing.Size(154, 22);
             this.QuickAddPressedActionSetLedMenu.Text = "Set LED";
             // 
             // QuickAddPressedActionSetLedOn
@@ -107,14 +110,21 @@
             // QuickAddPressedActionSetPinMenu
             // 
             this.QuickAddPressedActionSetPinMenu.Name = "QuickAddPressedActionSetPinMenu";
-            this.QuickAddPressedActionSetPinMenu.Size = new System.Drawing.Size(131, 22);
+            this.QuickAddPressedActionSetPinMenu.Size = new System.Drawing.Size(154, 22);
             this.QuickAddPressedActionSetPinMenu.Text = "Set Pin";
             // 
             // QuickAddPressedActionTogglePinMenu
             // 
             this.QuickAddPressedActionTogglePinMenu.Name = "QuickAddPressedActionTogglePinMenu";
-            this.QuickAddPressedActionTogglePinMenu.Size = new System.Drawing.Size(131, 22);
+            this.QuickAddPressedActionTogglePinMenu.Size = new System.Drawing.Size(154, 22);
             this.QuickAddPressedActionTogglePinMenu.Text = "Toggle Pin";
+            // 
+            // QuickAddPressedCustomActionMenuItem
+            // 
+            this.QuickAddPressedCustomActionMenuItem.Name = "QuickAddPressedCustomActionMenuItem";
+            this.QuickAddPressedCustomActionMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.QuickAddPressedCustomActionMenuItem.Text = "Custom Action";
+            this.QuickAddPressedCustomActionMenuItem.Click += new System.EventHandler(this.QuickAddPressedCustomActionMenuItem_Click);
             // 
             // ClearPressedActions
             // 
@@ -140,7 +150,8 @@
             this.QuickAddUnpressedActionMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.QuickAddUnpressedActionSetLedMenu,
             this.QuickAddUnpressedActionSetPinMenu,
-            this.QuickAddUnpressedActionTogglePinMenu});
+            this.QuickAddUnpressedActionTogglePinMenu,
+            this.QuickAddUnpressedCustomActionMenuItem});
             this.QuickAddUnpressedActionMenu.Name = "QuickAddUnpressedActionMenu";
             this.QuickAddUnpressedActionMenu.Size = new System.Drawing.Size(226, 22);
             this.QuickAddUnpressedActionMenu.Text = "Quick Add Unpressed Action";
@@ -151,7 +162,7 @@
             this.QuickAddUnpressedActionSetLedOn,
             this.QuickAddUnpressedActionSetLedOff});
             this.QuickAddUnpressedActionSetLedMenu.Name = "QuickAddUnpressedActionSetLedMenu";
-            this.QuickAddUnpressedActionSetLedMenu.Size = new System.Drawing.Size(131, 22);
+            this.QuickAddUnpressedActionSetLedMenu.Size = new System.Drawing.Size(154, 22);
             this.QuickAddUnpressedActionSetLedMenu.Text = "Set LED";
             // 
             // QuickAddUnpressedActionSetLedOn
@@ -171,14 +182,21 @@
             // QuickAddUnpressedActionSetPinMenu
             // 
             this.QuickAddUnpressedActionSetPinMenu.Name = "QuickAddUnpressedActionSetPinMenu";
-            this.QuickAddUnpressedActionSetPinMenu.Size = new System.Drawing.Size(131, 22);
+            this.QuickAddUnpressedActionSetPinMenu.Size = new System.Drawing.Size(154, 22);
             this.QuickAddUnpressedActionSetPinMenu.Text = "Set Pin";
             // 
             // QuickAddUnpressedActionTogglePinMenu
             // 
             this.QuickAddUnpressedActionTogglePinMenu.Name = "QuickAddUnpressedActionTogglePinMenu";
-            this.QuickAddUnpressedActionTogglePinMenu.Size = new System.Drawing.Size(131, 22);
+            this.QuickAddUnpressedActionTogglePinMenu.Size = new System.Drawing.Size(154, 22);
             this.QuickAddUnpressedActionTogglePinMenu.Text = "Toggle Pin";
+            // 
+            // QuickAddUnpressedCustomActionMenuItem
+            // 
+            this.QuickAddUnpressedCustomActionMenuItem.Name = "QuickAddUnpressedCustomActionMenuItem";
+            this.QuickAddUnpressedCustomActionMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.QuickAddUnpressedCustomActionMenuItem.Text = "Custom Action";
+            this.QuickAddUnpressedCustomActionMenuItem.Click += new System.EventHandler(this.QuickAddUnpressedCustomActionMenuItem_Click);
             // 
             // ClearUnpressedActions
             // 
@@ -223,6 +241,7 @@
         private System.Windows.Forms.ToolStripMenuItem QuickAddUnpressedActionSetLedOff;
         private System.Windows.Forms.ToolStripMenuItem QuickAddUnpressedActionSetPinMenu;
         private System.Windows.Forms.ToolStripMenuItem QuickAddUnpressedActionTogglePinMenu;
-
+        private System.Windows.Forms.ToolStripMenuItem QuickAddPressedCustomActionMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem QuickAddUnpressedCustomActionMenuItem;
     }
 }

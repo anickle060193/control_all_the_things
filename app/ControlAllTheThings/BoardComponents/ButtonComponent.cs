@@ -203,6 +203,24 @@ namespace ControlAllTheThings.BoardComponents
             _unpressedActions.Add( new TogglePinBoardAction( pin ) );
         }
 
+        private void QuickAddPressedCustomActionMenuItem_Click( object sender, EventArgs e )
+        {
+            ActionDialog d = new ActionDialog( "Add Pressed Action", null, _board );
+            if( d.ShowDialog() == DialogResult.OK )
+            {
+                _pressedActions.Add( d.Action );
+            }
+        }
+
+        private void QuickAddUnpressedCustomActionMenuItem_Click( object sender, EventArgs e )
+        {
+            ActionDialog d = new ActionDialog( "Add Unpressed Action", null, _board );
+            if( d.ShowDialog() == DialogResult.OK )
+            {
+                _unpressedActions.Add( d.Action );
+            }
+        }
+
         private bool ChoosePressedActions()
         {
             ActionsForm a = new ActionsForm( _board, this.Name + " Pressed Actions", _pressedActions );

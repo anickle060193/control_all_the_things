@@ -119,6 +119,7 @@ namespace ControlAllTheThings
 
         private void Board_Startup( Object sender, DoWorkEventArgs e )
         {
+            Thread.Sleep( 200 );
             for( int i = 0; i < _board.OutputPins.Count; i++ )
             {
                 if( i - 1 >= 0 )
@@ -126,7 +127,7 @@ namespace ControlAllTheThings
                     _board.SetPin( _board.OutputPins[ i - 1 ], false );
                 }
                 _board.SetPin( _board.OutputPins[ i ], true );
-                Thread.Sleep( 100 );
+                Thread.Sleep( 200 );
             }
             _board.SetPin( _board.OutputPins.Last(), false );
         }
