@@ -18,6 +18,10 @@ namespace ControlAllTheThings.BoardActions
 
         public override void Perform( BoardInterface b )
         {
+            if( b.Initializing )
+            {
+                return;
+            }
             Logger.Log( "RunScriptAction: FileName: \"{0}\" Arguments: \"{1}\"", FileName, Arguments );
             try
             {

@@ -14,11 +14,14 @@ namespace ControlAllTheThings.BoardActions
 
         public override void Perform( BoardInterface b )
         {
-            try
+            if( !b.Initializing )
             {
-                SendKeys.Send( Text );
+                try
+                {
+                    SendKeys.Send( Text );
+                }
+                catch( InvalidOperationException ) { }
             }
-            catch( InvalidOperationException ) { }
         }
 
         public override bool Valid( BoardInterface b )
