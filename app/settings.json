@@ -3,69 +3,41 @@
     "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
     "PressedActionSetting": [
       {
-        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 1,
-        "SetToState": true
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 1
       }
     ],
-    "UnpressedActionSetting": [
-      {
-        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 1,
-        "SetToState": false
-      }
-    ]
+    "UnpressedActionSetting": []
   },
   "GreenButton": {
     "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
     "PressedActionSetting": [
       {
-        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 3,
-        "SetToState": true
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 3
       }
     ],
-    "UnpressedActionSetting": [
-      {
-        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 3,
-        "SetToState": false
-      }
-    ]
+    "UnpressedActionSetting": []
   },
   "BlueButton": {
     "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
     "PressedActionSetting": [
       {
-        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 6,
-        "SetToState": true
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 6
       }
     ],
-    "UnpressedActionSetting": [
-      {
-        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 6,
-        "SetToState": false
-      }
-    ]
+    "UnpressedActionSetting": []
   },
   "WhiteButton": {
     "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
     "PressedActionSetting": [
       {
-        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 9,
-        "SetToState": true
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": 9
       }
     ],
-    "UnpressedActionSetting": [
-      {
-        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 9,
-        "SetToState": false
-      }
-    ]
+    "UnpressedActionSetting": []
   },
   "WhiteLatch": {
     "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
