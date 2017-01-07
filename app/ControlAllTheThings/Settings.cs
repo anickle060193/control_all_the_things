@@ -14,7 +14,8 @@ namespace ControlAllTheThings
         private static readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings()
         {
             Formatting = Formatting.Indented,
-            TypeNameHandling = TypeNameHandling.Auto
+            TypeNameHandling = TypeNameHandling.Auto,
+            Converters = { new NamedPin.NamedPinJsonConverter() }
         };
 
         public void Save( String settingsFileName )

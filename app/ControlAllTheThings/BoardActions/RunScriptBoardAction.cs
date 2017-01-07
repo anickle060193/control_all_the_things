@@ -16,7 +16,7 @@ namespace ControlAllTheThings.BoardActions
             Arguments = arguments;
         }
 
-        public override void Perform( BoardInterface b )
+        protected override void Perform( BoardInterface b )
         {
             if( b.Initializing )
             {

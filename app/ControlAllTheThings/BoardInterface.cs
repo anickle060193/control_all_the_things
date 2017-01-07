@@ -19,10 +19,10 @@ namespace ControlAllTheThings
 
     public class PinSetEventArgs : EventArgs
     {
-        public int Pin { get; private set; }
+        public NamedPin Pin { get; private set; }
         public bool State { get; private set; }
 
-        public PinSetEventArgs( int pin, bool state )
+        public PinSetEventArgs( NamedPin pin, bool state )
         {
             Pin = pin;
             State = state;
@@ -69,16 +69,16 @@ namespace ControlAllTheThings
         private readonly CmdMessenger _messenger;
         private readonly ConnectionManager _connectionManager;
 
-        public List<int> OutputPins { get; private set; }
-        public List<int> InputPins { get; private set; }
+        public List<NamedPin> OutputPins { get; private set; }
+        public List<NamedPin> InputPins { get; private set; }
 
         public bool IsConnected { get; private set; }
         public bool Initializing { get; private set; }
 
         public BoardInterface( Control c )
         {
-            OutputPins = new List<int>();
-            InputPins = new List<int>();
+            OutputPins = new List<NamedPin>();
+            InputPins = new List<NamedPin>();
 
             _transport = new SerialTransport()
             {
@@ -133,32 +133,32 @@ namespace ControlAllTheThings
             _messenger.SendCommand( new SendCommand( (int)Command.SetLed, state ) );
         }
 
-        public void SetPin( int pin, bool state )
+        public void SetPin( NamedPin pin, bool state )
         {
             Logger.Log( "Sending SetPin( Pin={0}, State={1} )", pin, state );
             var c = new SendCommand( (int)Command.SetPin );
-            c.AddArgument( pin );
+            c.AddArgument( pin.Pin );
             c.AddArgument( state );
             _messenger.SendCommand( c );
         }
 
-        public void TogglePin( int pin )
+        public void TogglePin( NamedPin pin )
         {
             Logger.Log( "Sending TogglePin( Pin={0} )", pin );
-            _messenger.SendCommand( new SendCommand( (int)Command.TogglePin, pin ) );
+            _messenger.SendCommand( new SendCommand( (int)Command.TogglePin, pin.Pin ) );
         }
 
-        private void CreateButton( int pin )
+        private void CreateButton( NamedPin pin )
         {
             Logger.Log( "Sending CreateButton( Pin={0} )", pin );
-            _messenger.SendCommand( new SendCommand( (int)Command.CreateButton, pin ) );
+            _messenger.SendCommand( new SendCommand( (int)Command.CreateButton, pin.Pin ) );
         }
 
-        private void SetPinMode( int pin, PinMode mode )
+        private void SetPinMode( NamedPin pin, PinMode mode )
         {
             Logger.Log( "Sending SetPinMode( Pin={0}, PinMode={1} )", pin, mode );
             var c = new SendCommand( (int)Command.SetPinMode );
-            c.AddArgument( pin );
+            c.AddArgument( pin.Pin );
             c.AddArgument( (int)mode );
             _messenger.SendCommand( c );
         }
@@ -175,20 +175,17 @@ namespace ControlAllTheThings
             Logger.Log( "Sending Connected()" );
             _messenger.SendCommand( new SendCommand( (int)Command.Connected ) );
 
-            foreach( int inputPin in InputPins )
+            foreach( NamedPin inputPin in InputPins )
             {
                 CreateButton( inputPin );
             }
 
-            foreach( int outputPin in OutputPins )
+            foreach( NamedPin outputPin in OutputPins )
             {
                 SetPinMode( outputPin, PinMode.Output );
             }
 
-            if( Connected != null )
-            {
-                Connected( this, EventArgs.Empty );
-            }
+            Connected?.Invoke( this, EventArgs.Empty );
         }
 
         private void OnDisconnected()
@@ -196,27 +193,18 @@ namespace ControlAllTheThings
             IsConnected = false;
             Logger.Log( "OnDisconnected" );
 
-            if( Disconnected != null )
-            {
-                Disconnected( this, EventArgs.Empty );
-            }
+            Disconnected?.Invoke( this, EventArgs.Empty );
         }
 
         private void OnLog( String message )
         {
-            if( Log != null )
-            {
-                Log( this, new LogEventArgs( message ) );
-            }
+            Log?.Invoke( this, new LogEventArgs( message ) );
         }
 
-        private void OnPinSet( int pin, bool state )
+        private void OnPinSet( NamedPin pin, bool state )
         {
             Logger.Log( "OnPinSet( Pin={0}, State={1} )", pin, state );
-            if( PinSet != null )
-            {
-                PinSet( this, new PinSetEventArgs( pin, state ) );
-            }
+            PinSet?.Invoke( this, new PinSetEventArgs( pin, state ) );
         }
 
         #endregion
@@ -296,7 +284,10 @@ namespace ControlAllTheThings
         {
             int pin = args.ReadInt16Arg();
             bool state = args.ReadBoolArg();
-            OnPinSet( pin, state );
+
+            NamedPin p = NamedPin.GetNamedPin( pin );
+
+            OnPinSet( p, state );
         }
 
         #endregion

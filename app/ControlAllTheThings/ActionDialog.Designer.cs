@@ -46,17 +46,17 @@
             this.NoAction = new System.Windows.Forms.RadioButton();
             this.NoActionLabel = new System.Windows.Forms.Label();
             this.RunScriptActionOptions = new System.Windows.Forms.GroupBox();
+            this.RunScriptActionChooseFileNameOption = new System.Windows.Forms.Button();
             this.RunScriptActionArgumentsOption = new System.Windows.Forms.TextBox();
             this.RunScriptActionFileNameOption = new System.Windows.Forms.TextBox();
             this.RunScriptActionArgumentsOptionLabel = new System.Windows.Forms.Label();
             this.RunScriptActionFileNameOptionLabel = new System.Windows.Forms.Label();
-            this.TestAction = new System.Windows.Forms.Button();
-            this.Cancel = new System.Windows.Forms.Button();
             this.SendTextAction = new System.Windows.Forms.RadioButton();
             this.SendTextActionOptions = new System.Windows.Forms.GroupBox();
-            this.SendTextActionTextOptionLabel = new System.Windows.Forms.Label();
             this.SendTextActionTextOption = new System.Windows.Forms.TextBox();
-            this.RunScriptActionChooseFileNameOption = new System.Windows.Forms.Button();
+            this.SendTextActionTextOptionLabel = new System.Windows.Forms.Label();
+            this.TestAction = new System.Windows.Forms.Button();
+            this.Cancel = new System.Windows.Forms.Button();
             this.RunScriptActionChooseFileNameOptionDialog = new System.Windows.Forms.OpenFileDialog();
             this.SetLedActionOptions.SuspendLayout();
             this.ActionFormTableLayout.SuspendLayout();
@@ -135,7 +135,7 @@
             // 
             this.SetPinActionStateOption.AutoSize = true;
             this.SetPinActionStateOption.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.SetPinActionStateOption.Location = new System.Drawing.Point(78, 20);
+            this.SetPinActionStateOption.Location = new System.Drawing.Point(214, 17);
             this.SetPinActionStateOption.Name = "SetPinActionStateOption";
             this.SetPinActionStateOption.Size = new System.Drawing.Size(72, 17);
             this.SetPinActionStateOption.TabIndex = 8;
@@ -206,7 +206,7 @@
             this.SetPinActionPinOption.FormattingEnabled = true;
             this.SetPinActionPinOption.Location = new System.Drawing.Point(37, 18);
             this.SetPinActionPinOption.Name = "SetPinActionPinOption";
-            this.SetPinActionPinOption.Size = new System.Drawing.Size(35, 21);
+            this.SetPinActionPinOption.Size = new System.Drawing.Size(171, 21);
             this.SetPinActionPinOption.TabIndex = 9;
             // 
             // TogglePinAction
@@ -238,7 +238,7 @@
             this.TogglePinActionPinOption.FormattingEnabled = true;
             this.TogglePinActionPinOption.Location = new System.Drawing.Point(37, 18);
             this.TogglePinActionPinOption.Name = "TogglePinActionPinOption";
-            this.TogglePinActionPinOption.Size = new System.Drawing.Size(35, 21);
+            this.TogglePinActionPinOption.Size = new System.Drawing.Size(171, 21);
             this.TogglePinActionPinOption.TabIndex = 10;
             // 
             // TogglePinActionPinOptionLabel
@@ -290,6 +290,16 @@
             this.RunScriptActionOptions.TabStop = false;
             this.RunScriptActionOptions.Text = "Run Script";
             // 
+            // RunScriptActionChooseFileNameOption
+            // 
+            this.RunScriptActionChooseFileNameOption.Location = new System.Drawing.Point(262, 18);
+            this.RunScriptActionChooseFileNameOption.Name = "RunScriptActionChooseFileNameOption";
+            this.RunScriptActionChooseFileNameOption.Size = new System.Drawing.Size(24, 22);
+            this.RunScriptActionChooseFileNameOption.TabIndex = 4;
+            this.RunScriptActionChooseFileNameOption.Text = "...";
+            this.RunScriptActionChooseFileNameOption.UseVisualStyleBackColor = true;
+            this.RunScriptActionChooseFileNameOption.Click += new System.EventHandler(this.RunScriptActionChooseFileNameOption_Click);
+            // 
             // RunScriptActionArgumentsOption
             // 
             this.RunScriptActionArgumentsOption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -326,29 +336,6 @@
             this.RunScriptActionFileNameOptionLabel.TabIndex = 0;
             this.RunScriptActionFileNameOptionLabel.Text = "File Name:";
             // 
-            // TestAction
-            // 
-            this.TestAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.TestAction.Location = new System.Drawing.Point(12, 327);
-            this.TestAction.Name = "TestAction";
-            this.TestAction.Size = new System.Drawing.Size(75, 23);
-            this.TestAction.TabIndex = 11;
-            this.TestAction.Text = "Test Action";
-            this.TestAction.UseVisualStyleBackColor = true;
-            this.TestAction.Click += new System.EventHandler(this.TestAction_Click);
-            // 
-            // Cancel
-            // 
-            this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancel.Location = new System.Drawing.Point(158, 327);
-            this.Cancel.Name = "Cancel";
-            this.Cancel.Size = new System.Drawing.Size(75, 23);
-            this.Cancel.TabIndex = 12;
-            this.Cancel.Text = "Cancel";
-            this.Cancel.UseVisualStyleBackColor = true;
-            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
-            // 
             // SendTextAction
             // 
             this.SendTextAction.AutoSize = true;
@@ -374,15 +361,6 @@
             this.SendTextActionOptions.TabStop = false;
             this.SendTextActionOptions.Text = "Send Text";
             // 
-            // SendTextActionTextOptionLabel
-            // 
-            this.SendTextActionTextOptionLabel.AutoSize = true;
-            this.SendTextActionTextOptionLabel.Location = new System.Drawing.Point(6, 22);
-            this.SendTextActionTextOptionLabel.Name = "SendTextActionTextOptionLabel";
-            this.SendTextActionTextOptionLabel.Size = new System.Drawing.Size(31, 13);
-            this.SendTextActionTextOptionLabel.TabIndex = 4;
-            this.SendTextActionTextOptionLabel.Text = "Text:";
-            // 
             // SendTextActionTextOption
             // 
             this.SendTextActionTextOption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -392,15 +370,37 @@
             this.SendTextActionTextOption.Size = new System.Drawing.Size(243, 20);
             this.SendTextActionTextOption.TabIndex = 4;
             // 
-            // RunScriptActionChooseFileNameOption
+            // SendTextActionTextOptionLabel
             // 
-            this.RunScriptActionChooseFileNameOption.Location = new System.Drawing.Point(262, 18);
-            this.RunScriptActionChooseFileNameOption.Name = "RunScriptActionChooseFileNameOption";
-            this.RunScriptActionChooseFileNameOption.Size = new System.Drawing.Size(24, 22);
-            this.RunScriptActionChooseFileNameOption.TabIndex = 4;
-            this.RunScriptActionChooseFileNameOption.Text = "...";
-            this.RunScriptActionChooseFileNameOption.UseVisualStyleBackColor = true;
-            this.RunScriptActionChooseFileNameOption.Click += new System.EventHandler(this.RunScriptActionChooseFileNameOption_Click);
+            this.SendTextActionTextOptionLabel.AutoSize = true;
+            this.SendTextActionTextOptionLabel.Location = new System.Drawing.Point(6, 22);
+            this.SendTextActionTextOptionLabel.Name = "SendTextActionTextOptionLabel";
+            this.SendTextActionTextOptionLabel.Size = new System.Drawing.Size(31, 13);
+            this.SendTextActionTextOptionLabel.TabIndex = 4;
+            this.SendTextActionTextOptionLabel.Text = "Text:";
+            // 
+            // TestAction
+            // 
+            this.TestAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.TestAction.Location = new System.Drawing.Point(12, 327);
+            this.TestAction.Name = "TestAction";
+            this.TestAction.Size = new System.Drawing.Size(75, 23);
+            this.TestAction.TabIndex = 11;
+            this.TestAction.Text = "Test Action";
+            this.TestAction.UseVisualStyleBackColor = true;
+            this.TestAction.Click += new System.EventHandler(this.TestAction_Click);
+            // 
+            // Cancel
+            // 
+            this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Cancel.Location = new System.Drawing.Point(158, 327);
+            this.Cancel.Name = "Cancel";
+            this.Cancel.Size = new System.Drawing.Size(75, 23);
+            this.Cancel.TabIndex = 12;
+            this.Cancel.Text = "Cancel";
+            this.Cancel.UseVisualStyleBackColor = true;
+            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
             // RunScriptActionChooseFileNameOptionDialog
             // 

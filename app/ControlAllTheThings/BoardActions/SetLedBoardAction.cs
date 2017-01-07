@@ -9,7 +9,7 @@
             SetToState = setToState;
         }
 
-        public override void Perform( BoardInterface b )
+        protected override void Perform( BoardInterface b )
         {
             b.SetLed( SetToState );
         }

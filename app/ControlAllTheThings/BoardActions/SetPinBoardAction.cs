@@ -2,16 +2,16 @@
 {
     class SetPinBoardAction : BoardAction
     {
-        public int Pin { get; private set; }
+        public NamedPin Pin { get; private set; }
         public bool SetToState { get; private set; }
 
-        public SetPinBoardAction( int pin, bool setToState )
+        public SetPinBoardAction( NamedPin pin, bool setToState )
         {
             Pin = pin;
             SetToState = setToState;
         }
 
-        public override void Perform( BoardInterface b )
+        protected override void Perform( BoardInterface b )
         {
             b.SetPin( Pin, SetToState );
         }

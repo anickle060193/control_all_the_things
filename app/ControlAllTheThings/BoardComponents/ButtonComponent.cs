@@ -14,26 +14,17 @@ namespace ControlAllTheThings.BoardComponents
         private List<BoardAction> _unpressedActions = new List<BoardAction>();
 
         private bool _pressed;
-        private int _pin;
         
         public ButtonComponent()
         {
             InitializeComponent();
 
             Pressed = false;
-            Pin = -1;
         }
 
-        [DefaultValue( -1 )]
-        public int Pin
-        {
-            get { return _pin; }
-            set
-            {
-                _pin = value;
-                this.Invalidate();
-            }
-        }
+        [ReadOnly( true )]
+        [Browsable( false )]
+        public NamedPin Pin { get; set; }
 
         [DefaultValue( false )]
         public bool Pressed
@@ -50,14 +41,14 @@ namespace ControlAllTheThings.BoardComponents
                     {
                         foreach( BoardAction b in _pressedActions )
                         {
-                            b.Perform( _board );
+                            b.Run( _board );
                         }
                     }
                     else
                     {
                         foreach( BoardAction b in _unpressedActions )
                         {
-                            b.Perform( _board );
+                            b.Run( _board );
                         }
                     }
                 }
@@ -68,7 +59,7 @@ namespace ControlAllTheThings.BoardComponents
         {
             base.SetBoardInterface( board );
 
-            if( this.Pin >= 0 )
+            if( this.Pin != null )
             {
                 _board.InputPins.Add( this.Pin );
                 _board.PinSet += BoardInterface_PinSet;
@@ -94,13 +85,6 @@ namespace ControlAllTheThings.BoardComponents
             Brush indicatorBrush = this.Pressed ? Brushes.Green : Brushes.Red;
             e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
             e.Graphics.FillEllipse( indicatorBrush, 1, 1, 5, 5 );
-
-            if( this.Pin >= 0 )
-            {
-                String pinString = this.Pin.ToString();
-                float pinStringWidth = e.Graphics.MeasureString( pinString, Font ).Width;
-                e.Graphics.DrawString( pinString, Font, Brushes.Black, this.Width - pinStringWidth - 1, 0.0f );
-            }
         }
 
         private void ButtonComponent_DoubleClick( object sender, EventArgs e )
@@ -129,28 +113,28 @@ namespace ControlAllTheThings.BoardComponents
                 return;
             }
 
-            foreach( int pin in _board.OutputPins )
+            foreach( NamedPin pin in _board.OutputPins )
             {
                 ToolStripMenuItem pressedSetPinMenu = new ToolStripMenuItem( pin.ToString() );
                 QuickAddPressedActionSetPinMenu.DropDownItems.Add( pressedSetPinMenu );
 
                 ToolStripItem pressedSetPinOnItem = pressedSetPinMenu.DropDownItems.Add( "On" );
-                pressedSetPinOnItem.Tag = new Tuple<int, bool>( pin, true );
+                pressedSetPinOnItem.Tag = new Tuple<NamedPin, bool>( pin, true );
                 pressedSetPinOnItem.Click += QuickAddPressedSetPin_Click;
 
                 ToolStripItem pressedSetPinOffItem = pressedSetPinMenu.DropDownItems.Add( "Off" );
-                pressedSetPinOffItem.Tag = new Tuple<int, bool>( pin, false );
+                pressedSetPinOffItem.Tag = new Tuple<NamedPin, bool>( pin, false );
                 pressedSetPinOffItem.Click += QuickAddPressedSetPin_Click;
 
                 ToolStripMenuItem unpressedSetPinMenu = new ToolStripMenuItem( pin.ToString() );
                 QuickAddUnpressedActionSetPinMenu.DropDownItems.Add( unpressedSetPinMenu );
 
                 ToolStripItem unpressedSetPinOnItem = unpressedSetPinMenu.DropDownItems.Add( "On" );
-                unpressedSetPinOnItem.Tag = new Tuple<int, bool>( pin, true );
+                unpressedSetPinOnItem.Tag = new Tuple<NamedPin, bool>( pin, true );
                 unpressedSetPinOnItem.Click += QuickAddPressedSetPin_Click;
 
                 ToolStripItem unpressedSetPinOffItem = unpressedSetPinMenu.DropDownItems.Add( "Off" );
-                unpressedSetPinOffItem.Tag = new Tuple<int, bool>( pin, false );
+                unpressedSetPinOffItem.Tag = new Tuple<NamedPin, bool>( pin, false );
                 unpressedSetPinOffItem.Click += QuickAddUnpressedSetPin_Click;
 
                 ToolStripItem pressedTogglePinItem = QuickAddPressedActionTogglePinMenu.DropDownItems.Add( pin.ToString() );
@@ -178,28 +162,28 @@ namespace ControlAllTheThings.BoardComponents
         private void QuickAddPressedSetPin_Click( object sender, EventArgs e )
         {
             ToolStripItem item = sender as ToolStripItem;
-            Tuple<int, bool> tag = (Tuple<int, bool>)item.Tag;
+            Tuple<NamedPin, bool> tag = (Tuple<NamedPin, bool>)item.Tag;
             _pressedActions.Add( new SetPinBoardAction( tag.Item1, tag.Item2 ) );
         }
 
         private void QuickAddUnpressedSetPin_Click (object sender, EventArgs e )
         {
             ToolStripItem item = sender as ToolStripItem;
-            Tuple<int, bool> tag = (Tuple<int, bool>)item.Tag;
+            Tuple<NamedPin, bool> tag = (Tuple<NamedPin, bool>)item.Tag;
             _unpressedActions.Add( new SetPinBoardAction( tag.Item1, tag.Item2 ) );
         }
 
         private void QuickAddPressedTogglePin_Click( object sender, EventArgs e )
         {
             ToolStripItem item = sender as ToolStripItem;
-            int pin = (int)item.Tag;
+            NamedPin pin = (NamedPin)item.Tag;
             _pressedActions.Add( new TogglePinBoardAction( pin ) );
         }
 
         private void QuickAddUnpressedTogglePin_Click( object sender, EventArgs e )
         {
             ToolStripItem item = sender as ToolStripItem;
-            int pin = (int)item.Tag;
+            NamedPin pin = (NamedPin)item.Tag;
             _unpressedActions.Add( new TogglePinBoardAction( pin ) );
         }
 

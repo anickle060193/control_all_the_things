@@ -7,21 +7,12 @@ namespace ControlAllTheThings.BoardComponents
 {
     public partial class LedButtonComponent : ButtonComponent
     {
-        private int _ledPin;
         private Color _ledColor;
         private bool _ledOn;
 
-        [DefaultValue( -1 )]
-        public int LedPin
-        {
-            get { return _ledPin; }
-            set
-            {
-                _ledPin = value;
-
-                this.Invalidate();
-            }
-        }
+        [ReadOnly( true )]
+        [Browsable( false )]
+        public NamedPin LedPin { get; set; }
 
         [DefaultValue( typeof( Color ), "Blue" )]
         public Color LedColor
@@ -51,7 +42,6 @@ namespace ControlAllTheThings.BoardComponents
         {
             InitializeComponent();
 
-            LedPin = -1;
             LedColor = Color.Blue;
             LedOn = false;
         }
@@ -78,22 +68,13 @@ namespace ControlAllTheThings.BoardComponents
             {
                 e.Graphics.FillEllipse( b, x, y, width, height );
             }
-
-            if( this.LedPin >= 0 )
-            {
-                String pinString = this.LedPin.ToString();
-                SizeF size = e.Graphics.MeasureString( pinString, Font );
-                float pinStringX = this.Width - size.Width - 1;
-                float pinStringY = this.Height - size.Height - 1;
-                e.Graphics.DrawString( pinString, Font, Brushes.Black, pinStringX, pinStringY );
-            }
         }
 
         public override void SetBoardInterface( BoardInterface board )
         {
             base.SetBoardInterface( board );
 
-            if( this.LedPin >= 0 )
+            if( this.LedPin != null )
             {
                 _board.OutputPins.Add( this.LedPin );
                 _board.PinSet += BoardInterface_PinSet;

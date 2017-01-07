@@ -2,14 +2,14 @@
 {
     class TogglePinBoardAction : BoardAction
     {
-        public int Pin { get; private set; }
+        public NamedPin Pin { get; private set; }
 
-        public TogglePinBoardAction( int pin )
+        public TogglePinBoardAction( NamedPin pin )
         {
             Pin = pin;
         }
 
-        public override void Perform( BoardInterface b )
+        protected override void Perform( BoardInterface b )
         {
             if( !b.Initializing )
             {

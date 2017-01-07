@@ -176,10 +176,8 @@
             this.WhiteLatch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.WhiteLatch.LedColor = System.Drawing.Color.White;
             this.WhiteLatch.LedOn = true;
-            this.WhiteLatch.LedPin = 14;
             this.WhiteLatch.Location = new System.Drawing.Point(174, 62);
             this.WhiteLatch.Name = "WhiteLatch";
-            this.WhiteLatch.Pin = 15;
             this.WhiteLatch.Size = new System.Drawing.Size(50, 50);
             this.WhiteLatch.TabIndex = 24;
             // 
@@ -188,10 +186,8 @@
             this.BlueLatch.BackColor = System.Drawing.Color.LightGray;
             this.BlueLatch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.BlueLatch.LedOn = true;
-            this.BlueLatch.LedPin = 16;
             this.BlueLatch.Location = new System.Drawing.Point(118, 62);
             this.BlueLatch.Name = "BlueLatch";
-            this.BlueLatch.Pin = 17;
             this.BlueLatch.Size = new System.Drawing.Size(50, 50);
             this.BlueLatch.TabIndex = 23;
             // 
@@ -201,10 +197,8 @@
             this.GreenLatch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.GreenLatch.LedColor = System.Drawing.Color.Green;
             this.GreenLatch.LedOn = true;
-            this.GreenLatch.LedPin = 19;
             this.GreenLatch.Location = new System.Drawing.Point(62, 62);
             this.GreenLatch.Name = "GreenLatch";
-            this.GreenLatch.Pin = 20;
             this.GreenLatch.Size = new System.Drawing.Size(50, 50);
             this.GreenLatch.TabIndex = 22;
             // 
@@ -214,10 +208,8 @@
             this.YellowLatch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.YellowLatch.LedColor = System.Drawing.Color.Gold;
             this.YellowLatch.LedOn = true;
-            this.YellowLatch.LedPin = 22;
             this.YellowLatch.Location = new System.Drawing.Point(6, 62);
             this.YellowLatch.Name = "YellowLatch";
-            this.YellowLatch.Pin = 23;
             this.YellowLatch.Size = new System.Drawing.Size(50, 50);
             this.YellowLatch.TabIndex = 21;
             // 
@@ -227,10 +219,8 @@
             this.WhiteButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.WhiteButton.LedColor = System.Drawing.Color.White;
             this.WhiteButton.LedOn = true;
-            this.WhiteButton.LedPin = 9;
             this.WhiteButton.Location = new System.Drawing.Point(174, 6);
             this.WhiteButton.Name = "WhiteButton";
-            this.WhiteButton.Pin = 11;
             this.WhiteButton.Size = new System.Drawing.Size(50, 50);
             this.WhiteButton.TabIndex = 20;
             // 
@@ -239,10 +229,8 @@
             this.BlueButton.BackColor = System.Drawing.Color.LightGray;
             this.BlueButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.BlueButton.LedOn = true;
-            this.BlueButton.LedPin = 6;
             this.BlueButton.Location = new System.Drawing.Point(118, 6);
             this.BlueButton.Name = "BlueButton";
-            this.BlueButton.Pin = 7;
             this.BlueButton.Size = new System.Drawing.Size(50, 50);
             this.BlueButton.TabIndex = 19;
             // 
@@ -252,10 +240,8 @@
             this.GreenButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.GreenButton.LedColor = System.Drawing.Color.Green;
             this.GreenButton.LedOn = true;
-            this.GreenButton.LedPin = 3;
             this.GreenButton.Location = new System.Drawing.Point(62, 6);
             this.GreenButton.Name = "GreenButton";
-            this.GreenButton.Pin = 4;
             this.GreenButton.Size = new System.Drawing.Size(50, 50);
             this.GreenButton.TabIndex = 18;
             // 
@@ -265,10 +251,8 @@
             this.YellowButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.YellowButton.LedColor = System.Drawing.Color.Gold;
             this.YellowButton.LedOn = true;
-            this.YellowButton.LedPin = 1;
             this.YellowButton.Location = new System.Drawing.Point(6, 6);
             this.YellowButton.Name = "YellowButton";
-            this.YellowButton.Pin = 0;
             this.YellowButton.Size = new System.Drawing.Size(50, 50);
             this.YellowButton.TabIndex = 17;
             // 

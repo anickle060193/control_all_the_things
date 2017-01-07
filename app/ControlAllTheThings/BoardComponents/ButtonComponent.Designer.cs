@@ -63,7 +63,7 @@
             this.QuickAddUnpressedActionMenu,
             this.ClearUnpressedActions});
             this.ButtonComponentContextMenu.Name = "ContextMenu";
-            this.ButtonComponentContextMenu.Size = new System.Drawing.Size(227, 164);
+            this.ButtonComponentContextMenu.Size = new System.Drawing.Size(227, 142);
             this.ButtonComponentContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ButtonComponentContextMenu_Opening);
             // 
             // SetPressedActions

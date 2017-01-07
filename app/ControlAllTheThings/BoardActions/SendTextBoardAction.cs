@@ -12,7 +12,7 @@ namespace ControlAllTheThings.BoardActions
             this.Text = text;
         }
 
-        public override void Perform( BoardInterface b )
+        protected override void Perform( BoardInterface b )
         {
             if( !b.Initializing )
             {

@@ -4,7 +4,7 @@
     "PressedActionSetting": [
       {
         "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
-        "Pin": 1
+        "Pin": "Yellow Button LED"
       }
     ],
     "UnpressedActionSetting": []
@@ -14,7 +14,7 @@
     "PressedActionSetting": [
       {
         "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
-        "Pin": 3
+        "Pin": "Green Button LED"
       }
     ],
     "UnpressedActionSetting": []
@@ -24,7 +24,7 @@
     "PressedActionSetting": [
       {
         "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
-        "Pin": 6
+        "Pin": "Blue Button LED"
       }
     ],
     "UnpressedActionSetting": []
@@ -34,7 +34,7 @@
     "PressedActionSetting": [
       {
         "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
-        "Pin": 9
+        "Pin": "White Button LED"
       }
     ],
     "UnpressedActionSetting": []
@@ -44,14 +44,14 @@
     "PressedActionSetting": [
       {
         "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 14,
+        "Pin": "White Latch LED",
         "SetToState": true
       }
     ],
     "UnpressedActionSetting": [
       {
         "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 14,
+        "Pin": "White Latch LED",
         "SetToState": false
       }
     ]
@@ -61,14 +61,14 @@
     "PressedActionSetting": [
       {
         "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 16,
+        "Pin": "Blue Latch LED",
         "SetToState": true
       }
     ],
     "UnpressedActionSetting": [
       {
         "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 16,
+        "Pin": "Blue Latch LED",
         "SetToState": false
       }
     ]
@@ -78,14 +78,14 @@
     "PressedActionSetting": [
       {
         "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 19,
+        "Pin": "Green Latch LED",
         "SetToState": true
       }
     ],
     "UnpressedActionSetting": [
       {
         "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 19,
+        "Pin": "Green Latch LED",
         "SetToState": false
       }
     ]
@@ -95,14 +95,15 @@
     "PressedActionSetting": [
       {
         "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
-        "Pin": 22,
+        "Pin": "Yellow Latch LED",
         "SetToState": true
       }
     ],
     "UnpressedActionSetting": [
       {
-        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
-        "Pin": 22
+        "$type": "ControlAllTheThings.BoardActions.SetPinBoardAction, ControlAllTheThings",
+        "Pin": "Yellow Latch LED",
+        "SetToState": false
       }
     ]
   }

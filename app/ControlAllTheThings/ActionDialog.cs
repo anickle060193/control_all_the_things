@@ -125,7 +125,7 @@ namespace ControlAllTheThings
             {
                 if( SetPinActionPinOption.SelectedItem != null )
                 {
-                    int pin = (int)SetPinActionPinOption.SelectedItem;
+                    NamedPin pin = (NamedPin)SetPinActionPinOption.SelectedItem;
                     bool setToState = SetPinActionStateOption.Checked;
                     action = new SetPinBoardAction( pin, setToState );
                     return true;
@@ -139,7 +139,7 @@ namespace ControlAllTheThings
             {
                 if( TogglePinActionPinOption.SelectedItem != null )
                 {
-                    int pin = (int)TogglePinActionPinOption.SelectedItem;
+                    NamedPin pin = (NamedPin)TogglePinActionPinOption.SelectedItem;
                     action = new TogglePinBoardAction( pin );
                     return true;
                 }
@@ -185,10 +185,17 @@ namespace ControlAllTheThings
             BoardAction a;
             if( CreateActionFromUi( out a ) )
             {
-                Action = a;
+                if( !a.Valid( Board ) )
+                {
+                    ShowError( "Invalid action" );
+                }
+                else
+                {
+                    Action = a;
 
-                DialogResult = DialogResult.OK;
-                this.Close();
+                    DialogResult = DialogResult.OK;
+                    this.Close();
+                }
             }
         }
 
@@ -219,7 +226,7 @@ namespace ControlAllTheThings
                 {
                     if( action != null )
                     {
-                        action.Perform( Board );
+                        action.Run( Board );
                     }
                 }
             }

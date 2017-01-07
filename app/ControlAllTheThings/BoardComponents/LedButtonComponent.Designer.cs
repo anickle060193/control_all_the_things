@@ -34,9 +34,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Name = "LedButtonComponent";
-            this.Size = new System.Drawing.Size(38, 38);
+            this.Size = new System.Drawing.Size(40, 40);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.LedButtonComponent_Paint);
             this.ResumeLayout(false);
 

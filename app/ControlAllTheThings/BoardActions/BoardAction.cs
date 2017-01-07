@@ -13,7 +13,16 @@ namespace ControlAllTheThings.BoardActions
             get { return this.ToString(); }
         }
 
-        public abstract void Perform( BoardInterface b );
+        public void Run( BoardInterface b )
+        {
+            if( this.Valid( b ) )
+            {
+                this.Perform( b );
+            }
+        }
+
+        protected abstract void Perform( BoardInterface b );
+
         public abstract bool Valid( BoardInterface b );
 
         private String FormatPropertyValue( Object value )
