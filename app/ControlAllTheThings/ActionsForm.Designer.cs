@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.ActionsGridView = new System.Windows.Forms.DataGridView();
-            this.ActionsColumnAction = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ActionsColumnRemove = new System.Windows.Forms.DataGridViewButtonColumn();
             this.AddAction = new System.Windows.Forms.Button();
             this.Ok = new System.Windows.Forms.Button();
+            this.ActionsColumnAction = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActionsColumnRemove = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Cancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ActionsGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,24 +65,10 @@
             this.ActionsGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ActionsGridView_CellContentClick);
             this.ActionsGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ActionsGridView_CellDoubleClick);
             // 
-            // ActionsColumnAction
-            // 
-            this.ActionsColumnAction.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ActionsColumnAction.HeaderText = "Action";
-            this.ActionsColumnAction.Name = "ActionsColumnAction";
-            this.ActionsColumnAction.ReadOnly = true;
-            // 
-            // ActionsColumnRemove
-            // 
-            this.ActionsColumnRemove.HeaderText = "";
-            this.ActionsColumnRemove.Name = "ActionsColumnRemove";
-            this.ActionsColumnRemove.ReadOnly = true;
-            this.ActionsColumnRemove.Width = 5;
-            // 
             // AddAction
             // 
-            this.AddAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddAction.Location = new System.Drawing.Point(177, 240);
+            this.AddAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.AddAction.Location = new System.Drawing.Point(12, 240);
             this.AddAction.Name = "AddAction";
             this.AddAction.Size = new System.Drawing.Size(75, 23);
             this.AddAction.TabIndex = 1;
@@ -100,12 +87,42 @@
             this.Ok.UseVisualStyleBackColor = true;
             this.Ok.Click += new System.EventHandler(this.Ok_Click);
             // 
+            // ActionsColumnAction
+            // 
+            this.ActionsColumnAction.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ActionsColumnAction.DataPropertyName = "Name";
+            this.ActionsColumnAction.HeaderText = "Action";
+            this.ActionsColumnAction.Name = "ActionsColumnAction";
+            this.ActionsColumnAction.ReadOnly = true;
+            // 
+            // ActionsColumnRemove
+            // 
+            this.ActionsColumnRemove.HeaderText = "";
+            this.ActionsColumnRemove.Name = "ActionsColumnRemove";
+            this.ActionsColumnRemove.ReadOnly = true;
+            this.ActionsColumnRemove.Text = "Remove";
+            this.ActionsColumnRemove.UseColumnTextForButtonValue = true;
+            this.ActionsColumnRemove.Width = 5;
+            // 
+            // Cancel
+            // 
+            this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Cancel.Location = new System.Drawing.Point(177, 240);
+            this.Cancel.Name = "Cancel";
+            this.Cancel.Size = new System.Drawing.Size(75, 23);
+            this.Cancel.TabIndex = 3;
+            this.Cancel.Text = "Cancel";
+            this.Cancel.UseVisualStyleBackColor = true;
+            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
+            // 
             // ActionsForm
             // 
             this.AcceptButton = this.Ok;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.Cancel;
             this.ClientSize = new System.Drawing.Size(345, 275);
+            this.Controls.Add(this.Cancel);
             this.Controls.Add(this.Ok);
             this.Controls.Add(this.AddAction);
             this.Controls.Add(this.ActionsGridView);
@@ -121,11 +138,10 @@
         #endregion
 
         private System.Windows.Forms.DataGridView ActionsGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActionsColumnAction;
-        private System.Windows.Forms.DataGridViewButtonColumn ActionsColumnRemove;
         private System.Windows.Forms.Button AddAction;
         private System.Windows.Forms.Button Ok;
-
-
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActionsColumnAction;
+        private System.Windows.Forms.DataGridViewButtonColumn ActionsColumnRemove;
+        private System.Windows.Forms.Button Cancel;
     }
 }

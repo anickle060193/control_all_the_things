@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -6,6 +7,12 @@ namespace ControlAllTheThings.BoardActions
 {
     public abstract class BoardAction
     {
+        [JsonIgnore]
+        public String Name
+        {
+            get { return this.ToString(); }
+        }
+
         public abstract void Perform( BoardInterface b );
         public abstract bool Valid( BoardInterface b );
 
@@ -28,7 +35,10 @@ namespace ControlAllTheThings.BoardActions
             List<String> propertyStrings = new List<String>();
             foreach( PropertyInfo p in t.GetProperties() )
             {
-                propertyStrings.Add( String.Format( "{0}={1}", p.Name, FormatPropertyValue( p.GetValue( this ) ) ) );
+                if( p.Name != "Name" )
+                {
+                    propertyStrings.Add( String.Format( "{0}={1}", p.Name, FormatPropertyValue( p.GetValue( this ) ) ) );
+                }
             }
 
             return String.Format( "{0}( {1} )", t.Name, String.Join( ", ", propertyStrings ) );

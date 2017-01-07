@@ -1,6 +1,7 @@
 ﻿using ControlAllTheThings.BoardActions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace ControlAllTheThings
@@ -8,7 +9,7 @@ namespace ControlAllTheThings
     public partial class ActionsForm : Form
     {
         public BoardInterface Board { get; private set; }
-        public List<BoardAction> BoardActions { get; private set; }
+        public BindingList<BoardAction> BoardActions { get; private set; }
 
         public ActionsForm( BoardInterface board, String title, List<BoardAction> actions )
         {
@@ -21,15 +22,17 @@ namespace ControlAllTheThings
 
             Board = board;
             Text = title;
-            BoardActions = new List<BoardAction>();
+            BoardActions = new BindingList<BoardAction>();
 
             if( actions != null )
             {
                 foreach( BoardAction a in actions )
                 {
-                    AddNewAction( a );
+                    BoardActions.Add( a );
                 }
             }
+
+            ActionsGridView.DataSource = BoardActions;
 
             DialogResult = DialogResult.OK;
         }
@@ -42,26 +45,11 @@ namespace ControlAllTheThings
         {
         }
 
-        private void RemoveActionAt( int index )
-        {
-            if( index >= 0 )
-            {
-                BoardActions.RemoveAt( index );
-                ActionsGridView.Rows.RemoveAt( index );
-            }
-        }
-
-        private void AddNewAction( BoardAction action )
-        {
-            BoardActions.Add( action );
-            ActionsGridView.Rows.Add( action, "Remove" );
-        }
-
         private void ActionsGridView_CellContentClick( object sender, DataGridViewCellEventArgs e )
         {
-            if( e.RowIndex >= 0 && e.ColumnIndex == 1 )
+            if( e.RowIndex >= 0 && ActionsGridView.Columns[ e.ColumnIndex ].Name == ActionsColumnRemove.Name )
             {
-                RemoveActionAt( e.RowIndex );
+                BoardActions.RemoveAt( e.RowIndex );
             }
         }
 
@@ -70,13 +58,13 @@ namespace ControlAllTheThings
             ActionDialog d = new ActionDialog( Board, "Create Action" );
             if( d.ShowDialog() == DialogResult.OK )
             {
-                AddNewAction( d.Action );
+                BoardActions.Add( d.Action );
             }
         }
 
         private void ActionsGridView_CellDoubleClick( object sender, DataGridViewCellEventArgs e )
         {
-            if( e.RowIndex >= 0 && e.ColumnIndex == 0 )
+            if( e.RowIndex >= 0 && ActionsGridView.Columns[ e.ColumnIndex ].Name == ActionsColumnAction.Name )
             {
                 BoardAction action = BoardActions[ e.RowIndex ];
                 ActionDialog d = new ActionDialog( Board, "Edit Action", action );
@@ -84,7 +72,7 @@ namespace ControlAllTheThings
                 {
                     if( d.Action == null )
                     {
-                        RemoveActionAt( e.RowIndex );
+                        BoardActions.RemoveAt( e.RowIndex );
                     }
                     else
                     {
@@ -97,6 +85,12 @@ namespace ControlAllTheThings
         private void Ok_Click( object sender, EventArgs e )
         {
             DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void Cancel_Click( object sender, EventArgs e )
+        {
+            DialogResult = DialogResult.Cancel;
             this.Close();
         }
     }
