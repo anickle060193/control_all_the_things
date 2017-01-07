@@ -96,6 +96,15 @@ namespace ControlAllTheThings.BoardComponents
             if( this.LedPin >= 0 )
             {
                 _board.OutputPins.Add( this.LedPin );
+                _board.PinSet += BoardInterface_PinSet;
+            }
+        }
+
+        private void BoardInterface_PinSet( object sender, PinSetEventArgs e )
+        {
+            if( e.Pin == this.LedPin )
+            {
+                this.LedOn = e.State;
             }
         }
     }

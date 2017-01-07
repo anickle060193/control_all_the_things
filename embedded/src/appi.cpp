@@ -27,6 +27,12 @@ namespace APPI
         messenger->sendCmd( Command__Debug, message );
     }
 
+    static void WritePinState( int pin, bool state )
+    {
+        digitalWrite( pin, state );
+        OnPinSet( pin, state );
+    }
+
     static void OnUnknownCommand()
     {
         Debug( "Unknown command." );
@@ -80,14 +86,14 @@ namespace APPI
     {
         int pin = messenger->readInt32Arg();
         bool state = messenger->readBoolArg();
-        digitalWrite( pin, state );
+        WritePinState( pin, state );
     }
 
     static void OnTogglePinCommand()
     {
         int pin = messenger->readInt32Arg();
         bool state = digitalRead( pin );
-        digitalWrite( pin, !state );
+        WritePinState( pin, !state );
     }
 
     void Setup()
