@@ -54,6 +54,22 @@ namespace PrototypeController
             _board.Start();
         }
 
+        protected override void WndProc( ref Message m )
+        {
+            if( m.Msg == NativeMethods.WM_SHOWME )
+            {
+                this.Show();
+                if( this.WindowState == FormWindowState.Minimized )
+                {
+                    this.WindowState = FormWindowState.Normal;
+                }
+                bool top = this.TopMost;
+                this.TopMost = true;
+                this.TopMost = top;
+            }
+            base.WndProc( ref m );
+        }
+
         private void LoadSettings()
         {
             RunOnStartup.Checked = File.Exists( GetStartupShortcutLocation() );
