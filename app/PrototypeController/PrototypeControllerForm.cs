@@ -98,7 +98,9 @@ namespace PrototypeController
 
         private String GetStartupShortcutLocation()
         {
-            return Path.Combine( Environment.GetFolderPath( Environment.SpecialFolder.Startup ), "ControlAllTheThings.lnk" );
+            Assembly assembly = Assembly.GetEntryAssembly();
+            String name = assembly.GetName().Name;
+            return Path.Combine( Environment.GetFolderPath( Environment.SpecialFolder.Startup ), name + ".lnk" );
         }
 
         #region Board Interface Event Handlers
