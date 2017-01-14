@@ -13,8 +13,14 @@ namespace ControlAllTheThings
             Close();
 
             _fileName = logFileName;
-            _writer = new StreamWriter( _fileName );
-            _writer.AutoFlush = true;
+            try
+            {
+                _writer = new StreamWriter( _fileName );
+                _writer.AutoFlush = true;
+            }
+            catch( IOException )
+            {
+            }
         }
 
         public static void Init()

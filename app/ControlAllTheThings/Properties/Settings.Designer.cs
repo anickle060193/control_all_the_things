@@ -22,5 +22,29 @@ namespace ControlAllTheThings.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("settings.json")]
+        public string SettingsFileLocation {
+            get {
+                return ((string)(this["SettingsFileLocation"]));
+            }
+            set {
+                this["SettingsFileLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool MinimizeToSystemTray {
+            get {
+                return ((bool)(this["MinimizeToSystemTray"]));
+            }
+            set {
+                this["MinimizeToSystemTray"] = value;
+            }
+        }
     }
 }

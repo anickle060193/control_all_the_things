@@ -35,16 +35,6 @@ namespace ControlAllTheThings
             }
         }
 
-        protected void RegisterComponent( BaseComponent c )
-        {
-            _components.Add( c );
-
-            if( _board != null )
-            {
-                c.SetBoardInterface( _board );
-            }
-        }
-
         protected override void OnControlAdded( ControlEventArgs e )
         {
             base.OnControlAdded( e );

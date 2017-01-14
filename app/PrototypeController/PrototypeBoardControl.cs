@@ -37,10 +37,5 @@ namespace PrototypeController
             YellowButton.Pin = NamedPin.CreateNamedPin( 0, "Yellow Button" );
             YellowButton.LedPin = NamedPin.CreateNamedPin( 1, "Yellow Button LED" );
         }
-
-        public override void SetBoardInterface( BoardInterface board )
-        {
-            base.SetBoardInterface( board );
-        }
     }
 }

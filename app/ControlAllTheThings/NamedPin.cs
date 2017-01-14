@@ -26,15 +26,22 @@ namespace ControlAllTheThings
 
         public static NamedPin CreateNamedPin( int pin, String name )
         {
-            if( _namedPinsByPin.ContainsKey( pin ) || _namedPinsByName.ContainsKey( name ) )
+            if( _namedPinsByPin.ContainsKey( pin ) )
             {
-                throw new ArgumentException( String.Format( "Named pin already exists: {0} - {1}", pin, _namedPinsByPin[ pin ] ) );
+                NamedPin p = _namedPinsByPin[ pin ];
+                if( p.Name != name )
+                {
+                    throw new ArgumentException( String.Format( "Named pin already exists: {0} - {1}", pin, _namedPinsByPin[ pin ] ) );
+                }
+                return p;
             }
-
-            NamedPin p = new NamedPin( pin, name );
-            _namedPinsByPin.Add( pin, p );
-            _namedPinsByName.Add( name, p );
-            return p;
+            else
+            {
+                NamedPin p = new NamedPin( pin, name );
+                _namedPinsByPin.Add( pin, p );
+                _namedPinsByName.Add( name, p );
+                return p;
+            }
         }
 
         public static NamedPin GetNamedPin( int pin )

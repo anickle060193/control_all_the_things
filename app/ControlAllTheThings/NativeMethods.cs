@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace PrototypeController
+namespace ControlAllTheThings
 {
-    static class NativeMethods
+    public static class NativeMethods
     {
         public static readonly int HWND_BROADCAST = 0xFFFF;
         public static readonly int WM_SHOWME = RegisterWindowMessage( "WM_SHOWME" );
