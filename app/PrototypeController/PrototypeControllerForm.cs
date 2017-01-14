@@ -15,8 +15,6 @@ namespace PrototypeController
 {
     public partial class PrototypeControllerForm : Form
     {
-        private readonly List<BaseComponent> _components = new List<BaseComponent>();
-
         private readonly BoardInterface _board;
         private readonly NotifyIcon _notifyIcon;
 
@@ -26,30 +24,6 @@ namespace PrototypeController
 
             this.Icon = Properties.Resources.PrototypeControllerIcon;
 
-            WhiteLatch.Pin = NamedPin.CreateNamedPin( 15, "White Latch" );
-            WhiteLatch.LedPin = NamedPin.CreateNamedPin( 14, "White Latch LED" );
-
-            BlueLatch.Pin = NamedPin.CreateNamedPin( 17, "Blue Latch" );
-            BlueLatch.LedPin = NamedPin.CreateNamedPin( 16, "Blue Latch LED" );
-
-            GreenLatch.Pin = NamedPin.CreateNamedPin( 20, "Green Latch" );
-            GreenLatch.LedPin = NamedPin.CreateNamedPin( 19, "Green Latch LED" );
-
-            YellowLatch.Pin = NamedPin.CreateNamedPin( 23, "Yellow Latch" );
-            YellowLatch.LedPin = NamedPin.CreateNamedPin( 22, "Yellow Latch LED" );
-
-            WhiteButton.Pin = NamedPin.CreateNamedPin( 11, "White Button" );
-            WhiteButton.LedPin = NamedPin.CreateNamedPin( 9, "White Button LED" );
-
-            BlueButton.Pin = NamedPin.CreateNamedPin( 7, "Blue Button" );
-            BlueButton.LedPin = NamedPin.CreateNamedPin( 6, "Blue Button LED" );
-
-            GreenButton.Pin = NamedPin.CreateNamedPin( 4, "Green Button" );
-            GreenButton.LedPin = NamedPin.CreateNamedPin( 3, "Green Button LED" );
-
-            YellowButton.Pin = NamedPin.CreateNamedPin( 0, "Yellow Button" );
-            YellowButton.LedPin = NamedPin.CreateNamedPin( 1, "Yellow Button LED" );
-
             Logger.Init();
 
             _board = new BoardInterface( this );
@@ -57,19 +31,7 @@ namespace PrototypeController
             _board.Disconnected += Board_Disconnected;
             _board.Log += Board_Log;
 
-            _components.Add( YellowButton );
-            _components.Add( GreenButton );
-            _components.Add( BlueButton );
-            _components.Add( WhiteButton );
-            _components.Add( WhiteLatch );
-            _components.Add( BlueLatch );
-            _components.Add( GreenLatch );
-            _components.Add( YellowLatch );
-
-            foreach( BaseComponent c in _components )
-            {
-                c.SetBoardInterface( _board );
-            }
+            PrototypeBoardControl.SetBoardInterface( _board );
 
             _notifyIcon = CreateNotifyIcon();
 
@@ -105,10 +67,7 @@ namespace PrototypeController
             Settings settings = Settings.Load( settingsFileLocation );
             if( settings != null )
             {
-                foreach( BaseComponent c in _components )
-                {
-                    c.LoadSettings( settings );
-                }
+                PrototypeBoardControl.LoadSettings( settings );
             }
         }
 
@@ -118,10 +77,7 @@ namespace PrototypeController
             Properties.Settings.Default.Save();
 
             Settings settings = new Settings();
-            foreach( BaseComponent c in _components )
-            {
-                c.SaveSettings( settings );
-            }
+            PrototypeBoardControl.SaveSettings( settings );
             settings.Save( Properties.Settings.Default.SettingsFileLocation );
         }
 
@@ -162,17 +118,19 @@ namespace PrototypeController
 
         private void Board_Startup( Object sender, DoWorkEventArgs e )
         {
+            List<NamedPin> pins = _board.OutputPins.OrderBy( p => p.Pin ).ToList();
+
             Thread.Sleep( 200 );
-            for( int i = 0; i < _board.OutputPins.Count; i++ )
+            for( int i = 0; i < pins.Count; i++ )
             {
                 if( i - 1 >= 0 )
                 {
-                    _board.SetPin( _board.OutputPins[ i - 1 ], false );
+                    _board.SetPin( pins[ i - 1 ], false );
                 }
-                _board.SetPin( _board.OutputPins[ i ], true );
+                _board.SetPin( pins[ i ], true );
                 Thread.Sleep( 200 );
             }
-            _board.SetPin( _board.OutputPins.Last(), false );
+            _board.SetPin( pins.Last(), false );
         }
 
         private void Board_StartupCompleted( Object sender, RunWorkerCompletedEventArgs e )

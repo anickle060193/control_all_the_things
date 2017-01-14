@@ -1,44 +1,4 @@
 {
-  "YellowButton": {
-    "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
-    "PressedActionSetting": [
-      {
-        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
-        "Pin": "Yellow Button LED"
-      }
-    ],
-    "UnpressedActionSetting": []
-  },
-  "GreenButton": {
-    "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
-    "PressedActionSetting": [
-      {
-        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
-        "Pin": "Green Button LED"
-      }
-    ],
-    "UnpressedActionSetting": []
-  },
-  "BlueButton": {
-    "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
-    "PressedActionSetting": [
-      {
-        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
-        "Pin": "Blue Button LED"
-      }
-    ],
-    "UnpressedActionSetting": []
-  },
-  "WhiteButton": {
-    "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
-    "PressedActionSetting": [
-      {
-        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
-        "Pin": "White Button LED"
-      }
-    ],
-    "UnpressedActionSetting": []
-  },
   "WhiteLatch": {
     "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
     "PressedActionSetting": [
@@ -106,5 +66,45 @@
         "SetToState": false
       }
     ]
+  },
+  "BlueButton": {
+    "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
+    "PressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": "Blue Button LED"
+      }
+    ],
+    "UnpressedActionSetting": []
+  },
+  "YellowButton": {
+    "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
+    "PressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": "Yellow Button LED"
+      }
+    ],
+    "UnpressedActionSetting": []
+  },
+  "WhiteButton": {
+    "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
+    "PressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": "White Button LED"
+      }
+    ],
+    "UnpressedActionSetting": []
+  },
+  "GreenButton": {
+    "$type": "ControlAllTheThings.BoardComponents.ButtonComponent+ButtonComponentSettings, ControlAllTheThings",
+    "PressedActionSetting": [
+      {
+        "$type": "ControlAllTheThings.BoardActions.TogglePinBoardAction, ControlAllTheThings",
+        "Pin": "Green Button LED"
+      }
+    ],
+    "UnpressedActionSetting": []
   }
 }

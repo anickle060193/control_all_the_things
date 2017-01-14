@@ -52,6 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NativeMethods.cs" />
+    <Compile Include="PrototypeBoardControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PrototypeBoardControl.Designer.cs">
+      <DependentUpon>PrototypeBoardControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="PrototypeControllerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +76,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="PrototypeBoardControl.resx">
+      <DependentUpon>PrototypeBoardControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PrototypeControllerForm.resx">
       <DependentUpon>PrototypeControllerForm.cs</DependentUpon>
     </EmbeddedResource>
