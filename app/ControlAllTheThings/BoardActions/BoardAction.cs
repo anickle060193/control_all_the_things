@@ -13,9 +13,12 @@ namespace ControlAllTheThings.BoardActions
             get { return this.ToString(); }
         }
 
+        [JsonIgnore]
+        public abstract bool RunWhileInitializing { get; }
+
         public void Run( BoardInterface b )
         {
-            if( this.Valid( b ) )
+            if( this.Valid( b ) && ( !b.Initializing || this.RunWhileInitializing ) )
             {
                 this.Perform( b );
             }
@@ -44,7 +47,7 @@ namespace ControlAllTheThings.BoardActions
             List<String> propertyStrings = new List<String>();
             foreach( PropertyInfo p in t.GetProperties() )
             {
-                if( p.Name != "Name" )
+                if( p.Name != nameof( Name ) && p.Name != nameof( RunWhileInitializing ) )
                 {
                     propertyStrings.Add( String.Format( "{0}={1}", p.Name, FormatPropertyValue( p.GetValue( this ) ) ) );
                 }

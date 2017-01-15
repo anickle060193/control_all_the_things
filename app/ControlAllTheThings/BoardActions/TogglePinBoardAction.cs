@@ -9,12 +9,14 @@
             Pin = pin;
         }
 
+        public override bool RunWhileInitializing
+        {
+            get { return false; }
+        }
+
         protected override void Perform( BoardInterface b )
         {
-            if( !b.Initializing )
-            {
-                b.TogglePin( Pin );
-            }
+            b.TogglePin( Pin );
         }
 
         public override bool Valid( BoardInterface b )

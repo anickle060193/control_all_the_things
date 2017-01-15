@@ -11,6 +11,11 @@
             SetToState = setToState;
         }
 
+        public override bool RunWhileInitializing
+        {
+            get { return true; }
+        }
+
         protected override void Perform( BoardInterface b )
         {
             b.SetPin( Pin, SetToState );

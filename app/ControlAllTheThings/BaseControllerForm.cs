@@ -73,7 +73,7 @@ namespace ControlAllTheThings
             RunOnStartup.Checked = File.Exists( GetStartupShortcutLocation() );
 
             MinimizeToSystemTrayMenuItem.Checked = Properties.Settings.Default.MinimizeToSystemTray;
-            String settingsFileLocation = Properties.Settings.Default.SettingsFileLocation;
+            String settingsFileLocation = Path.GetFullPath( Properties.Settings.Default.SettingsFileLocation );
             SettingsFileLocationDialog.FileName = settingsFileLocation;
 
             Settings settings = Settings.Load( settingsFileLocation );

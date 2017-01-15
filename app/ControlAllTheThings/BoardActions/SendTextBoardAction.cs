@@ -12,16 +12,18 @@ namespace ControlAllTheThings.BoardActions
             this.Text = text;
         }
 
+        public override bool RunWhileInitializing
+        {
+            get { return false; }
+        }
+
         protected override void Perform( BoardInterface b )
         {
-            if( !b.Initializing )
+            try
             {
-                try
-                {
-                    SendKeys.Send( Text );
-                }
-                catch( InvalidOperationException ) { }
+                SendKeys.Send( Text );
             }
+            catch( InvalidOperationException ) { }
         }
 
         public override bool Valid( BoardInterface b )

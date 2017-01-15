@@ -62,13 +62,13 @@ namespace ControlAllTheThings
             if( action is SetLedBoardAction )
             {
                 SetLedAction.Checked = true;
-                SetLedBoardAction a = action as SetLedBoardAction;
+                SetLedBoardAction a = (SetLedBoardAction)action;
                 SetLedActionStateOption.Checked = a.SetToState;
             }
             else if( action is SetPinBoardAction )
             {
                 SetPinAction.Checked = true;
-                SetPinBoardAction a = action as SetPinBoardAction;
+                SetPinBoardAction a = (SetPinBoardAction)action;
                 if( Board.OutputPins.Contains( a.Pin ) )
                 {
                     SetPinActionPinOption.SelectedItem = a.Pin;
@@ -78,7 +78,7 @@ namespace ControlAllTheThings
             else if( action is TogglePinBoardAction )
             {
                 TogglePinAction.Checked = true;
-                TogglePinBoardAction a = action as TogglePinBoardAction;
+                TogglePinBoardAction a = (TogglePinBoardAction)action;
                 if( Board.OutputPins.Contains( a.Pin ) )
                 {
                     TogglePinActionPinOption.SelectedItem = a.Pin;
@@ -87,14 +87,14 @@ namespace ControlAllTheThings
             else if( action is RunScriptBoardAction )
             {
                 RunScriptAction.Checked = true;
-                RunScriptBoardAction a = action as RunScriptBoardAction;
+                RunScriptBoardAction a = (RunScriptBoardAction)action;
                 RunScriptActionFileNameOption.Text = a.FileName;
                 RunScriptActionArgumentsOption.Text = a.Arguments;
             }
             else if( action is SendTextBoardAction )
             {
                 SendTextAction.Checked = true;
-                SendTextBoardAction a = action as SendTextBoardAction;
+                SendTextBoardAction a = (SendTextBoardAction)action;
                 SendTextActionTextOption.Text = a.Text;
             }
             else

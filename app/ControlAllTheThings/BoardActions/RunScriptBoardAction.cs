@@ -10,6 +10,11 @@ namespace ControlAllTheThings.BoardActions
         public String FileName { get; private set; }
         public String Arguments { get; private set; }
 
+        public override bool RunWhileInitializing
+        {
+            get { return false; }
+        }
+
         public RunScriptBoardAction( String fileName, String arguments )
         {
             FileName = fileName;
@@ -18,10 +23,6 @@ namespace ControlAllTheThings.BoardActions
 
         protected override void Perform( BoardInterface b )
         {
-            if( b.Initializing )
-            {
-                return;
-            }
             Logger.Log( "RunScriptAction: FileName: \"{0}\" Arguments: \"{1}\"", FileName, Arguments );
             try
             {
@@ -48,11 +49,6 @@ namespace ControlAllTheThings.BoardActions
         public override bool Valid( BoardInterface b )
         {
             return true;
-        }
-
-        public override string ToString()
-        {
-            return String.Format( "RunCommand( FileName=\"{0}\", Arguments=\"{1}\" )", FileName, Arguments );
         }
     }
 }
