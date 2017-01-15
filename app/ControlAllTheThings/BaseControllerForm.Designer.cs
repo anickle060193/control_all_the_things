@@ -1,6 +1,6 @@
 ﻿namespace ControlAllTheThings
 {
-    partial class BaseControllerForm
+    partial class BaseControllerForm<T>
     {
         /// <summary>
         /// Required designer variable.
@@ -41,8 +41,10 @@
             this.RunOnStartup = new System.Windows.Forms.ToolStripMenuItem();
             this.SettingsFileLocationDialog = new System.Windows.Forms.OpenFileDialog();
             this.LogTextBox = new System.Windows.Forms.RichTextBox();
+            this.TableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.StatusStrip.SuspendLayout();
             this.MenuStrip.SuspendLayout();
+            this.TableLayout.SuspendLayout();
             this.SuspendLayout();
             // 
             // StatusStrip
@@ -141,24 +143,37 @@
             // 
             // LogTextBox
             // 
-            this.LogTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LogTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LogTextBox.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LogTextBox.Location = new System.Drawing.Point(12, 151);
+            this.LogTextBox.Location = new System.Drawing.Point(6, 6);
             this.LogTextBox.Name = "LogTextBox";
             this.LogTextBox.ReadOnly = true;
-            this.LogTextBox.Size = new System.Drawing.Size(470, 205);
+            this.LogTextBox.Size = new System.Drawing.Size(482, 323);
             this.LogTextBox.TabIndex = 16;
             this.LogTextBox.Text = "";
             this.LogTextBox.WordWrap = false;
+            // 
+            // TableLayout
+            // 
+            this.TableLayout.ColumnCount = 1;
+            this.TableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableLayout.Controls.Add(this.LogTextBox, 0, 1);
+            this.TableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TableLayout.Location = new System.Drawing.Point(0, 24);
+            this.TableLayout.Name = "TableLayout";
+            this.TableLayout.Padding = new System.Windows.Forms.Padding(3);
+            this.TableLayout.RowCount = 2;
+            this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableLayout.Size = new System.Drawing.Size(494, 335);
+            this.TableLayout.TabIndex = 17;
             // 
             // BaseControllerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(494, 381);
-            this.Controls.Add(this.LogTextBox);
+            this.Controls.Add(this.TableLayout);
             this.Controls.Add(this.StatusStrip);
             this.Controls.Add(this.MenuStrip);
             this.MainMenuStrip = this.MenuStrip;
@@ -171,6 +186,7 @@
             this.StatusStrip.PerformLayout();
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
+            this.TableLayout.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -191,6 +207,7 @@
         private System.Windows.Forms.ToolStripMenuItem RunOnStartup;
         private System.Windows.Forms.RichTextBox LogTextBox;
         private System.Windows.Forms.ToolStripSeparator OptionsMenuSeparator;
+        private System.Windows.Forms.TableLayoutPanel TableLayout;
     }
 }
 

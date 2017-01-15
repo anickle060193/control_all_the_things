@@ -1,21 +1,14 @@
 ﻿using ControlAllTheThings;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PrototypeController
 {
-    public partial class PrototypeControllerForm : BaseControllerForm
+    public partial class PrototypeControllerForm : BaseControllerForm<PrototypeBoardControl>
     {
         public PrototypeControllerForm()
         {
             InitializeComponent();
+
+            this.Icon = Properties.Resources.PrototypeControllerIcon;
         }
     }
 }

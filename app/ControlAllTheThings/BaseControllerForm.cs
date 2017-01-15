@@ -11,15 +11,22 @@ using System.Windows.Forms;
 
 namespace ControlAllTheThings
 {
-    public partial class BaseControllerForm : Form
+    public partial class BaseControllerForm<T> : Form where T : VirtualBoardControl, new()
     {
         private BoardInterface _board;
         private NotifyIcon _notifyIcon;
-        private List<VirtualBoardControl> _controllers = new List<VirtualBoardControl>();
+        private T _controller;
 
         public BaseControllerForm()
         {
             InitializeComponent();
+
+            _controller = new T();
+            _controller.Anchor = AnchorStyles.Top;
+
+            TableLayout.Controls.Add( _controller, 0, 0 );
+
+            this.MinimumSize = new Size( _controller.Width + 50, _controller.Height + 200 );
         }
 
         private void BaseControllerForm_Load( object sender, EventArgs e )
@@ -38,10 +45,7 @@ namespace ControlAllTheThings
             _board.Disconnected += Board_Disconnected;
             _board.Log += Board_Log;
 
-            foreach( VirtualBoardControl c in _controllers )
-            {
-                c.SetBoardInterface( _board );
-            }
+            _controller.SetBoardInterface( _board );
 
             LoadSettings();
 
@@ -64,16 +68,6 @@ namespace ControlAllTheThings
             base.WndProc( ref m );
         }
 
-        protected override void OnControlAdded( ControlEventArgs e )
-        {
-            base.OnControlAdded( e );
-
-            if( e.Control is VirtualBoardControl )
-            {
-                _controllers.Add( (VirtualBoardControl)e.Control );
-            }
-        }
-
         private void LoadSettings()
         {
             RunOnStartup.Checked = File.Exists( GetStartupShortcutLocation() );
@@ -85,10 +79,7 @@ namespace ControlAllTheThings
             Settings settings = Settings.Load( settingsFileLocation );
             if( settings != null )
             {
-                foreach( VirtualBoardControl c in _controllers )
-                {
-                    c.LoadSettings( settings );
-                }
+                _controller.LoadSettings( settings );
             }
         }
 
@@ -98,10 +89,7 @@ namespace ControlAllTheThings
             Properties.Settings.Default.Save();
 
             Settings settings = new Settings();
-            foreach( VirtualBoardControl c in _controllers )
-            {
-                c.SaveSettings( settings );
-            }
+            _controller.SaveSettings( settings );
             settings.Save( Properties.Settings.Default.SettingsFileLocation );
         }
 
