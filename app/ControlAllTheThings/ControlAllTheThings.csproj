@@ -97,6 +97,7 @@
       <DependentUpon>BaseControllerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="Server.cs" />
     <Compile Include="VirtualBoardControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -46,6 +46,7 @@ namespace ControlAllTheThings
         public event LogHandler Log;
         public event PinSetHandler PinSet;
         public event EventHandler Connected;
+        public event EventHandler InitializationComplete;
         public event EventHandler Disconnected;
 
         private enum Command
@@ -278,6 +279,7 @@ namespace ControlAllTheThings
             Initializing = false;
             Logger.Log( "Initialization Finished" );
             OnLog( "+----- Initialization Finished -----+" );
+            InitializationComplete?.Invoke( this, EventArgs.Empty );
         }
 
         private void Messenger_PinSetCommand( ReceivedCommand args )

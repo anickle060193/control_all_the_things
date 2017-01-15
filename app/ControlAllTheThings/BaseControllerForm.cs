@@ -15,7 +15,9 @@ namespace ControlAllTheThings
     {
         private BoardInterface _board;
         private NotifyIcon _notifyIcon;
-        private T _controller;
+        private readonly T _controller;
+
+        private readonly Server _server;
 
         public BaseControllerForm()
         {
@@ -27,9 +29,12 @@ namespace ControlAllTheThings
             TableLayout.Controls.Add( _controller, 0, 0 );
 
             this.MinimumSize = new Size( _controller.Width + 50, _controller.Height + 200 );
+
+            _server = new Server();
+            _server.MessageReceived += Server_MessageReceived;
         }
 
-        private void BaseControllerForm_Load( object sender, EventArgs e )
+        private void BaseControllerForm_Load( Object sender, EventArgs e )
         {
             if( this.DesignMode )
             {
@@ -42,6 +47,7 @@ namespace ControlAllTheThings
 
             _board = new BoardInterface( this );
             _board.Connected += Board_Connected;
+            _board.InitializationComplete += Board_InitializationComplete;
             _board.Disconnected += Board_Disconnected;
             _board.Log += Board_Log;
 
@@ -117,7 +123,7 @@ namespace ControlAllTheThings
 
         #region Board Interface Event Handlers
 
-        private void Board_Connected( object sender, EventArgs e )
+        private void Board_Connected( Object sender, EventArgs e )
         {
             ConnectionStatusLabel.Text = "Connected";
             _notifyIcon.Text = "Connected";
@@ -125,12 +131,12 @@ namespace ControlAllTheThings
             ConnectionStatusProgressBar.Style = ProgressBarStyle.Continuous;
 
             BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += Board_Startup;
-            worker.RunWorkerCompleted += Board_StartupCompleted;
+            worker.DoWork += StartUpWorker_DoWork;
+            worker.RunWorkerCompleted += StartUpWorker_RunWorkerCompleted;
             worker.RunWorkerAsync();
         }
 
-        private void Board_Startup( Object sender, DoWorkEventArgs e )
+        private void StartUpWorker_DoWork( Object sender, DoWorkEventArgs e )
         {
             if( _board.OutputPins.Count > 0 )
             {
@@ -150,20 +156,46 @@ namespace ControlAllTheThings
             }
         }
 
-        private void Board_StartupCompleted( Object sender, RunWorkerCompletedEventArgs e )
+        private void StartUpWorker_RunWorkerCompleted( Object sender, RunWorkerCompletedEventArgs e )
         {
             _board.StartInitialization();
         }
 
-        private void Board_Disconnected( object sender, EventArgs e )
+        private void Board_InitializationComplete( Object sender, EventArgs e )
+        {
+            AcceptServerCommandsMenuItem.Enabled = true;
+        }
+
+        private void Server_MessageReceived( Object sender, MessageReceivedEventArgs e )
+        {
+            String[] s = e.Message.Split( ',' );
+            if( s.Length == 2 )
+            {
+                try
+                {
+                    NamedPin p = NamedPin.GetNamedPin( s[ 0 ].Trim() );
+                    bool state;
+                    if( Boolean.TryParse( s[ 1 ], out state ) )
+                    {
+                        _board.SetPin( p, state );
+                    }
+                }
+                catch( ArgumentException ) { }
+            }
+        }
+
+        private void Board_Disconnected( Object sender, EventArgs e )
         {
             ConnectionStatusLabel.Text = "Disconnected";
             _notifyIcon.Text = "Disconnected";
             _notifyIcon.Icon = SystemIcons.Warning;
             ConnectionStatusProgressBar.Style = ProgressBarStyle.Marquee;
+
+            AcceptServerCommandsMenuItem.Enabled = false;
+            AcceptServerCommandsMenuItem.Checked = false;
         }
 
-        private void Board_Log( object sender, LogEventArgs e )
+        private void Board_Log( Object sender, LogEventArgs e )
         {
             LogTextBox.AppendText( String.Format( "[{0:MM/dd/yy hh:mm:ss.ff tt}] {1}{2}", DateTime.Now, e.Message, Environment.NewLine ) );
             LogTextBox.SelectionStart = LogTextBox.TextLength;
@@ -174,7 +206,7 @@ namespace ControlAllTheThings
 
         #region Form Event Handlers
 
-        private void ControlAllTheThingsForm_FormClosed( object sender, FormClosedEventArgs e )
+        private void ControlAllTheThingsForm_FormClosed( Object sender, FormClosedEventArgs e )
         {
             SaveSettings();
 
@@ -182,12 +214,12 @@ namespace ControlAllTheThings
             Logger.Close();
         }
 
-        private void Exit_Click( object sender, EventArgs e )
+        private void Exit_Click( Object sender, EventArgs e )
         {
             this.Close();
         }
 
-        private void ViewLogFileMenuItem_Click( object sender, EventArgs e )
+        private void ViewLogFileMenuItem_Click( Object sender, EventArgs e )
         {
             String logFileName = Logger.GetFileName();
             if( logFileName != null )
@@ -196,7 +228,7 @@ namespace ControlAllTheThings
             }
         }
 
-        private void ChooseSettingsLocation_Click( object sender, EventArgs e )
+        private void ChooseSettingsLocation_Click( Object sender, EventArgs e )
         {
             if( SettingsFileLocationDialog.ShowDialog() == DialogResult.OK )
             {
@@ -215,13 +247,13 @@ namespace ControlAllTheThings
             }
         }
 
-        private void NotifyIcon_DoubleClick( object sender, EventArgs e )
+        private void NotifyIcon_DoubleClick( Object sender, EventArgs e )
         {
             this.Show();
             this.WindowState = FormWindowState.Normal;
         }
 
-        private void ControlAllTheThingsForm_Resize( object sender, EventArgs e )
+        private void ControlAllTheThingsForm_Resize( Object sender, EventArgs e )
         {
             if( MinimizeToSystemTrayMenuItem.Checked )
             {
@@ -233,7 +265,7 @@ namespace ControlAllTheThings
             Properties.Settings.Default.Save();
         }
 
-        private void RunOnStartup_CheckedChanged( object sender, EventArgs e )
+        private void RunOnStartup_CheckedChanged( Object sender, EventArgs e )
         {
             String shortcutAddress = GetStartupShortcutLocation();
             if( RunOnStartup.Checked )
@@ -250,6 +282,18 @@ namespace ControlAllTheThings
             else
             {
                 File.Delete( shortcutAddress );
+            }
+        }
+
+        private void AcceptServerCommandsMenuItem_CheckedChanged( object sender, EventArgs e )
+        {
+            if( AcceptServerCommandsMenuItem.Checked )
+            {
+                _server.Start();
+            }
+            else
+            {
+                _server.Stop();
             }
         }
 

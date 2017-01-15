@@ -34,6 +34,8 @@
             this.ConnectionStatusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.OptionsMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.AcceptServerCommandsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OptionsMenuSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.ChooseSettingsLocationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ViewLogFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OptionsMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
@@ -89,6 +91,8 @@
             // OptionsMenu
             // 
             this.OptionsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AcceptServerCommandsMenuItem,
+            this.OptionsMenuSeparator2,
             this.ChooseSettingsLocationMenuItem,
             this.ViewLogFileMenuItem,
             this.OptionsMenuSeparator,
@@ -97,6 +101,20 @@
             this.OptionsMenu.Name = "OptionsMenu";
             this.OptionsMenu.Size = new System.Drawing.Size(61, 20);
             this.OptionsMenu.Text = "Options";
+            // 
+            // AcceptServerCommandsMenuItem
+            // 
+            this.AcceptServerCommandsMenuItem.CheckOnClick = true;
+            this.AcceptServerCommandsMenuItem.Enabled = false;
+            this.AcceptServerCommandsMenuItem.Name = "AcceptServerCommandsMenuItem";
+            this.AcceptServerCommandsMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.AcceptServerCommandsMenuItem.Text = "Accept Server Commands";
+            this.AcceptServerCommandsMenuItem.CheckedChanged += new System.EventHandler(this.AcceptServerCommandsMenuItem_CheckedChanged);
+            // 
+            // OptionsMenuSeparator2
+            // 
+            this.OptionsMenuSeparator2.Name = "OptionsMenuSeparator2";
+            this.OptionsMenuSeparator2.Size = new System.Drawing.Size(214, 6);
             // 
             // ChooseSettingsLocationMenuItem
             // 
@@ -208,6 +226,8 @@
         private System.Windows.Forms.RichTextBox LogTextBox;
         private System.Windows.Forms.ToolStripSeparator OptionsMenuSeparator;
         private System.Windows.Forms.TableLayoutPanel TableLayout;
+        private System.Windows.Forms.ToolStripMenuItem AcceptServerCommandsMenuItem;
+        private System.Windows.Forms.ToolStripSeparator OptionsMenuSeparator2;
     }
 }
 
